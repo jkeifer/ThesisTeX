@@ -1,0 +1,113 @@
+\pagenumbering{Roman} 
+\pagestyle{empty} 
+
+
+
+\long\def\signature#1#2{
+\begin{flushright}
+\begin{minipage}{200mm}
+\begin{flushleft}
+\vspace{.3in}
+#1\\
+\hbox to 135mm{\hfil\shortstack[l]{\vrule width 60mm height 0.4pt\\#2}}
+\end{flushleft}
+\end{minipage}
+\end{flushright}}
+
+ \begin{center} THESIS APPROVAL \end{center}
+        \noindent The abstract and thesis of \thesisAuthor~for 
+        the \thesisDegree~in \thesisDept~were presented on \thesisDate,
+        and accepted by the thesis committee and the doctoral program.        
+
+    \signature{COMMITTEE APPROVALS:}\thesisAdvisor    
+    \signature{\ }\thesisCommitteeOne
+    \signature{\ }\thesisCommitteeTwo
+    %\signature{\ }{\thesisCommitteeThree\\Representative of the\\Office of Graduate Studies}    
+    %\signature{DOCTORAL PROGRAM APPROVAL:}{Wu-chi Feng, Director\\Computer Science Ph.D. Program}
+
+\clearpage
+
+
+
+\input{abstract.tex}
+
+
+
+\clearpage
+    
+\begin{center}
+	~\\
+	~\\
+	~\\
+    \MakeUppercase {\thesisTitle} 
+\end{center}
+
+\begin{center}
+    by\\
+    \vspace{2mm}
+    \MakeUppercase{\thesisAuthor}
+\end{center}
+
+\vfill\vfill
+
+\begin{center}
+    A thesis submitted in partial fulfillment of the\\
+	\vspace{-2mm} 
+    requirements for the degree of
+\end{center}
+
+\vfill
+
+\begin{center}
+     \MakeUppercase{\thesisDegree}\\
+     \vspace{-2mm} 
+     in\\
+     \vspace{-2mm} 
+     \MakeUppercase{\thesisDept}
+\end{center}
+
+
+\vfill
+
+\begin{center}
+    Portland State University\\
+    \vspace{-2mm} 
+    2014
+\end{center}
+
+\cleardoublepage    
+
+\begin{center}
+    \vspace*{2.5 in}
+    \copyright~2014 \thesisAuthor
+\end{center}
+
+\cleardoublepage
+
+\pagenumbering{roman}
+
+\vspace*{\fill}
+{\hfill\sffamily\itshape Something fancy.}
+
+
+\rmfamily
+\normalfont
+
+
+\input{ack.tex}
+
+\clearpage
+ 
+
+
+\tableofcontents
+
+
+
+\clearpage
+\listoftables
+
+\clearpage
+\listoffigures
+
+

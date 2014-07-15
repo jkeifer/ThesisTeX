@@ -1,0 +1,261 @@
+\documentclass[12pt, letterpaper, twoside]{article}
+\usepackage[top=1.2in, bottom=1in, left=1in, right=1in]{geometry} %margins
+
+\usepackage{xltxtra} %Xeletex Package
+\usepackage{fontspec} %Font package
+\usepackage{xunicode} %Xeletex
+\usepackage{microtype} %better formatting
+
+\usepackage[big,sf,bf]{titlesec} %set section title formats to big and a sans font
+
+\usepackage{indentfirst} %indent first paragraphs always
+\raggedbottom %keeps latex from stretching paragraphs apart if they do not fill the page
+
+% **************** Colors ***************
+\usepackage[usenames, dvipsnames]{color}
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+
+% **************** Spacing Command ***************
+\usepackage{setspace}
+\setstretch{2}
+
+% **************** Language/Localization ***************
+\usepackage[australian, spanish, american]{babel} %datetime incompatible with polyglossia
+%\usepackage{polyglossia}
+%\setdefaultlanguage[variant=american]{english}
+%\setotherlanguage{spanish}
+
+% *************** Set Fonts ***************
+\defaultfontfeatures{Ligatures=TeX}
+\setromanfont[Mapping=tex-text]{Baskerville}
+\setsansfont[Mapping=tex-text]{Myriad Pro}
+\newfontfamily\titleFont[Ligatures=TeX]{Myriad Pro}
+\setmonofont{DejaVu Sans Mono}
+
+% **************** Set Header/footer ***************
+\usepackage{fancyhdr}
+\fancyhf{} %reset header and footer
+\fancyhf[HLE,HRO]{\thepage} %set page number, in header, changing sides odd (r) to even (l)
+\fancyhf[HCE,HCO]{Keifer -- Thesis Proposal} %set center of header, odd and even
+\renewcommand{\headrulewidth}{0pt} %remove horizontal rule at bottom of header
+
+% *************** Set Date Format ***************
+\usepackage[nodayofweek]{datetime}
+%\setdefaultdate{\dateaustralian} %gets dates of dd month yyyy without ordinal or comma
+
+% *************** Set Biblatex Style and Options ***************
+
+\usepackage{csquotes}
+\usepackage[authordate-trad, backend=biber, dateabbrev=true, firstinits=true, maxcitenames=3, isbn=false, doi=false, eprint=false, shorthandfull, sorting=nyt, sortcites=true, ibidtracker=false]{biblatex-chicago}
+\addbibresource[datatype=bibtex]{proposal1.bib}
+
+%Check for page range in postnotes to use a colon not comma
+\renewcommand{\postnotedelim}{\iffieldpages{postnote}{\addcolon\space}{\addcomma\space}} 
+\DeclareFieldFormat{postnote}{#1} 
+
+%Fix date format in bib -- could be moved to external .lbx file (with comments; change DefineBib... to DeclareBib...)
+%%%%\DeclareLanguageMapping{american}{american-dmy}
+%%%%
+%%%%\begin{filecontents}{american-dmy.lbx}
+%%%%\ProvidesFile{american-dmy.lbx}[american localisation with dmydate format for long dates]
+%%%%
+%%%%\InheritBibliographyExtras{american}
+\DefineBibliographyExtras{american}{%
+  \protected\def\mkbibdatelong#1#2#3{%
+    \iffieldundef{#3}
+      {}
+      {\stripzeros{\thefield{#3}}%
+       \iffieldundef{#2}{}{\nobreakspace}}%
+    \iffieldundef{#2}
+      {}
+      {\mkbibmonth{\thefield{#2}}%
+       \iffieldundef{#1}{}{\space}}%
+    \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\stripzeros{\thefield{#1}}}}%
+}
+%%%%\InheritBibliographyStrings{american}
+%%%%\endinput
+%%%%\end{filecontents}
+
+% *************** Make ref links whole ref in text *****************
+%%%%\DeclareCiteCommand{\cite}
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%   \printtext[bibhyperref]{\usebibmacro{cite}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand*{\cite}
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%   \printtext[bibhyperref]{\usebibmacro{citeyear}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand{\parencite}[\mkbibparens]
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%    \printtext[bibhyperref]{\usebibmacro{cite}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand*{\parencite}[\mkbibparens]
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%    \printtext[bibhyperref]{\usebibmacro{citeyear}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand{\footcite}[\mkbibfootnote]
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%  \printtext[bibhyperref]{ \usebibmacro{cite}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand{\footcitetext}[\mkbibfootnotetext]
+%%%%  {\usebibmacro{prenote}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%   \printtext[bibhyperref]{\usebibmacro{cite}}}
+%%%%  {\multicitedelim}
+%%%%  {\usebibmacro{postnote}}
+%%%%
+%%%%\DeclareCiteCommand{\textcite}
+%%%%  {\boolfalse{cbx:parens}}
+%%%%  {\usebibmacro{citeindex}%
+%%%%   \printtext[bibhyperref]{\usebibmacro{textcite}}}
+%%%%  {\ifbool{cbx:parens}
+%%%%     {\bibcloseparen\global\boolfalse{cbx:parens}}
+%%%%     {}%
+%%%%   \multicitedelim}
+%%%%  {\usebibmacro{textcite:postnote}}
+  
+%Set custom strings for url and date labels (available at and last accessed)
+\DefineBibliographyStrings{american}{%
+  url = {available at},
+  urlseen = {last accessed},
+}
+\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+\DeclareFieldFormat{urldate}{\mkbibparens{\bibstring{urlseen}\addcolon\space{#1}}}
+
+% Set url + date appearance in bib (add doi here if needed)
+\renewbibmacro*{bib+doi+url}{%
+  \usebibmacro{url+urldate}
+  }
+  
+%Remove Quotes around titles
+\DeclareFieldFormat
+  [article,inbook,incollection,inproceedings,patent,thesis,unpublished]
+  {title}{#1\isdot}
+  
+\appto{\bibsetup}{\raggedright} %align left to prevent stretched urls (perhaps remove?)
+
+% /end bib settings
+
+% **************** Blank Page Commmand ***************
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    %\addtocounter{page}{-1}%
+    \newpage}
+    
+% ****************** Other packages ****************
+\usepackage[small,compatibility=true]{caption} % can be 10pts, per thesis guidelines
+
+\usepackage{varioref} %to include \vref s to important things on other pages
+\usepackage{comment} %now can \begin and \end {comment}s
+\usepackage{amssymb} %extra math symbols
+\usepackage{amsmath} %extra math support
+\usepackage{ifthen} %needed for some macros
+\usepackage{multirow} %create tabular cells spanning multiple rows
+%\usepackage{xspace} %Define commands that appear not to eat spaces
+\usepackage{url} %for url support
+\urlstyle{same} %set url font to main font
+%\usepackage{makeidx} %use \makeindex to make an index
+\usepackage{needspace}
+\usepackage{booktabs} %table package
+\usepackage{tabularx} %for stretchy tables
+\usepackage{colortbl} %to allow color in tables
+\usepackage{enumitem} %for lists
+\usepackage[figuresright]{rotating} %use \begin{sidewaysfigure} or sidewaystable to rotate large floats 
+%\usepackage{longtable} %if need to make tables longer than one page
+\vrefwarning %warnings, not errors, for vrefs for varioref package
+
+\usepackage{minted} %for code snippets; use \begin{minted}[mathescape, linenos, etc]{python}
+\usemintedstyle{tango}
+
+% ****************** For Figures and Graphics *******************
+\usepackage{graphicx}
+\usepackage[justification=centering, labelfont=bf]{caption} %caption package with centering
+\usepackage{subcaption} %allows subfigure captions
+\captionsetup[sub]{font=footnotesize} %The subcaption settings
+\captionsetup{compatibility=false} %To make caption package work
+%\usepackage{cleveref} %Use \cref to add prefix to refs (i.e. Fig., Table, etc.)
+%\usepackage{flafter} %Don't place floats until after refs
+
+%To define \captionabove command for tables
+\makeatletter
+\newcommand{\captionabove}[2][]{%
+    \vskip-\abovecaptionskip
+    \vskip+\belowcaptionskip
+    \ifx\@nnil#1\@nnil
+        \caption{#2}%
+    \else
+        \caption[#1]{#2}%
+    \fi
+    \vskip+\abovecaptionskip
+    \vskip-\belowcaptionskip
+}
+
+% ****************** HREF *******************
+%ALWAYS LOAD HYPERREF LAST!
+%Hyperref package for links -- colors set here
+\usepackage{hyperref}
+\hypersetup{colorlinks,
+%linkcolor=MidnightBlue,
+%filecolor=ForestGreen,
+%urlcolor=BrickRed,
+%citecolor=MidnightBlue}
+linkcolor=Black,
+filecolor=Black,
+urlcolor=Black,
+citecolor=Black}
+
+\newcommand{\thesisTitle}{Phenological classification of crops in Northwest Argentina using 250-meter MODIS imagery}
+\newcommand{\thesisSubtitle}{A thesis proposal}
+\newcommand{\thesisAuthor}{Jarrett A. Keifer}
+\newcommand{\thesisDegree}{Master of Art}
+\newcommand{\thesisDept}{Geography}
+\newcommand{\thesisDate}{11 June 2014}
+\newcommand{\thesisAbstract}{Subtropical deforestation in Latin America is thought to be driven by demand for agricultural land, particularly to grow soybeans. However, existing remote sensing methods that can differentiate crop types to verify this hypothesis require high spatial or spectral resolution data, or extensive ground truth information to develop training sites, none of which are freely available for much of the world. Here, I propose a new method of crop classification using multi-temporal MODIS vegetation indices as a base image from which to extract crops using their phenologies. I test and refine this method in Kansas, USA using the USDA crop data layer as reference. I then test the applicability of the method to other regions of the world by applying it to data from Pellegrini, Santiago Del Estero, Argentina. The study is to examine if using phenological profiles in image classification is a viable method to verify the initial hypothesis that soybeans are driving deforestation in subtropical South America.             The ability to map agricultural lands by crop type is crucial to understanding the geography and dynamics of land use and land cover change. Existing remote sensing methods that can differentiate crops by type require high spatial resolution data, high spectral resolution data, or extensive ground truth information to develop training sites, none of which are freely available for much of the world. As an alternative, I propose a new method of crop classification using multi-temporal MODIS vegetation indices as a base image from which to extract crops using their phenologies. I test and refine this method in Kansas, USA using the USDA Cropland Data Layer as reference. I discuss the numerous factors that effect the application and accuracy of the method, the method’s current limitations, and how the method might be further tested and refined.}
+
+%\input{style.tex}
+
+\tolerance=1000 %sets whitespace tolerance level (adjusts hyphenation)
+
+\begin{document}
+
+% *************** Title Page ***************
+\input{title.tex}
+
+% *************** Body ***************
+\pagestyle{fancy} %to use fancy hdrs
+\input{intro.tex}
+\input{background.tex}
+\input{studyarea.tex}
+\input{datamethods.tex}
+\input{timeline.tex}
+\input{preliminaryresults.tex}
+\clearpage
+%\input{appendix1.tex}
+
+% *************** References ***************
+\newpage
+\renewcommand*{\bibname}{References}
+\printbibliography[sorting=nyt]
+
+% *************** Back matter ***************
+%\backmatter
+%\input{back.tex}
+
+\end{document}

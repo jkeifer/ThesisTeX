@@ -1,0 +1,66 @@
+% *************** Colors ***************
+\usepackage[usenames, dvipsnames]{color}
+%\definecolor{bg}{rgb}{0.95,0.95,0.95} 
+
+
+% **************** Syntax Highlighting ******************
+\usepackage{minted} %for code snippets; use \begin{minted}[mathescape, linenos, etc]{python}
+\usemintedstyle{tango}
+
+
+% ****************** For Figures and Graphics *******************
+\usepackage{graphicx}
+\usepackage[justification=centering, labelfont=bf, small, compatibility=true]{caption} %caption package with centering, and can be 10pts, per thesis guidelines
+\usepackage{subcaption} %allows subfigure captions
+\captionsetup[sub]{font=footnotesize} %The subcaption settings
+\captionsetup{compatibility=false} %To make caption package work
+%\usepackage{cleveref} %Use \cref to add prefix to refs (i.e. Fig., Table, etc.)
+%\usepackage{flafter} %Don't place floats until after refs
+
+%To define \captionabove command for tables
+\makeatletter
+\newcommand{\captionabove}[2][]{%
+    \vskip-\abovecaptionskip
+    \vskip+\belowcaptionskip
+    \ifx\@nnil#1\@nnil
+        \caption{#2}%
+    \else
+        \caption[#1]{#2}%
+    \fi
+    \vskip+\abovecaptionskip
+    \vskip-\belowcaptionskip
+}
+
+
+% ************** ALL OTHERS **************
+
+\usepackage{varioref} 
+\usepackage{times}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{ifthen}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{url}
+\urlstyle{sf}
+\usepackage{makeidx}
+\usepackage{needspace}
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{enumitem}
+\usepackage{afterpage}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{ulem}
+\usepackage{epsfig}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage[figuresright]{rotating}
+\usepackage{xltxtra} %Xeletex Package
+\usepackage{fontspec} %Font package
+\usepackage{xunicode} %Xeletex
+
+\normalem %normal emphasis for package ulem
+\vrefwarning %warnings, not errors, for vrefs for varioref package
