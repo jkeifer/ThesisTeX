@@ -31,6 +31,43 @@
     \vskip-\belowcaptionskip
 }
 
+%************** NOTES *************
+\usepackage{endnotes, chngcntr}
+\counterwithin*{endnote}{chapter}  % Reset endnote numbering every new chapter
+
+%To get chapters printed in endnotes
+\makeatletter
+\renewcommand\enoteheading{%
+  \setcounter{secnumdepth}{-2}
+  \chapter*{\notesname}
+  \mbox{}\par\vskip-\baselineskip
+  \let\@afterindentfalse\@afterindenttrue
+}
+\makeatother
+
+\usepackage{xparse}
+
+\let\latexchapter\chapter
+
+\RenewDocumentCommand{\chapter}{som}{%
+  \IfBooleanTF{#1}
+    {\latexchapter*{#3}}
+    {\IfNoValueTF{#2}
+       {\latexchapter{#3}}
+       {\latexchapter[#2]{#3}}%
+     \addtoendnotes{%
+       \noexpand\enotedivision{\noexpand\subsection*}
+         {\chaptername\ \thechapter. \unexpanded{#3}}}%
+    }%
+}
+
+\makeatletter
+\def\enotedivision#1#2{\@ifnextchar\enotedivision{}{#1{#2}}}
+\makeatletter
+
+%Change \footnote to behave as \endnote
+\let\footnote=\endnote
+
 
 % ************** ALL OTHERS **************
 

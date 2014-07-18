@@ -47,6 +47,8 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 %\input{chapters/timeline.tex}
 %\input{chapters/preliminaryresults.tex}
 \input{chapters/discussion.tex}
+
+\appendix
 \input{chapters/fieldwork.tex}
 \input{chapters/development.tex}
 \input{chapters/testing.tex}
@@ -54,7 +56,12 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 %\clearpage
 %\input{chapters/projectcode.tex}
 
-% *************** References ***************
+% ****************** Notes ******************
+\addtoendnotes{\unexpanded{\enotedivision{}{}}} %To divide by chapter
+\addcontentsline{toc}{chapter}{Notes} %Add to ToC
+\theendnotes
+
+% *************** References ****************
 \newpage
 \renewcommand*{\bibname}{References}
 \printbibliography[sorting=nyt]
