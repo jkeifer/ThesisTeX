@@ -1,7 +1,7 @@
 % *************** Colors ***************
 \usepackage[usenames, dvipsnames]{color}
 %\definecolor{bg}{rgb}{0.95,0.95,0.95} 
-
+\definecolor{light-gray}{gray}{0.85}
 
 % **************** Syntax Highlighting ******************
 \usepackage{minted} %for code snippets; use \begin{minted}[mathescape, linenos, etc]{python}
@@ -9,6 +9,8 @@
 
 
 % ****************** For Figures and Graphics *******************
+%\usepackage{fixltx2e}
+%\usepackage{float}
 \usepackage{graphicx}
 \usepackage[justification=centering, labelfont=bf, small, compatibility=true]{caption} %caption package with centering, and can be 10pts, per thesis guidelines
 \usepackage{subcaption} %allows subfigure captions
@@ -69,8 +71,7 @@
 \let\footnote=\endnote
 
 
-% ************** ALL OTHERS **************
-
+% ***************** OTHERS *****************
 \usepackage{varioref} 
 \usepackage{times}
 \usepackage{comment}
@@ -101,3 +102,8 @@
 
 \normalem %normal emphasis for package ulem
 \vrefwarning %warnings, not errors, for vrefs for varioref package
+
+
+% *************** TABLES *****************
+\usepackage{array}
+\newcolumntype{Z}{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}X}

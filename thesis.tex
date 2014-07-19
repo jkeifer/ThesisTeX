@@ -31,11 +31,15 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \renewcommand{\texttt}[1]{{\small\ttfamily #1}}
 %\renewcommand{\textsf}[1]{{\small\sffamily #1}} % for some reason, this kills all the refs!
 
+
+% *************** THE DOCUMENT ***************
 \begin{document}
+
 
 % *************** Front matter ***************
 \frontmatter
 \input{front.tex}
+
 
 % *************** Main matter ***************
 
@@ -45,7 +49,7 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \input{chapters/studyarea.tex}
 \input{chapters/datamethods.tex}
 %\input{chapters/timeline.tex}
-%\input{chapters/preliminaryresults.tex}
+\input{chapters/preliminaryresults.tex}
 \input{chapters/discussion.tex}
 
 \appendix
@@ -56,10 +60,12 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 %\clearpage
 %\input{chapters/projectcode.tex}
 
+
 % ****************** Notes ******************
-\addtoendnotes{\unexpanded{\enotedivision{}{}}} %To divide by chapter
-\addcontentsline{toc}{chapter}{Notes} %Add to ToC
-\theendnotes
+\addtoendnotes{\unexpanded{\enotedivision{}{}}} % To divide by chapter
+\addcontentsline{toc}{chapter}{Notes} % Add to ToC
+\theendnotes % Add the notes section
+
 
 % *************** References ****************
 \newpage

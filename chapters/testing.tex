@@ -1,1 +1,76 @@
 \chapter{A Breakdown of all Completed Testing}
+
+\section{Round 1 Testing}
+\subsection*{Items to be Tested}
+
+I began testing the tool with three main questions. I wanted to know how the accuracy of classification is affected by:
+
+\begin{Spacing}{1.2}
+\begin{itemize}
+  \item The spatial distribution of pixels chosen to create the reference curves.
+  \item The temporal distribution of pixels chosen to create the reference curves.
+  \item The VI used for the classification.
+\end{itemize}
+\end{Spacing}
+
+To test these factors, I chose six small sample areas dispersed across Kansas, each 100 MODIS pixels square, or about 2.3 KM$^2$ (Fig. \ref{fig:studysites}). Using the USDA CDL as reference, I identified areas containing a mix of corn, wheat, soy, sorghum, and winter wheat pixels. I did my best to distribute the small areas across the state to capture a wide variety of growing conditions. This task was surprisingly difficult, given the large extent of the state and the concomitant variation in growing conditions. The crops favored tended to change from one area to another; for example, few sites in western Kansas had little more than corn and wheat.
+
+Within each sample site, I found four to eight MODIS pixels of each of the previously listed crop types. I took care to choose only pixels in the center of fields, under the assumption such pixels would be more representative of the crop’s true temporal signature. On each chosen pixel, I digitized a vector point feature, keeping points for each crop and study area in separate shapefiles  (Fig. \ref{fig:refpoints}). I used these shapefiles as inputs to the RSG, and created two sets of reference temporal signatures for each study area: one set from the NDVI MODIS data, and another from the EVI data. I also found the mean of the signatures identified for each crop in easy study area, which gave me mean NDVI and EVI reference temporal signatures averaged across all six study sites.
+
+I classified both NDVI and EVI data for each of the sample areas using its own reference signatures, the reference signatures derived from each of the other sample areas, and the mean signatures from all of the sample areas. This allowed me to test how the spatial distribution of pixels used to construct reference signatures affects the accuracy of classification, and which of these two VIs performs better. My initial hypothesis was that averaging signatures across multiple sites would decrease the “truthfulness” of the reference signatures because of geographical discrepancies in season start date, maximum VI intensity, and/or season length. If reference signatures are usable between study areas, but averaging multiple sites together does in fact negatively affect the derived reference curves, I expected to see rather consistent classification accuracies independent of the reference signature set used, but that the mean reference signatures produced a lower classification accuracy than those derived from single sample sites. However, if reference signatures are not useable between study areas, I expected low accuracies when the reference signatures from different study areas are used for classification, while the mean reference signatures should perform somewhere between those of the study area in question and those of the other study areas. If spatial distribution has no effect, my expectations was that the classification accuracies would be relatively consistent no matter which reference signature set is used.
+
+I knew these tests would not directly answer my question about temporal variation in the construction of reference temporal signatures. To get an accurate answer, I knew I would need to repeat the above testing, replacing location with time as the key variable. However, given my hypothesis about the effects of spatial variation, I wanted to find out my results before devising this test. If I found the spatial distribution of pixels negatively affected the classification accuracies, then I could reasonably conclude adding a temporal component would have a similar outcome, as temporal variance would also introduce discrepancies in season start date, maximum VI intensity, and/or season length. In such a case, additional testing of this parameter would not be necessary to proceed.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.9\textwidth]{Graphics/Testing/STUDYSITES.pdf}
+  \caption{The six study sites in Kansas.}
+  \label{fig:studysites}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{Graphics/Testing/clip1_30mCDL_smpl_old.pdf}
+  \caption{Points dropped to use for reference signatures in study site 1.}
+  \label{fig:refpoints}
+\end{figure}
+
+\subsection*{Round 1 Results and Discussion}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Overall Percent Accuracy for Each Round 1 Classification, by Sample Site (SS).\newline~Green cells indicate highest accuracy for each sample site.}
+  \label{table:round1results}
+  \begin{tabularx}{\textwidth}{ZZZZZZZZ}
+    \toprule
+    \multicolumn{8}{c}{\textbf{EVI}} \\
+    \midrule
+    & \multicolumn{7}{c}{Reference Signatures Source} \\
+    & SS 1 & SS 2 & SS 3 & SS 4 & SS 5 & SS 6 & Mean \\
+    \midrule
+    SS 1 & \cellcolor{LimeGreen}55.61 & & 45.34 & 54.36 & 43.83 & 49.06 & 49.63\\
+    \rowcolor{light-gray}SS 2 & 53.11 & \cellcolor{LimeGreen}64.93 & 50.00 & 47.86 & 40.79 & 42.60 & 53.69 \\
+    SS 3 & 73.87 & 69.40 & \cellcolor{LimeGreen}75.23 & 73.53 & 70.57 & 71.86 & 73.71 \\
+    \rowcolor{light-gray}SS 4 & 50.42 & 45.54 & 49.26 & \cellcolor{LimeGreen}53.46 & 45.30 & 49.66 & 52.54 \\
+    SS 5 & 42.05 & 45.62 & \cellcolor{LimeGreen}56.00 & 54.68 & 55.06 & 49.02 & 40.29 \\
+    \rowcolor{light-gray}SS 6 & 47.78 & 48.66 & 38.43 & 47.53 & 41.60 & \cellcolor{LimeGreen}49.55 & 48.44 \\
+    \bottomrule
+    & & & & & & & \\
+    & & & & & & & \\
+    \toprule
+    \multicolumn{8}{c}{\textbf{NDVI}} \\
+    \midrule
+    & \multicolumn{7}{c}{Reference Signatures Source} \\
+    & SS 1 & SS 2 & SS 3 & SS 4 & SS 5 & SS 6 & Mean \\
+    \midrule
+    SS 1 & \cellcolor{LimeGreen}61.08 & 48.29 & 47.91 & 60.72 & 44.85 & 51.81 & 52.75 \\
+    \rowcolor{light-gray}SS 2 & 56.08 & \cellcolor{LimeGreen}67.39 & 42.66 & 52.59 & 50.62 & 48.95 & 61.21 \\
+    SS 3 & 74.88 & 71.75 & \cellcolor{LimeGreen}78.69 & 77.16 & 70.62 & 71.75 & 73.70 \\
+    \rowcolor{light-gray}SS 4 & 56.30 & 42.25 & 46.89 & \cellcolor{LimeGreen}59.21 & 44.72 & 54.26 & 52.48 \\
+    SS 5 & 53.57 & 48.51 & 45.93 & 62.18 & \cellcolor{LimeGreen}62.83 & 60.21 & 53.07 \\
+    \rowcolor{light-gray}SS 6 & & 51.90 & 38.28 & 49.82 & 47.15 & \cellcolor{LimeGreen}55.71 & 54.36 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+\end{Spacing}
