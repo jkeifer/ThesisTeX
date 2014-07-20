@@ -19,19 +19,6 @@
 %\usepackage{cleveref} %Use \cref to add prefix to refs (i.e. Fig., Table, etc.)
 %\usepackage{flafter} %Don't place floats until after refs
 
-%To define \captionabove command for tables
-\makeatletter
-\newcommand{\captionabove}[2][]{%
-    \vskip-\abovecaptionskip
-    \vskip+\belowcaptionskip
-    \ifx\@nnil#1\@nnil
-        \caption{#2}%
-    \else
-        \caption[#1]{#2}%
-    \fi
-    \vskip+\abovecaptionskip
-    \vskip-\belowcaptionskip
-}
 
 %************** NOTES *************
 \usepackage{endnotes, chngcntr}
@@ -105,5 +92,20 @@
 
 
 % *************** TABLES *****************
+\usepackage{tabu}
 \usepackage{array}
 \newcolumntype{Z}{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}X}
+
+%To define \captionabove command for tables
+\makeatletter
+\newcommand{\captionabove}[2][]{%
+    \vskip-\abovecaptionskip
+    \vskip+\belowcaptionskip
+    \ifx\@nnil#1\@nnil
+        \caption{#2}%
+    \else
+        \caption[#1]{#2}%
+    \fi
+    \vskip+\abovecaptionskip
+    \vskip-\belowcaptionskip
+}

@@ -41,20 +41,19 @@ Some clear patterns pop out when reviewing \ref{table:round1results}}). First, a
 
 [INCLUDE THE TOP ACCURACIES OF EACH OF THE OTHER SAMPLE SITES IN TABLES]
 
+\begin{Spacing}{1.0}
 \begin{table}
   \centering
   \caption{Sample site 3 NDVI top accuracy}
   \label{table:round1ss3acc}
-  \begin{tabular}{rcccccc}
+  \begin{tabu}{rrrrrrl}
     \toprule
-     & Corn & Soy & Wheat & Other & Total & UA \\
-    \midrule    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\    Total & 1775 & 1119 & 110 & 6996 & 10000 &  \\    PA & 49\% & 50\% & 21\% & 92\% &  &  \\     &  &  &  & & & Overall: 79\% \\     &  &  &  & & & Kappa 0.49 \\   
+     & Corn & Soy & Wheat & Other & Total & User Accuracy \\
+    \midrule    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\    Total & 1775 & 1119 & 110 & 6996 & &  \\    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\     &  &  &  & \multicolumn{3}{r}{Overall Accuracy: 79\%} \\     &  &  &  & \multicolumn{3}{r}{Kappa: 0.49} \\   
     \bottomrule
-  \end{tabular}
+  \end{tabu}
 \end{table}
-
-
-
+\end{Spacing}
 
 Another pattern that stands out is that using NDVI resulted in a higher top accuracy for every sample site. The numbers are fairly close between the two, so I am hesitant to conclude that optimizations would fail to make EVI-based classifications as or more accurate than NDVI-based classifications. Nonetheless, based on these results, I have determined to continue testing with NDVI only, as it seems to perform better.
 
@@ -69,7 +68,7 @@ Looking back on the scenarios I outlined in my testing considerations above, I a
   \centering
   \caption{Overall Percent Accuracy for Each Round 1 Classification, by Sample Site (SS).\newline~Green cells indicate highest accuracy for each sample site.}
   \label{table:round1results}
-  \begin{tabularx}{\textwidth}{ZZZZZZZZ}
+  \begin{tabu}{ZZZZZZZZ}
     \toprule
     \multicolumn{8}{c}{\textbf{EVI}} \\
     \midrule
@@ -98,6 +97,6 @@ Looking back on the scenarios I outlined in my testing considerations above, I a
     SS 5 & 53.57 & 48.51 & 45.93 & 62.18 & \cellcolor{LimeGreen}62.83 & 60.21 & 53.07 \\
     \rowcolor{light-gray}SS 6 & & 51.90 & 38.28 & 49.82 & 47.15 & \cellcolor{LimeGreen}55.71 & 54.36 \\
     \bottomrule
-  \end{tabularx}
+  \end{tabu}
 \end{table}
 \end{Spacing}
