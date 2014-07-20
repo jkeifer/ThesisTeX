@@ -54,9 +54,11 @@
 \def\enotedivision#1#2{\@ifnextchar\enotedivision{}{#1{#2}}}
 \makeatletter
 
-%Change \footnote to behave as \endnote
+% Change \footnote to behave as \endnote
 \let\footnote=\endnote
 
+% Size of note to be same as rest of text
+\renewcommand{\enotesize}{\normalsize}
 
 % ***************** OTHERS *****************
 \usepackage{varioref} 
