@@ -51,7 +51,7 @@ Some clear patterns pop out when reviewing Table \ref{table:round1results}. Firs
   \begin{tabu}{rrrrrrl}
     \toprule
      & Corn & Soy & Wheat & Other & Total & User Accuracy \\
-    \midrule    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\    Total & 1775 & 1119 & 110 & 6996 & &  \\    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\     &  &  &  & \multicolumn{3}{r}{Overall Accuracy: 79\%} \\     &  &  &  & \multicolumn{3}{r}{Kappa: 0.49} \\   
+    \midrule    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\    Total & 1775 & 1119 & 110 & 6996 & &  \\    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\    \multicolumn{7}{r}{Overall Accuracy: 79\%} \\    \multicolumn{7}{r}{Kappa: 0.49} \\   
     \bottomrule
   \end{tabu}
 \end{table}
@@ -118,9 +118,67 @@ The first step in removing the mixels was to extract the MODIS raster grid from 
 
 \begin{figure}
   \centering
-  \includegraphics[width=.7\textwidth]{Graphics/Testing/clip1_30mCDL_pure_pixels.pdf}
+  \includegraphics[width=.9\textwidth]{Graphics/Testing/clip1_30mCDL_pure_pixels.pdf}
   \caption{The pure pixels in Study Site 1.}
   \label{fig:ss1purepx}
 \end{figure}
 
 To allow me to classify only these pure pixels, I found the centroid of each of the selected pixel polygon features. The subset option of the Find Fit Tool allowed me to specify a shapefile of point features, which were converted to a list of pixel coordinates from the TSI; the tool then found the fit of the pixels in this list only. All the other pixels were assigned the  no data value. All other classification steps were the same as in Round 1, except the no data values in the fit rasters were ignored by the Classify tool when considering accuracy.
+
+
+
+
+\begin{Spacing}{1.0}
+\begin{figure}
+  \centering
+  \begin{subfigure}[t]{.63\textwidth}
+    \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2.pdf}
+    \caption{The classification results.}
+    \label{subfig:ss1r2class}
+  \end{subfigure}
+  \\
+  \vspace{.15in}
+  \begin{subfigure}[t]{.63\textwidth}
+    \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2_correct.pdf}
+    \caption{Correct pixels, with incorrect pixels colored black.}
+    \label{subfig:ss1r2class_correct}
+  \end{subfigure}
+  \caption{Classification of Study Site 1 using only pure pixels.}
+  \label{fig:ss1r2}
+\end{figure}
+\end{Spacing}
+
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Sample site 1 NDVI: No Mixels}
+  \label{table:ss1r2acc}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\
+     & & Corn & Soy & Wheat & Other & Total & User Acc. \\
+    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 358 & 108 & 3 & 79 & 548 & 65\% \\     & Soy & 10 & 236 & 0 & 11 & 257 & 92\% \\     & Wheat & 36 & 6 & 348 & 29 & 419 & 83\% \\     & Other & 10 & 4 & 20 & 101 & 135 & 75\% \\     & Total & 414 & 354 & 371 & 220 & 1359 &  \\     & Prod. Acc. & 86\% & 67\% & 94\% & 46\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 77\%} \\    \multicolumn{8}{r}{Kappa: 0.68} \\  
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+\subsection*{Round 2 Results and Discussion}
+
+The pure-pixel-only classification is shown in Fig. \ref{fig:ss1r2}, and its confusion matrix is Table \ref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the “other” pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion because the similar shape and close maximum dates of early soy and late corn are not differentiable to the fit algorithm. However, if this were the issue, I would expect to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. That the confusion is mainly one-sided led me to believe this is not the problem. Additionally, that so many “other” pixels were classified as corn suggested to me that the reference signatures I created might not be accurate.
+
+[MAKE CSVs OF DATA AND MAKE PLOTS FOR NEXT PARAGRAPH]
+
+I plotted the signature of each of the pixels contributing to the reference signatures [REFERENCE TO FIGURE] to see what the signatures looked like. Comparing them to the signatures shown in \citeauthor{wardlow2005state-level} revealed numerous discrepancies \mkbibparens{\citeyear{wardlow2005state-level}}. I decided that I needed to change my strategy for identifying pixels to use in making the reference signatures. Rather than simply finding pure pixels, I needed to ensure the signatures of sampled pixels were representative of the expected crop signature.
+
+\section{Round 3 Testing: Refining the Reference Signatures}
+
+ENVI has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixels’ values. This tool proved perfect for refining the reference curves, allowing me to drop points on only those pixels having an appearance matching my expectations for the crop designated by the CDL (see Fig. [INSERT REF TO FIGURE]). The new reference signatures, and the signatures of the newly-selected pixels are shown in Figs. [INSERT REFERENCE TO PLOTS]
+
+[INSERT FIGURE OF NEW AND OLD POINTS FOR REF CURVE GENERATION]
+
+[PLOT ENVI CURVES]
+
+\subsection*{Round 3 Results and Discussion}
+
