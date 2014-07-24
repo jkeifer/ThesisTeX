@@ -51,7 +51,15 @@ Some clear patterns pop out when reviewing Table \ref{table:round1results}. Firs
   \begin{tabu}{rrrrrrl}
     \toprule
      & Corn & Soy & Wheat & Other & Total & User Accuracy \\
-    \midrule    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\    Total & 1775 & 1119 & 110 & 6996 & &  \\    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\    \multicolumn{7}{r}{Overall Accuracy: 79\%} \\    \multicolumn{7}{r}{Kappa: 0.49} \\   
+    \midrule
+    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\
+    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\
+    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\
+    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\
+    Total & 1775 & 1119 & 110 & 6996 & &  \\
+    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\
+    \multicolumn{7}{r}{Overall Accuracy: 79\%} \\
+    \multicolumn{7}{r}{Kappa: 0.49} \\   
     \bottomrule
   \end{tabu}
 \end{table}
@@ -158,7 +166,15 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
     \toprule
      & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\
      & & Corn & Soy & Wheat & Other & Total & User Acc. \\
-    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 358 & 108 & 3 & 79 & 548 & 65\% \\     & Soy & 10 & 236 & 0 & 11 & 257 & 92\% \\     & Wheat & 36 & 6 & 348 & 29 & 419 & 83\% \\     & Other & 10 & 4 & 20 & 101 & 135 & 75\% \\     & Total & 414 & 354 & 371 & 220 & 1359 &  \\     & Prod. Acc. & 86\% & 67\% & 94\% & 46\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 77\%} \\    \multicolumn{8}{r}{Kappa: 0.68} \\  
+    \midrule
+    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 358 & 108 & 3 & 79 & 548 & 65\% \\
+     & Soy & 10 & 236 & 0 & 11 & 257 & 92\% \\
+     & Wheat & 36 & 6 & 348 & 29 & 419 & 83\% \\
+     & Other & 10 & 4 & 20 & 101 & 135 & 75\% \\
+     & Total & 414 & 354 & 371 & 220 & 1359 &  \\
+     & Prod. Acc. & 86\% & 67\% & 94\% & 46\% &  &  \\
+    \multicolumn{8}{r}{Overall Accuracy: 77\%} \\
+    \multicolumn{8}{r}{Kappa: 0.68} \\  
     \bottomrule
   \end{tabu}
 \end{table}
