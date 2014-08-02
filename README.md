@@ -12,3 +12,5 @@ Keep in mind that revisions are constantly occurring. Much of the content is bei
 **Currently, the sections that are approaching completion are:**
  - Appendix 1: Field Work -- Still requires some final formatting, links, and facts
  - Appendix 2: Development -- Still requires some final formatting, links, and facts
+ - Appendix 3: Testing -- Some major work remaining, but a lot of content is in place
+ - Appendix 4: Future Testing -- Still requires some final formatting and links
