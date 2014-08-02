@@ -1,1 +1,99 @@
 \chapter{Ideas for Future Testing}
+
+Given the practical constraints of this particular project, many aspects of this approach to classification have gone largely or completely untested, and some could have a profound impact on the classification accuracy. I am sure that I have not thought of everything that could be tested or improved, but I have compiled the following list of ideas to help future researchers working with these tools, broken down by each step of the workflow, with general ideas at the end. I have included comments where applicable.
+
+\section{Reference Temporal Signatures}
+
+\begin{description}
+\item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple sample sites and multiple sample years, respectively) effect the accuracy of classifications produced with that signature?
+
+\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (presented in [LINK TO SECTION]), were largely inconclusive due to the numerous problems I have identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop.
+
+\item[Idea:] Given the previous question, would another method for combining the signatures of two pixels would be more effective when creating a reference signature?
+
+\item[Comment:] I have used two methods to average individual pixel crop signatures. The first, used throughout the work presented in the rest of this thesis, is a simple mean of the values at any given date.
+
+I have also tried using a method something like “fit averaging”: using the same function as is used to find the fit values for each reference signature, the time shift and horizontal and vertical differences between two signatures can be found. Dividing each of those transformations by two and applying them to one of the original signatures theoretically creates a new signature halfway between the two original signatures. However, in practice, this resulted in strange curve forms when the signatures averaged were not very similar. It may be that this method deserves a second test using the refined sample points, which all have similar shapes, as this approach may be particularly sensitive to outliers. It could also be that I my program to perform this function has errors.
+
+On the subject of outliers in reference signature generation, it may also be worthwhile to test how using a geometric rather than arithmetic mean of the sampled pixels’ values might alleviate the effect of outliers.
+\end{description}
+
+\section{Mixels}
+
+I am sure brighter minds than mine could come up with better ways to deal with mixels rather than my simple elimination. For instance, perhaps some method of signature unmixing could allow for sub-pixel classification. With the current process of eliminating all mixels, I do have a few ideas to be tested:
+
+\begin{description}
+\item[Idea:] What is the purity threshold before a mixel is too mixed? That is, what percentage of a whole pixel can still be accurately classified?
+
+\item[Comment:] In my case, I, perhaps arbitrarily, chose to eliminate all pixels less than 98 percent of a whole MODIS pixel. This allowed me to select just a few more pixels to classify, presumably without any negative impact from the possible two percent mixing in those extra pixels. Yet, perhaps I could have chosen much more mixed pixels, or should not have chosen pixels mixed even in the slightest. Finding the percentage threshold where classification is still effective is a key step in making this method more useful.
+
+\item[Idea:] Do all land covers contribute equally to the temporal signature of a mixel, or do some land covers have a greater influence on the signature of a mixel? Might the percent mixed threshold discussed above vary depending on the land covers contributing to a mixel’s signature?
+
+\item[Idea:] Could the classification be used with higher spatial resolution data in such a way to combine the strengths of this classification method with the ability of higher-resolution data to distinguish smaller features? One example of such a method might be to use this process with a low threshold on the fit rasters to identify only fields that have a very high probability of being a given crop. Then, those fields could be used in a standard supervised classification process as training sites, much in the same way unsupervised classifiers are used to generate training sites for supervised classifiers.
+
+\item[Comment:] This is one of my favorite ideas, and I am very excited about the potential of combining data and techniques like these. I sincerely hope that someone (perhaps myself) will try this idea. I have high expectations for such a combination. Not only would this idea allow for higher spatial resolution classifications to be made, but would also not require the current thresholding step nor ground truth to create a classification.
+\end{description}
+
+\section{The Fitting Process}
+
+\begin{description}
+\item[Idea:] How do the bounds on the transformation coefficients change the performance of the algorithm?
+
+\item[Comment:] Loosening the bounds on the transformation coefficients would allow a reference temporal signature to better fit pixel signatures which are more dissimilar, but could allow greater confusion between the classes, and could allow reference signatures to fit wholly-unrelated pixel signatures with a low RMSE. Tightening the bounds would restrict the signature transformation, and may reduce confusion, but could also prevent the algorithm from fitting reference signatures to legitimate pixel signatures, resulting in errors of omission. The bounds as used in my testing were determined  almost arbitrarily, being the result of limited preliminary testing and setting them to something that seemed like it worked. I am certain this is one aspect of the tool that requires further optimization and has a large effect on classification results.
+
+\item[Idea:] What is the best VI for use with this method?
+
+\item[Comment:] From my results I believe NDVI is better suited for use with this method than EVI, the other MODIS-supplied VI. However, many other VIs could be used, and may allow for better accuracy or different use cases.
+
+\item[Idea:] How does the mean used to calculate the RMSE change the classification accuracy?
+
+\item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. I found it to be too insensitive and it resulted in unrealistically low fit values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are “other”) in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require implementation to test.
+
+\item[Idea:] Is this the right way to go about comparing a reference signature to an unknown pixel’s signature? Would another comparison method be more effective and/or efficient?
+
+\item[Comment:] I only pose this question in case someone else might have a better idea than me.
+\end{description}
+
+\section{Thresholding and Classification}
+
+The thresholding and classification step is the part of this process I dislike the most. My original intention was to create a method for classifying crops without ground truth, but this part of the process requires ground truth to 
+
+\begin{description}
+\item[Idea:] How much difference do different thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the fit rasters without sacrificing much accuracy.
+
+\item[Comment:] Understanding if this is a viable alternative is likely necessary if the method is to be used with no ground truth as desired.
+
+\item[Idea:] Do the optimal thresholds vary little, or are they highly variable?
+
+\item[Comment:] While I have not been testing this formally, the wide spread of the optimal thresholds that I’ve identified across all my classifications suggests that the best threshold values are unique to every circumstance and quite variable.
+
+\item[Idea:] Is there a faster way to iterate through the many possible thresholds than brute force?
+
+\item[Comment:] One challenge in the thresholding process is that I have observed local maxima in the classification accuracy. In other words, the accuracy may peak with a certain threshold combination, but that peak may only be a local maxima, and a different threshold combination may allow an even higher accuracy.
+
+\item[Idea:] Might the variation within the fit values for a signature contain useful information that could be used to find an optimized threshold value statistically?
+
+\item[Comment:] This connects with the previous question. Additionally, if the thresholds could be determined statistically, then no ground truth would be needed to create the classification.
+
+\item[Idea:] If multiple signatures are used for a single crop, each resulting in a separate fit raster, should the fit raster for that crop be combined before thresholding using the lowest value for each pixel?
+
+\item[Comment:] Barring the realization of a new method for thresholding the fit rasters, I believe the answer is a resounding yes. Processing time increases exponentially with each additional fit raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. I have not reason for not adding this feature myself other than needing to focus my energies elsewhere.
+
+\item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See [REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES] for more details.
+\end{description}
+
+\section{General Ideas}
+
+\begin{description}
+\item[Idea:] How does the interval of the imagery (number of images used for a given time period) change the effectiveness of the classification? Does using more images (an interval of less than 16 days) allow for a more accurate classification, or for the use of smoothing techniques on the pixel data to help eliminate noise?
+
+\item[Comment:] Sakamoto et al [CITATION HERE], whose work has directly informed my own, used the 8-day MODIS composite images, rather than the 16-day composites, which they resampled to 5-day intervals to get even more detailed data. They also used a wavelet filter on the pixel curves to reduce extraneous noise. I have been operating under the untested assumption the 16-day composites are sufficiently detailed for this analysis, but that may not be the case. The significant advantage of the 16-day composites, however, is that they do not require much preprocessing. 8-day composites are more likely have cloud cover, and are only available as separate bands, not as preprocessed VIs. If such processing were necessary, it could be automated, but would still be additional complexity. Daily data is also available, but that would further increase complexity, as well as significantly increase storage and memory requirements.
+
+\item[Idea:] What about using this method with something other than VI data? What if this could be used multi-dimensionally, with multiple bands? With different data, e.g. higher spatial resolution data, what could be other applications of this method?
+
+\item[Comment:] I don’t have any use cases in mind when I ask this question. I merely pose it in an attempt to spark an idea for anyone working with different applications.
+\end{description}
+
+\section{Concluding Remarks}
+
+The testing I’ve completed has largely been to demonstrate that the tools I have developed to perform this type of classification are functional and that this hypertemporal signature-fitting approach may be effective for certain remote sensing applications. As one can see by the list above, a lot of work remains to increase the understanding of how different parameters affect fitting and classification. This study is just the beginning of a large body of potential research, which I believe will only be of increasing importance as earth-observing sensors become more numerous and high spatial and temporal resolution data become more commonplace.
