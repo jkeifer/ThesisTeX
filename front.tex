@@ -1,5 +1,5 @@
 \pagenumbering{Roman} 
-\pagestyle{empty} 
+\pagestyle{empty}  % begin signature page
 
 
 
@@ -25,55 +25,52 @@
     %\signature{\ }{\thesisCommitteeThree\\Representative of the\\Office of Graduate Studies}    
     %\signature{DOCTORAL PROGRAM APPROVAL:}{Wu-chi Feng, Director\\Computer Science Ph.D. Program}
 
-\clearpage
-
-
-
-\input{abstract.tex}
-
-
-
-\clearpage
+\clearpage  % begin title page
     
 \begin{center}
-	~\\
-	~\\
-	~\\
-    \MakeUppercase {\thesisTitle} 
-\end{center}
-
-\begin{center}
-    by\\
-    \vspace{2mm}
-    \MakeUppercase{\thesisAuthor}
+  ~\\
+  \thesisTitle
 \end{center}
 
 \vfill\vfill
 
 \begin{center}
-    A thesis submitted in partial fulfillment of the\\
-	\vspace{-2mm} 
-    requirements for the degree of
+  by\\
+  \thesisAuthor
+\end{center}
+
+\vfill
+
+\begin{SingleSpace}
+\begin{center}
+  A thesis submitted in partial fulfillment of the\\
+  requirements for the degree of
 \end{center}
 
 \vfill
 
 \begin{center}
-     \MakeUppercase{\thesisDegree}\\
-     \vspace{-2mm} 
-     in\\
-     \vspace{-2mm} 
-     \MakeUppercase{\thesisDept}
+  \thesisDegree\\
+  in\\
+  \thesisDept
 \end{center}
 
+\vfill
+
+\begin{center}
+  Thesis Committee:\\
+  \thesisAdvisor, Chair\\
+  \thesisCommitteeOne\\
+  \thesisCommitteeTwo
+\end{center}
 
 \vfill
 
 \begin{center}
     Portland State University\\
-    \vspace{-2mm} 
     2014
 \end{center}
+\end{SingleSpace}
 
 \cleardoublepage    
 
@@ -86,21 +83,25 @@
 
 \pagenumbering{roman}
 
+\input{abstract.tex}  % abstract page
+
+\clearpage
+
 \vspace*{\fill}
-{\hfill\sffamily\itshape Something fancy.}
+{\hfill\sffamily\itshape Something fancy.}  % that little note page
 
 
 \rmfamily
 \normalfont
 
 
-\input{ack.tex}
+\input{ack.tex}  % acknowledgements page
 
 \clearpage
  
 
 
-\tableofcontents
+\tableofcontents  % this and the rest are obvious
 
 
 
