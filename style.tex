@@ -45,14 +45,14 @@
 % *************** Page layout ***************
 %\settypeblocksize{*}{32pc}{1.618}
 
-\setlrmarginsandblock{1.5in}{1.0in}{*} %Left and right margins
-\setulmarginsandblock{1.5in}{1.0in}{*} %Top and bottom margins
+\setlrmarginsandblock{1.5in}{1.0in}{*}  % Left and right margins
+\setulmarginsandblock{1.5in}{1.0in}{*}  % Top and bottom margins
 \checkandfixthelayout
 
 \setheadfoot{\onelineskip}{2\onelineskip}
-\setheaderspaces{*}{2\onelineskip}{*}
+%\setheaderspaces{*}{2\onelineskip}{*}
 
-\def\baselinestretch{2}%double space for PSU
+\def\baselinestretch{2}  % double space for PSU
 
 \checkandfixthelayout
 
@@ -79,8 +79,9 @@
 \setsubsubsecheadstyle{\normalfont\sffamily\bfseries}
 \setparaheadstyle{\normalfont\sffamily}
 
-\makeevenhead{headings}{\small\slshape\rightmark}{}{\thepage}
-\makeoddhead{headings}{\small\slshape\rightmark}{}{\thepage}
+\nouppercaseheads  % prevents the headers from being uppercase
+\makeevenhead{headings}{\normalfont\sffamily\mdseries\rightmark}{}{\normalfont\sffamily\mdseries\thepage}
+\makeoddhead{headings}{\normalfont\sffamily\mdseries\rightmark}{}{\normalfont\sffamily\mdseries\thepage}
 
 \aliaspagestyle{chapter}{empty}%this suppresses numbers on chapters
 
@@ -134,8 +135,7 @@
 \else
     \usepackage{hyperref}
 \fi
-\usepackage[all]{hypcap}%fixes problem when  you click on a link 
-%and go to caption, not figure or table itself
+\usepackage[all]{hypcap}  % fixes problem when  you click on a link and go to caption, not figure or table itself
 
 \usepackage{memhfixc}
 
