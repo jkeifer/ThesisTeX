@@ -1,5 +1,5 @@
-\pagenumbering{Roman} 
-\pagestyle{empty}  % begin signature page
+%\pagenumbering{Roman} 
+\thispagestyle{empty}  % begin signature page
 
 
 
@@ -26,7 +26,8 @@
     %\signature{DOCTORAL PROGRAM APPROVAL:}{Wu-chi Feng, Director\\Computer Science Ph.D. Program}
 
 \clearpage  % begin title page
-    
+\thispagestyle{empty}
+
 \begin{center}
   ~\\
   \thesisTitle
@@ -72,7 +73,8 @@
 \end{center}
 \end{SingleSpace}
 
-\cleardoublepage    
+\cleardoublepage  % copyright page 
+\thispagestyle{empty}
 
 \begin{center}
     \vspace*{2.5 in}
@@ -83,12 +85,14 @@
 
 \pagenumbering{roman}
 
+\addcontentsline{toc}{chapter}{Abstract}
 \input{abstract.tex}  % abstract page
 
 \clearpage
 
+\addcontentsline{toc}{chapter}{Dedication}
 \vspace*{\fill}
-{\hfill\sffamily\itshape Something fancy.}  % that little note page
+{\hfill\sffamily\itshape Something fancy.}  % dedication
 
 
 \rmfamily
@@ -101,7 +105,7 @@
  
 
 
-\tableofcontents  % this and the rest are obvious
+\tableofcontents*  % this and the rest are obvious
 
 
 
