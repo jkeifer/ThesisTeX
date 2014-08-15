@@ -37,6 +37,7 @@ I knew these tests would not directly answer my question about temporal variatio
 \end{figure}
 
 \subsection*{Round 1 Results and Discussion}
+\label{appendix:testing:r1:results}
 
 Some clear patterns pop out when reviewing Table \ref{table:round1results}. First, a quick scan of all the values shows that none of the classifications had a very high degree of accuracy, though study site 3 stands out with much higher accuracies than the rest. A more detailed examination of of study site 3’s results shows that the increased accuracy is due to the fact that relatively few of the pixels in the sample site are crop pixels, and a high accuracy can be achieved by not classifying the majority of the pixels, such that they are considered “other.” A breakdown of highest accuracy sample site 3 classification, that using sample site 3’s reference signatures and NDVI data, is shown in Table \ref{table:round1ss3acc}. One can see the relative abundance of “other” pixels that skews the accuracy upward compared to the other sample sites.
 
@@ -75,6 +76,8 @@ The accuracies of the mean reference signature classifications are generally low
 Looking back on the scenarios I outlined in my testing considerations above, I actually found none of them completely captured the behavior shown in the results. I did not see relatively consistent classification accuracies independent of the set of reference signatures used, but I also found that the reference signatures from some sample sites did well at classifying others. The mean signatures were also somewhat in the middle, generally not doing terribly well, but sometimes coming close. The best interpretation I could make of the results is that, under the right circumstances, reference signatures can be used to classify other areas. However, the cases where the reference signatures are not portable, in addition to the low overall accuracy levels, were concerning. I began to consider that I might not be able to answer the initial testing questions; instead, I realized I needed to take a step back and better explore what factors effect the classification process.
 
 \section{Round 2 Testing: Eliminating Mixels}
+\label{appendix:testing:r2}
+
 \subsection*{Pre-testing Investigation}
 
 I began my Round 2 testing by diving back into my Round 1 results. I wasn’t sure exactly what I needed to test, but I knew my previous results held more clues. For the sake of simplifying my investigation, I decided to focus solely on sample site 1 for the remainder of my testing. If I could boost the accuracy of its classification, I would identify some of the factors influential in the classification process. I chose sample site 1 over the others as it has the best variety of crops in which I am interested, and also includes some large non-crop areas of different land cover types. This mix seemed to offer the best testing environment of my six sites.
