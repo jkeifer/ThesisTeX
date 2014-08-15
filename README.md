@@ -22,3 +22,5 @@ Keep in mind that revisions are constantly occurring. Much of the content is bei
  - Appendix 2: Development -- Still requires some final formatting, links, and facts
  - Appendix 3: Testing -- Almost all content is in place, still requires final formatting and links
  - Appendix 4: Future Testing -- Still requires some final formatting and links
+ - Notes: I beleive I am happy with the way this sections is working; it is all automatic. May need to reformat numbers.
+ - References: This is also automatic. Some very minor formatting changes may need to happen, but overall this is completed.
