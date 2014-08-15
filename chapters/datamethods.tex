@@ -110,11 +110,13 @@ Here, $x$ again is the DOY, $yscale$ and  $xscale$ are coefficients controlling 
 
 While ground truth data was easily available for the Kansas study site, getting a ground truth dataset for verification of the classification in Pellegrini was not so simple. Such a dataset did not exist, necessitating onsite data collection. I visited Argentina mid-March to early April 2014 to gather field observations of summer crop types and to talk to local farmers about typical agricultural practices, summer and winter crop varieties, and planting and harvesting dates.
 
-To guide my ground truth collection, I generated 400 random points inside the Pellegrini shapefile boundary. Where a point fell within a mixel, I allowed it to be moved within a 3-by-3 pixel window centered on the point's original pixel, trying as much as possible to keep the point within a pixel belonging to the feature type on which it originally fell. In certain limited cases, if a point fell quite obviously within a field but the center pixel and eight surrounding pixels were all mixels, I allowed the point to be moved to the closest full pixel within the same field. Of the 400 points, I had move 106 within a 3-by-3 window, and ten to a non-neighboring pixel within the same field.
+To guide my ground truth collection, I generated 400 random points inside the Pellegrini shapefile boundary. Where a point fell within a mixel, I allowed it to be moved within a 3-by-3 pixel window centered on the point's original pixel, trying as much as possible to keep the point within a pixel belonging to the feature type on which it originally fell. In certain limited cases, if a point fell quite obviously within a field but the center pixel and eight surrounding pixels were mixels and/or were not within the field, I allowed the point to be moved to the closest full pixel of the same continuous field. Of the 400 points, I had move 106 within the 3-by-3 window, and ten to a non-neighboring pixel within the same field.
 
-[TALK ABOUT DATA COLLECTION STRATEGY]
+The primary means of gathering the crop identities to complete the ground truth was direct observation. However, this strategy proved to be difficult in many cases; often, fields were not accessible due to road conditions or locked gated. Data not from direct observations came from interviews with farmers and land owners. In such cases, the interviewees were asked to identify their fields on printed maps and describe their cultivars. The data from observations and interviews was recorded directly on the maps and later manually digitized.
 
+Ancillary information about agricultural practices in the region was also collected whenever possible. It was a key goal to identify each crop's date range for planting and harvesting in order to allow the proper selection of MODIS imagery dates and setting of the $tshift$ bounds for Equation \ref{eq:gofx}.
 
+\section{Eliminating Mixels}
 
 
 
