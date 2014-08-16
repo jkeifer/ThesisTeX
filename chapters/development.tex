@@ -15,9 +15,10 @@ To reiterate, classifying imagery is a multi-step process. To do so is roughly a
   \item Use the threshold tool to find the optimal threshold settings for each of the fit rasters (requires ground truth data for accuracy assessment). This process should output a final classified image.
 \end{enumerate}
 
-Steps 1, 3, 4, and 5 have been abstracted into individual command line tools, each of which is detailed below. Step 2 is currently a manual process, the procedure for which is detailed in section [LINK TO METHODS SECTION DISCUSSION ON MIXELS]; how this step was established is explained in Appendix \ref{appendix:testing:r2}.
+Steps 1, 3, 4, and 5 have been abstracted into individual command line tools, each of which is detailed below. Step 2 is currently a manual process, the procedure for which is detailed in section [TODO: LINK TO METHODS SECTION DISCUSSION ON MIXELS]; how this step was established is explained in Appendix \ref{appendix:testing:r2}. A few other command line tools, such as to plot signatures or to create masked rasters, were also developed, but are not described here. See the project source and documentation on the github site: https://jkeifer.github.io/pyhytemporal. [TODO: VERIFY THIS IS THE CORRECT ADDRESS; SHOULD THIS BE INCLUDED? I HAVE NOT YET BEGUN WRITING THE DOCUMENTATION, AND WHILE I'D LIKE TO, IT IS POSSIBLE THAT IT WILL NOT HAPPEN]
 
 \section{Creating Time Series Images}
+\label{appendix:tools:build}
 
 Before I could complete any testing, I had to first determine a way to create a chronological multi-date image stack---a time series image (TSI)---in which the values of each pixel represent the temporal signature of its contents. A TSI can be thought of as the temporal equivalent of a hyperspectral data cube, and is the primary data structure used in the analysis.
 
@@ -28,18 +29,20 @@ The Python Geographic Data Abstraction Library (GDAL) and numpy libraries includ
 The finished tool, which I call the Build Multidate Image tool, simply requires the user to specify a director containing the MODIS .hdf files that will be assembled into a TSI. The the name of the VI the tool should extract from the .hdf files is an optional argument, as the tool defaults to extracting the NDVI raster data.
 
 \section{Extracting Reference Temporal Signatures}
+\label{appendix:tools:extract}
 
 While I hope in the future libraries of temporal signatures will allow researchers to use temporal classification tools without needing to derive their own signatures, obviously such resources are not available now. For my work this necessitated that I devise a tool to create such signatures. I named this tool the Extract Signatures Tool (EST).
 
 I decided, in order to maximize ease of use, the tool would need to accept a set of points as an input, find the pixel coordinates in the TSI for each point, then extract each point’s temporal signature. The average of these signatures could be calculated then written to a file for later use.
 
-To implement this solution, I created a library to read point features from shapefiles, and wrote a function to take the geographic coordinates of each point in a shapefile and convert them into a list of pixel coordinates in a specified image. Next, I wrote a set of functions to read the values of such a list of pixel coordinates and write them to a text file with the format shown in figure [USE A REAL EXAMPLE]. Then, I created a function to find the mean of each date, writing the result to another file. Each of the created files was in plain-text ASII format, and I decided to use the file extension .ref.
+To implement this solution, I created a library to read point features from shapefiles, and wrote a function to take the geographic coordinates of each point in a shapefile and convert them into a list of pixel coordinates in a specified image. Next, I wrote a set of functions to read the values of such a list of pixel coordinates and write them to a text file with the format shown in figure [TODO: USE A REAL EXAMPLE]. Then, I created a function to find the mean of each date, writing the result to another file. Each of the created files was in plain-text ASII format, and I decided to use the file extension .ref.
 
 I based the formatting of the .ref files on the .sig files used by ENVI for hyperspectral signatures. Using a plain-text file-based data format currently seems to be the best solution for storing reference signatures, as the data is very simply structured and files are highly portable. However, future implementations of the EST may benefit from a more rigid or better contained data format.
 
 \section{The Fit Algorithm}
+\label{appendix:tools:fit}
 
-Developing the fit algorithm and the corresponding tool was a more complex problem. As described in section [INSERT LINK TO SECTION], the basis of the algorithm was equation [LINK TO THE EQUATION]. The equations finds the average difference between a pixel signature and a reference signature (the RMSE), while allowing the reference be transformed within predefined bounds. Minimizing the equation enables the degree of fit between a reference signature and a pixel signature to be quantified. To implement the algorithm, I decided to use scipy’s minimize function. I began by building the simplest implementation possible, while making as many parameters as possible into arguments of the enclosing function to allow future testing. I continued building out the functionality until I had a tool capable of reading in a TSI from a file path and reference temporal signature .ref files in a directory. The tool would then process the TSI using the .ref files, and output a fit raster corresponding to each .ref file.
+Developing the fit algorithm and the corresponding tool was a more complex problem. As described in Chapter \ref{chapter:methods:phenology-fitting}, the basis of the algorithm is Equation \ref{eq:1}. The equations finds the average difference between a pixel signature and a reference signature (the RMSE), while allowing the reference be transformed within predefined bounds. Minimizing the equation enables the degree of fit between a reference signature and a pixel signature to be quantified. To implement the algorithm, I decided to use scipy’s minimize function. I began by building the simplest implementation possible, while making as many parameters as possible into arguments of the enclosing function to allow future testing. I continued building out the functionality until I had a tool capable of reading in a TSI from a file path and reference temporal signature .ref files in a directory. The tool would then process the TSI using the .ref files, and output a fit raster corresponding to each .ref file.
 
 One clear problem early on was speed. Python’s global interpreter lock (GIL), intended to increase the security and reliability of running python code, also has the consequence of limiting code execution to a single processor core. With current multicore processor designs, this prohibits python from using much of the available processing resources. For example, in my eight-core computer, I was limited to using only 12.5 percent of its processing capabilities.
 
@@ -54,6 +57,7 @@ Other problems I had throughout development were issues involving pixel coordina
 Using the algorithm is easy, as it has a command line interface through the Find Fit Tool. Due to the numerous parameters required by the algorithm, the command has many options. However, it only requires that the user specify the the path to the TSI image, the path to the directory containing the .ref reference signature files, and the start day-of-year and day-of-year interval for the TSI. All of the other options require user input only if the user wants to use a non-default value.
 
 \section{Creating a Classification From the Fit Rasters}
+\label{appendix:tools:classify}
 
 Merely finding the fit rasters does not a classification make. The first step in creating a classification is to find valid fit values; even pixels that are obviously different than a reference signature will result in some measurable fit. Thus, the fit rasters need to be thresholded to eliminate extraneous high values.
 
