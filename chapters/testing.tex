@@ -84,28 +84,29 @@ I began my Round 2 testing by diving back into my Round 1 results. I wasn’t su
 
 I first studied the classification results for sample site 1 from Round 1 produced with its own reference signatures (Fig. \ref{fig:ss1r1class}). I noticed that the major patterns generally matched the CDL fairly well. If the classification \textit{looks} correct, however, where were the errors? Obviously there should be many incorrect pixels, as this classification only had an accuracy of about 61 percent. Yet they weren’t obvious at first glance.
 
+\begin{Spacing}{1.2}
 \begin{figure}
   \centering
-  \begin{subfigure}[b]{.45\textwidth}
+  \begin{subfigure}[t]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_CDL.pdf}
     \caption{The 2012 CDL.}
     \label{subfig:ss1r1CDL}
   \end{subfigure}
   \quad
-  \begin{subfigure}[b]{.45\textwidth}
+  \begin{subfigure}[t]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1.pdf}
     \caption{Round 1 classification using SS 1 signatures.}
     \label{subfig:ss1r1class}
   \end{subfigure}
   \\
   \vspace{.25in}
-  \begin{subfigure}[b]{.45\textwidth}
+  \begin{subfigure}[b]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1_correct.pdf}
     \caption{Correctly classified pixels. Incorrect pixels in black.}
     \label{subfig:ss1r1correct}
   \end{subfigure}
   \quad
-  \begin{subfigure}[b]{.45\textwidth}
+  \begin{subfigure}[b]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1_incorrect.pdf}
     \caption{Incorrectly classified pixels. Correct pixels in black.}
     \label{subfig:ss1r1incorrect}
@@ -113,6 +114,7 @@ I first studied the classification results for sample site 1 from Round 1 produc
   \caption{Sample Site 1, Round 1 classification.}
   \label{fig:ss1r1class}
 \end{figure}
+\end{Spacing}
 
 To find these incorrect pixels, I created two images: an image with the incorrect pixels masked in black, and an image with the correct pixels masked in black (Figs. \ref{subfig:ss1r1correct} and \ref{subfig:ss1r1incorrect}). In the former, I noticed that many of the incorrect pixels seemed to fall on the edges of fields. In the latter, I noticed some class confusion, a finding reinforced by the confusion matrix for this classification (Table \ref{table:ss1r1acc}).
 
