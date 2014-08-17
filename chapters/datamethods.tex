@@ -125,7 +125,7 @@ To use the CDL as a ground truth with the Kansas TSI, the 30-meter CDL pixels we
 
 \subsection{Eliminating Mixels}
 
-After building the TSIs, the next processing step was to eliminate mixels from the TSIs, to prevent errors caused by mixed temporal signatures (see Appendix \ref{appendix:testing:r2} for more information). Pure pixels, the non-mixels in the image, were isolated by intersecting the ground truth datasets with a vector grid of the TSI pixels. All pixels with an area greater than a certain area threshold were then selected as pure. Only these pure pixels were classified; the mixels in the images were ignored.
+After building the TSIs, the next processing step was to eliminate mixels from the TSIs, to prevent errors caused by mixed temporal signatures (see Appendix \ref{appendix:testing:r2} for more information). Pure pixels, the non-mixels in the image, were isolated by intersecting the ground truth datasets with a vector grid of the TSI pixels. All pixels with an area greater than a certain area threshold were then selected as pure. I also manually selected two sorghum pixel features that were omitted due to intermixed soy pixels. I chose to add these pixels due to the low number of sorghum features retained, and that the intermixed soy appeared to be errors. Only these pure pixels were classified; the mixels in the images were ignored.
 
 The original 30-meter CDL raster served as the reference for finding the pure pixels in the Kansas study site. The raster was converted to vector polygons and intersected with the TSI grid polygons. From the resulting geometry, all polygons greater than 53,000 square meters (or 98 percent of a full MODIS pixel) were selected as pure.
 

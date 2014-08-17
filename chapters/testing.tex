@@ -48,7 +48,7 @@ Some clear patterns pop out when reviewing Table \ref{table:round1results}. Firs
 \begin{Spacing}{1.0}
 \begin{table}
   \centering
-  \caption{Sample site 3 NDVI top accuracy}
+  \caption{Round 1 Testing: Sample Site 3 Best Accuracy Using NDVI}
   \label{table:round1ss3acc}
   \begin{tabu}{rrrrrrl}
     \toprule
@@ -111,7 +111,7 @@ I first studied the classification results for sample site 1 from Round 1 produc
     \caption{Incorrectly classified pixels. Correct pixels in black.}
     \label{subfig:ss1r1incorrect}
   \end{subfigure}
-  \caption{Sample Site 1, Round 1 classification.}
+  \caption{Round 1 Testing: Sample Site 1 Classification.}
   \label{fig:ss1r1class}
 \end{figure}
 \end{Spacing}
@@ -128,12 +128,12 @@ For these reasons, I hypothesized the low classification accuracy was becasue mi
 
 \subsection*{The Testing Process}
 
-The first step in removing the mixels was to extract the MODIS raster grid from the sample site 1 TSI as vector polygons. The CDL raster is of sufficient spatial resolution (30-meter) to allow identification of fields; I converted the CDL to vector, and all continuous pixels of the same land cover value were merged into single vector features. Next, I intersected these CDL features with the pixel polygon features of the MODIS grid. From the resulting vector features I was able to select only those with an area close to that of a full MODIS pixel. Specifically, I decided to select all features greater than or equal to 53,000 m$^2$ in area (a full MODIS pixel being 53,824 m$^2$). I also manually added two [CHECK THIS] sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in Fig. \ref{fig:ss1purepx}, was [TODO: INSERT NUMBER OF FEATURES HERE] features selected. These features can be thought to represent MODIS pixels which have “pure” signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
+The first step in removing the mixels was to extract the MODIS raster grid from the sample site 1 TSI as vector polygons. The CDL raster is of sufficient spatial resolution (30-meter) to allow identification of fields; I converted the CDL to vector, and all continuous pixels of the same land cover value were merged into single vector features. Next, I intersected these CDL features with the pixel polygon features of the MODIS grid. From the resulting vector features I was able to select only those with an area close to that of a full MODIS pixel. Specifically, I decided to select all features greater than or equal to 53,000 m$^2$ in area (a full MODIS pixel being 53,824 m$^2$). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in Fig. \ref{fig:ss1purepx}, was 1,359 features selected. These features can be thought to represent MODIS pixels which have “pure” signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
 
 \begin{figure}
   \centering
   \includegraphics[width=.9\textwidth]{Graphics/Testing/clip1_30mCDL_pure_pixels.pdf}
-  \caption{The pure pixels in Study Site 1.}
+  \caption{Round 2 Testing: Pure pixels in Study Site 1.}
   \label{fig:ss1purepx}
 \end{figure}
 
@@ -154,7 +154,7 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
     \caption{Correct pixels, with incorrect pixels colored black.}
     \label{subfig:ss1r2class_correct}
   \end{subfigure}
-  \caption{Classification of Study Site 1 using only pure pixels.}
+  \caption{Round 2 Testing: Classification of Study Site 1 Pure Pixels.}
   \label{fig:ss1r2}
 \end{figure}
 \end{Spacing}
@@ -162,7 +162,7 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
 \begin{Spacing}{1.0}
 \begin{table}
   \centering
-  \caption{Sample site 1 NDVI: No Mixels}
+  \caption{Round 2 Testing: Sample site 1, NDVI, Pure Pixels}
   \label{table:ss1r2acc}
   \begin{tabu}{rrrrrrrl}
     \toprule
@@ -250,7 +250,7 @@ I used the fit tool to generate fit rasters for the .ref files, then fed them in
 
 I actually ran this processing chain twice using different cluster settings. Due to processing constraints in the classification and accuracy assessment step, I ran the first kmeans with three clusters for each crop, a 1.0 percent change threshold, and 100 iterations maximum. I considered using more clusters, but three seemed to be optimal, finding multiple signatures while keeping processing times manageable. Even using only three clusters per crop, four threshold steps, and omitting the wheat-soy double crop reference, the classification/accuracy assessment tool needed over 82 minutes to complete. Adding even one more cluster per crop would have taken almost twenty-two hours to finish.
 
-Using the clusters for did in fact increase the classification accuracy to almost 82.5 percent, as shown in figure XXXX and table XXXX. After reviewing the results, I realized the sorghum was really not adding to the accuracy; omitting the sorghum cluster reference resulted in an ever-so-slight improvement, achieving an accuracy of 82.6 percent. It seems, especially in light of the fact that the CDL does not have clearly-delineated sorghum fields, but rather a mix of soy and sorghum, that the USDA’s classification method is unable to accurately differentiate between the two crops. Or, it could be that my method also has difficulty with these crops, given their similar temporal signatures. %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-11_1117 AND classification_2014-07-11_1639/]
+Using the clusters for did in fact increase the classification accuracy to almost 82.5 percent, as shown in figure [TODO: INSERT REF TO FIG] and table [TODO: INSERT REF TO TABLE]. After reviewing the results, I realized the sorghum was really not adding to the accuracy; omitting the sorghum cluster reference resulted in an ever-so-slight improvement, achieving an accuracy of 82.6 percent. It seems, especially in light of the fact that the CDL does not have clearly-delineated sorghum fields, but rather a mix of soy and sorghum, that the USDA’s classification method is unable to accurately differentiate between the two crops. Or, it could be that my method also has difficulty with these crops, given their similar temporal signatures. %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-11_1117 AND classification_2014-07-11_1639/]
 
 One of the soy signatures had a strange, non-soy-like appearance. I decided to re-run the classifier as before, but omitting the peculiar soy signature. The accuracy did drop to 81.5 percent, but when I visually analyzed the classification I could see that all the previous errors where non-crop pixels were classified as soy were no longer present. I interpret these results to mean either that some soy fields have signatures quite similar to grassland and pasture areas, or that the CDL inaccurately classifies some grassland or pasture as soy. From my understanding of crop phenologies, and given my experience looking at crop signatures, I believe the latter is more likely.  %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-12_1612/]
 
