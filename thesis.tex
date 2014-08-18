@@ -1,4 +1,4 @@
-\documentclass[12pt, letterpaper, oneside]{memoir}
+\documentclass[12pt, letterpaper, oneside, draft]{memoir}
 \tolerance=1000 % sets whitespace tolerance level (adjusts hyphenation)
 
 \input{style.tex}  % Contains all the packages, commands, and formatting settings
@@ -34,11 +34,17 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 % *************** THE DOCUMENT ***************
 \begin{document}
 
+\todo[inline]{Add textspanish\{\} to all spanish words, phrases, and passages}
+\todo[inline]{Check accents in all spanish}
+
 
 % *************** Front matter ***************
 \frontmatter
 \input{front.tex}
-
+\ifdraft{%
+  \clearpage
+  \listoftodos}{
+}
 
 % *************** Main matter ***************
 

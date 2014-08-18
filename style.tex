@@ -9,9 +9,20 @@
 % The origin of this file is not clear.  Here is one copy:
 % https://subversion.cs.uu.nl/repos/staff.doaitse.wxFlashkell/MasterThesis/style_old.tex
 % Emerson Murphy-Hill (emerson@cs.pdx.edu) has modified it.
+% Jarrett Keifer (jkeifer@pdx.edu) has also modified it greatly. It is now using AAG format for the references, suitable for all geography theses.
+
+
+%************************* NOTES ON FORMATTING *************************
+
+%Spacing:
+%  Cannot use the setspace package with memoir class. However, memoir has its own spacing commands, and they are exactly the same, except use camel-casing:
+%    \begin{Spacing}{1.5} or \DoubleSpacing or \OnehalfSpacing or \SingleSpacing
+
 
 % *************** Load packages ***************
 \input{packagesandoptions.tex}
+
+%TODO MOVE ALL GROUPS OF SETTINGS (I.E. TABLES & FIGURES, DOCUMENT LAYOUT, ETC. TO NEW TEX FILES INSIDE A SETTINGS FOLDER]
 
 
 % *************** Enable index generation ***************
@@ -19,14 +30,14 @@
 
 
 % **************** Language/Localization ***************
-\usepackage[australian, spanish, american]{babel} %datetime incompatible with polyglossia
-%\usepackage{polyglossia}
-%\setdefaultlanguage[variant=american]{english}
-%\setotherlanguage{spanish}
+%\usepackage[australian, spanish, american]{babel} %datetime incompatible with polyglossia
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+\setotherlanguage{spanish}
 
 
 % *************** Set Date Format ***************
-\usepackage[nodayofweek]{datetime}
+%\usepackage[nodayofweek]{datetime}
 %\setdefaultdate{\dateaustralian} %gets dates of dd month yyyy without ordinal or comma
 
 
@@ -55,6 +66,7 @@
 \def\baselinestretch{2}  % double space for PSU
 
 \checkandfixthelayout
+
 
 % *************** Chapter and section style ***************
 \makechapterstyle{mychapterstyle}{%
@@ -85,6 +97,7 @@
 
 \aliaspagestyle{chapter}{empty}%this suppresses numbers on chapters
 
+
 % *************** Table of contents style ***************
 \settocdepth{subsubsection}
 
@@ -92,6 +105,7 @@
 \maxsecnumdepth{subsubsection}
 \settocdepth{subsubsection}
 \maxtocdepth{subsubsection}
+
 
 % ********** Commands for epigraphs **********
 \setlength{\epigraphwidth}{0.57\textwidth}
@@ -116,7 +130,13 @@
     \thispagestyle{empty}%
     %\addtocounter{page}{-1}%
     \newpage}
+    
 
+% *************** DRAFT OPTIONS ****************
+\usepackage{ifdraft}
+%\ifdraft{<draft case>}{<final case>}
+%\ifoptiondraft {⟨option draft given⟩} {⟨option draft not given⟩}
+%\ifoptionfinal {⟨option ﬁnal given⟩} {⟨option ﬁnal not given⟩}
 
 % *************** Enable hyperlinks in PDF documents ***************
 \ifpdf
@@ -141,10 +161,3 @@
 
 
 % *************** End of document style definition ***************
-
-
-%************************* NOTES ON FORMATTING *************************
-
-%Spacing:
-%  Cannot use the setspace package with memoir class. However, memoir has its own spacing commands, and they are exactly the same, except use camel-casing:
-%    \begin{Spacing}{1.5} or \DoubleSpacing or \OnehalfSpacing or \SingleSpacing

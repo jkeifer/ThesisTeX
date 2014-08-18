@@ -8,7 +8,8 @@ Given the practical constraints of this particular project, many aspects of this
 \begin{description}
 \item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple sample sites and multiple sample years, respectively) effect the accuracy of classifications produced with that signature?
 
-\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (presented in [TODO: LINK TO SECTION]), were largely inconclusive due to the numerous problems I have identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop.
+\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (presented in \todo[inline]{LINK TO SECTION}
+), were largely inconclusive due to the numerous problems I have identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop.
 
 \item[Idea:] Given the previous question, would another method for combining the signatures of two pixels would be more effective when creating a reference signature?
 
@@ -57,7 +58,7 @@ I found it to be too insensitive and it resulted in unrealistically low fit valu
 
 \item[Idea:] Is this the right way to go about comparing a reference signature to an unknown pixel’s signature? Would another comparison method be more effective and/or efficient?
 
-\item[Comment:] I only pose this question in case someone else might have a better idea than me. [TODO: ADD INFO ABOUT OTHER ALTERNATIVE PROCESSES, SUCH AS BOOKMARKED IN THESIS FOLDER...DTW, PROSCRUSTES ANALYSIS, ETC...]
+\item[Comment:] I only pose this question in case someone else might have a better idea than me. \todo[inline]{ADD INFO ABOUT OTHER ALTERNATIVE PROCESSES, SUCH AS BOOKMARKED IN THESIS FOLDER...DTW, PROSCRUSTES ANALYSIS, ETC...}
 \end{description}
 
 \section{Thresholding and Classification}
@@ -85,7 +86,7 @@ The thresholding and classification step is the part of this process I dislike t
 
 \item[Comment:] Barring the realization of a new method for thresholding the fit rasters, this question deserves some thought. Processing time increases exponentially with each additional fit raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the fit rasters for a single crop were of equal validity, this would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the fit rasters of any such signatures by holding them at low thresholds. Preempting the thresholding process by merging the fit rasters of a signature would not allow the thresholding to weigh the fit rasters unequally.
 
-\item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See [TODO: REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES]
+\item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See \todo[inline]{REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES}
 for more details.
 \end{description}
 
@@ -94,8 +95,7 @@ for more details.
 \begin{description}
 \item[Idea:] How does the interval of the imagery (number of images used for a given time period) change the effectiveness of the classification? Does using more images (an interval of less than 16 days) allow for a more accurate classification, or for the use of smoothing techniques on the pixel data to help eliminate noise?
 
-\item[Comment:] Sakamoto et al [TODO: CITATION HERE]
-, whose work has directly informed my own, used the 8-day MODIS composite images, rather than the 16-day composites, which they resampled to 5-day intervals to get even more detailed data. They also used a wavelet filter on the pixel curves to reduce extraneous noise. I have been operating under the untested assumption the 16-day composites are sufficiently detailed for this analysis, but that may not be the case. The significant advantage of the 16-day composites, however, is that they do not require much preprocessing. 8-day composites are more likely have cloud cover, and are only available as separate bands, not as preprocessed VIs. If such processing were necessary, it could be automated, but would still be additional complexity. Daily data is also available, but that would further increase complexity, as well as significantly increase storage and memory requirements.
+\item[Comment:] \textcite{sakamoto2010a-two-step}, whose work has directly informed my own, used the 8-day MODIS composite images, rather than the 16-day composites, which they resampled to 5-day intervals to get even more detailed data. They also used a wavelet filter on the pixel curves to reduce extraneous noise. I have been operating under the untested assumption the 16-day composites are sufficiently detailed for this analysis, but that may not be the case. The significant advantage of the 16-day composites, however, is that they do not require much preprocessing. 8-day composites are more likely have cloud cover, and are only available as separate bands, not as preprocessed VIs. If such processing were necessary, it could be automated, but would still be additional complexity. Daily data is also available, but that would further increase complexity, as well as significantly increase storage and memory requirements.
 
 \item[Idea:] What about using this method with something other than VI data? What if this could be used multi-dimensionally, with multiple bands? With different data, e.g. higher spatial resolution data, what could be other applications of this method?
 
