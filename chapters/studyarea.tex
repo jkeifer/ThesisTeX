@@ -6,14 +6,18 @@ This study will use agricultural areas in Kansas, USA for testing and verificati
 
 The state of Kansas is one of the big agricultural producers of the US. As one of the plains states, it is relatively flat across much of its extent, making it well suited to large highly-mechanized agro-industrial operations. In 2012, the three most extensive crops in the state were wheat, corn, and soybeans (Table \ref{table:kansas}), which are also the most abundant crops in Pellegrini, Argentina. Additionally, Kansas has been the focus of a number of previous studies into the use of MODIS time-series for crop classification \autocites{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}, and has a very detailed and easily-accessible crop cover dataset in the form of the USDA CDL, making it a natural choice for a preliminary study area to test my method.
 
+I have chosen a small 100 MODIS pixel by 100 MODIS pixel study area just northwest of Wichita, Kansas, which includes the communities of Valley Center, Sedgwick, and Halstead running roughly in a line from the southeast corner to the northwest corner (Figure \ref{fig:KSstudysite}. The typical planting dates for a variety of crops in this region are shown in Table \ref{table:KSplantingdates}. This specific study site was chosen due to the good mix of land covers including, but not limited to, corn, soy, sorghum, winter wheat, winter wheat and soy double crop, urban development, grassland, forest, and alfalfa.
+
+\todo[inline]{Remove this todo once the KS map is inserted.}
+
 \begin{Spacing}{1.0}
 \begin{table}
   \centering
   \caption[Most extensive crops in Kansas, 2012.]{Most extensive crops in Kansas, 2012\\~\autocite[adapted from][]{usda2013kansascrops}.}
   \label{table:kansas}
-  \begin{tabular}{lcc}
+  \begin{tabu}{lcc}
     \toprule
-     & Acreage (1,000 acres) & Production (1,000 units) \\
+    \textbf{Crop} & \textbf{Acreage (1,000 acres)} & \textbf{Production (1,000 units)} \\
     \midrule
     Wheat & 9,100 & 382,200 \\
     Corn & 3,950 & 379,200 \\
@@ -22,9 +26,35 @@ The state of Kansas is one of the big agricultural producers of the US. As one o
     All Forage & 2,750 & 4,545 \\
     Sorghum & 2,100 & 81,900 \\      
     \bottomrule
-  \end{tabular}
+  \end{tabu}
 \end{table}
 \end{Spacing}
+
+\missingfigure{Map of Kansas study area with city/town polygons and Landsat image for background, label\{fig:KSstudysite\}}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption[Kansas Study Site Planting Dates]{Kansas Study Site Planting Dates\\~\autocite[adapted from][]{shroyer1996kansas}.}
+  \label{table:KSplantingdates}
+  \begin{tabu} to 4.5in {X[1,m,c]X[2,m,c]}
+    \toprule
+    \textbf{Crop} & \textbf{Planting Date Range} \\
+    \midrule
+    Wheat & September 25 to October 20 \\
+    Triticale & September 1 to September 25 \\
+    Winter Barley & September 15 to October 10 \\
+    Spring Barley & February 25 to March 15 \\
+    Spring Wheat & February 25 to March 15 \\
+    Spring Oats & February 25 to March 15 \\
+    Corn & April 1 to May 10 \\
+    Sorghum & May 15 to June 20 \\
+    Soybeans & May 5 to June 10 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
 
 
 \section{Pellegrini, Santiago del Estero, Argentina}

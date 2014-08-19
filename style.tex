@@ -9,7 +9,7 @@
 % The origin of this file is not clear.  Here is one copy:
 % https://subversion.cs.uu.nl/repos/staff.doaitse.wxFlashkell/MasterThesis/style_old.tex
 % Emerson Murphy-Hill (emerson@cs.pdx.edu) has modified it.
-% Jarrett Keifer (jkeifer@pdx.edu) has also modified it greatly. It is now using AAG format for the references, suitable for all geography theses.
+% Jarrett Keifer (jkeifer@pdx.edu) has also modified it. It is now using AAG format for the references, suitable for all geography theses.
 
 
 %************************* NOTES ON FORMATTING *************************
@@ -46,6 +46,7 @@
 
 
 % *************** Set Fonts ***************
+\usepackage[final]{microtype}
 \defaultfontfeatures{Ligatures=TeX}
 \setromanfont[Mapping=tex-text]{Baskerville}
 \setsansfont[Mapping=tex-text]{Myriad Pro}
@@ -134,6 +135,7 @@
 
 % *************** DRAFT OPTIONS ****************
 \usepackage{ifdraft}
+%USAGE:
 %\ifdraft{<draft case>}{<final case>}
 %\ifoptiondraft {⟨option draft given⟩} {⟨option draft not given⟩}
 %\ifoptionfinal {⟨option ﬁnal given⟩} {⟨option ﬁnal not given⟩}

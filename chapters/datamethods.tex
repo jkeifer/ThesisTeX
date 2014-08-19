@@ -4,7 +4,7 @@
 
 The purpose of this study is to develop a set of tools to allow the classification of agricultural crops using a time series of imagery and known crop reference signatures and test the portability of the reference signatures. The data used for this study consists of the following:
 
-\begin{Spacing}{1.5}
+\begin{Spacing}{1.2}
 \begin{itemize}
   \item 250-meter MODIS 16-day Composite Vegetation Index images
   \item 30-meter 2012 USDA Cropland Data Layer (CDL): agricultural land cover raster dataset
@@ -18,7 +18,7 @@ The first three datasets are publicly available from US agencies. The Pellegrini
 
 An outline of the processing workflow is below:
 
-\begin{Spacing}{1.5}
+\begin{Spacing}{1.2}
 \begin{enumerate}
   \item Reproject the MODIS composite imagery
   \item Assemble individual composite images into single time series images, one for Kansas and one for Argentina
@@ -70,7 +70,7 @@ In Argentina, as it is in the Southern Hemisphere and the seasons are inverted t
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{Graphics/transformations.pdf}
-  \caption{Examples of transformations of a crop's VI curve due to interannual variations in growing conditions. The original curve was derived from soy in southwestern Kansas. The other curves were arbitrarily adjusted to illustrate each of the possible transformations.}
+  \caption[Example transformations of a crop's VI curve due to interannual variations in growing conditions.]{Example transformations of a crop's VI curve due to interannual variations in growing conditions. The original signature was derived from soy in southwestern Kansas. The other signatures were arbitrarily adjusted to illustrate each of the possible transformations.}
   \label{fig:transformations}
 \end{figure}
 
