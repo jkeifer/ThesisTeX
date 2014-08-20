@@ -22,6 +22,10 @@
 % *************** Load packages ***************
 \input{packagesandoptions.tex}
 
+\usepackage{xltxtra} %Xeletex Package
+\usepackage{fontspec} %Font package
+\usepackage{xunicode} %Xeletex
+
 %TODO MOVE ALL GROUPS OF SETTINGS (I.E. TABLES & FIGURES, DOCUMENT LAYOUT, ETC. TO NEW TEX FILES INSIDE A SETTINGS FOLDER]
 
 
@@ -56,6 +60,9 @@
 
 % *************** Page layout ***************
 %\settypeblocksize{*}{32pc}{1.618}
+
+%\raggedbottom  % turn of vertical justification
+%\raggedright  % turn of horizontal justification
 
 \setlrmarginsandblock{1.5in}{1.0in}{*}  % Left and right margins
 \setulmarginsandblock{1.5in}{1.0in}{*}  % Top and bottom margins
@@ -157,7 +164,7 @@
 \else
     \usepackage{hyperref}
 \fi
-\usepackage[all]{hypcap}  % fixes problem when  you click on a link and go to caption, not figure or table itself
+\usepackage[all]{hypcap}  % fixes problem when you click on a link and go to caption, not figure or table itself
 
 \usepackage{memhfixc}
 

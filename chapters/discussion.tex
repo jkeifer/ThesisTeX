@@ -1,10 +1,81 @@
 \chapter{Discussion}
 
-- Signatures found by kmeans in KS are not wildly variable
-  - Perhaps separates pixels that would be considered quite similar using the fitting algorithm
-  - Maybe this means the clustering should be based on the fit of each pixel to one another; pixels with low fit values to one another would be grouped together
-  
-- Notice how the KS clusters roughly delineate fields 
-  - Shows that each pixel in a field of multiple pixels typically has a very similar signature to all the others in the field
-  - Makes sense as the crops in each pixel grew under the same conditions, so should have the same development
+\section{Examining the Kansas Signatures}
+
+The Kansas signatures extracted from the k-means clusters (Figures \ref{fig:KScornsigs} through \ref{fig:KSsorghumsig} were not as variable as I was expecting. Based on some initial testing results, presented in Appendix \ref{appendix:testing:r3}, I expected to find some strange looking cluster signatures. Aside from the soy\_1 signature, and perhaps the corn\_1 signature to some degree, the cluster signatures were fairly typical in appearance. Using the k-means algorithm to cluster each crop's pixels might not have adequately captured the variability in the crop signatures as labeled by the CDL to allow the fit algorithm to match the CDL classification. That is, perhaps k-means separates pixels that would be considered similar using the fit algorithm. Future research might want to consider clustering based on the fit of each pixel to one another; pixels with low fit values to one another would be grouped together, as they are transformations of the same base temporal signature. Pixels with high fit values compared to one another would suggest a different base temporal signature.
+
+Despite the fact the k-means might not capture similarity in the same way as the fit algorithm, it is worth noting that the k-means clusters do not divide any fields: each pixel in a field is assigned the same cluster. This result shows that each pixel in a field of multiple pixels typically has a similar signature to all the others in the field, at least using k-means a a measure of similarity. This result is further confirmation of the hypothesis that each pixel of a crop that grew under the same conditions, such as a field, should have the same development and therefore temporal signature.
+
+\section{Breakdown of the Kansas Classification}
+
+The initial verification of the Kansas reference signatures, done by classifying the TSI of the Kansas study area, demonstrated the method performs well when used to match the original source data (Table \ref{table:ksresults}).
+
+Some confusion between corn and soy, as well as soy and ``other,'' pulled down the accuracy some. The similarities between the corn and soy signatures may cause late corn and early soy to be confused if the $tshift$ range allows overlap between the two. I believe much of the soy and ``other'' confusion was due to the soy\_1 reference signature (Figure \ref{fig:KSsoysigs}). Examining the CDL classes of the best fit pixels in the fit raster showed a number of grassland pixels were well fit by that particular signature. However, omitting that particular signature seemed to allow one of the corn signatures to take many of the soy pixels, which I find strange due to the peculiar shape of the soy\_1 signature. In fact, the signature does not match the traditional soy signature, and makes me question the validity of the CDL in this case (also see Appendix \ref{appendix:testing:r3} for more CDL problems, and Appendix \ref{appendix:cdl} for notes about the CDL).
+
+Classifying sorghum did not seem to be very effective; only one of the 18 sorghum pixels was accurately identified. The sorghum fit raster had the lowest threshold value at 400, but increasing the threshold only caused greater class confusion, and omitting the signature entirely had no effect on the overall accuracy. It is possible that I should have added another 16-day composite to the TSI to capture the tail-end of the sorghum signature, though I believe doing so would have caused more harm as winter crop plantings would begin to interfere with summer crop signatures. Moreover, the similarities between sorghum and soy signatures might cause confusion if the sorghum threshold was raised. However, due to the low number of sorghum pixels, the validity of any conclusions about classifying this particular crop is questionable. A larger sample size and more testing are required.
+
+\section{Class Confusion in Pellegrini}
+
+As shown in Figure \ref{map:ARclassification}, classifying the Argentina TSI with the reference signatures from the k-means clustering of the Kansas TSI was able to effectively separate areas of corn, soy, sorghum, and poroto from most other land cover classes, but classified those pixels predominately as as corn. While Table \ref{table:ARbestresult} reflects this class confusion, the low sample count for corn, soy, and sorghum hides some of this confusion. Table \ref{table:ARpurepxresults} is the confusion matrix for the same classification, but compared to the entire ground truth dataset, instead of the 375 random sample points. Due to the increased number of samples, the significant corn-soy confusion is better represented. For instance, of the 6,573 pixels classified as corn, 2,074 are soy. Errors of omission are also more prominent: 2,184 of the 5,611 corn pixels were left classified as ``other.'' A similar proportion of soy pixels were also classified ``other.'' Increasing the thresholds on the fit rasters to decrease these omissions only increased the errors of commission, confusing ``other'' pixels for crops.
+
+Considering that the ``other'' pixels contain a number of different classes, I found the frequency of corn and soy classifications within each of the ``other'' land cover classes. The results of this analysis (Table \ref{table:ARotherconfusion}) show that the main sources of confusion were 
+
+ 
+
+To further examine the class confusion in Pellegrini, I used the same k-means clustering as in Kansas to identify the three main signatures for each of the eight land cover classes in the ground truth dataset. The extracted signatures are shown in Figures \ref{fig:ARcornsigs} through \ref{fig:ARothersigs}. Looking at the signature plots, one can see the problem immediately.
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Summer 2012 Kansas Study Site Classification Accuracy}
+  \label{table:ksresults}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 3,239 & 2,074 & 61 & 1,199 & 6,573 & 49.28\% \\     & Soy & 188 & 279 & 36 & 484 & 987 & 19.05\% \\     & Sorghum & 0 & 0 & 0 & 0 & 0 & 0.00\% \\     & Other & 2,184 & 1,523 & 60 & 74,284 & 78,051 & 95.17\% \\     & Total & 5,611 & 3,876 & 157 & 75,967 & 85,611 &  \\     & Producer Acc. & 57.73\% & 7.20\% & 0.00\% & 97.78\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 90.88\%} \\    \multicolumn{8}{r}{Kappa: 0.51} \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Pellegrini Corn and Soy Confusion with ``Other'' Land Cover Classes}
+  \label{table:ARotherconfusion}
+  \begin{tabu}{X[0.5,m,l]X[0.5,m,c]X[1,m,c]X[0.7,m,c]X[1,m,cX[0.7,m,c]}
+    \toprule
+    \textbf{Land Cover} & {Total Pixels} & {Pixels Confused with Corn} & {Percent of Total} & {Pixels Confused with Soy} & {Percent of Total} \\
+    Forested & 63,577 & 194 & 0.31 & 26 & 0.04 \\
+    Other & 5,311 & 304 & 5.72 & 348 & 6.55 \\
+    Pasture & 5,220 & 396 & 7.59 & 50 & 0.96 \\
+    Poroto & 1,369 & 303 & 22.13 & 59 & 4.31 \\
+    Nothing & 485 & 2 & 0.41 & 1 & 0.21 \\
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   

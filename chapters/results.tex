@@ -1,0 +1,200 @@
+\chapter{Results}
+
+\section{Ground Truth for Pellegrini}
+
+The digitized polygons for both identified and unknown features are shown in Figure \ref{map:pellegrini:groundtruth}. The area of each of the land cover classes is broken down in Table \ref{table:pellegrini:LCarea}.
+
+Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 104 as actively-cultivated agriculture: thirty five points as corn, twenty three points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty one points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty five points could not be verified due to inaccessibility or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
+
+In conferring with local farmers and land owners, I was able to gather typical planting and harvesting dates for the major summer crops of soy, corn, sorghum, and poroto, shown in Table \ref{table:plantingdates}. It is interesting to note that soy is most frequently planted before corn, unlike in Kansas (see Table \ref{table:KSplantingdates}). I also found that the winter growing season is completely separate from the summer growing season. Unlike Kansas, where the beginning of the summer crops, namely corn's early development, overlaps with the end of winter wheat growth, the growth and harvesting of Pellegrini's winter crops is completed before summer planting begins. Thus, where double cropping is limited in Kansas to a winter crop and a late-developing summer crop (overwhelmingly a winter wheat and soy combination), any winter crop can be paired with any summer crop in Pellegrini.
+
+\mymissingfigure{map:pellegrini:groundtruth}{Map of Pellegrini Digitized Ground Truth Dataset}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption[Summer 2014 Pellegrini Land Cover Classes, From Ground Truth]{Summer 2014 Pellegrini Land Cover Classes, From Ground Truth\\~By Area, with Sample Point Counts}
+  \label{table:pellegrini:LCarea}
+  \begin{tabu}{XX[r]X[r]}
+    \toprule
+    \textbf{Cover Type} & \textbf{Hectares} & \textbf{Sample Points} \\
+    \midrule
+    Forested & 389,541 & 247 \\
+    Other & 41,588 & 21 \\
+    Corn & 40,818 & 35 \\
+    Pasture & 35,057 & 37 \\
+    Soy & 27,240 & 23 \\
+    Poroto & 9,539 & 7 \\
+    Nothing & 3,057 & 3 \\
+    Sorghum & 1,646 & 2 \\
+    \midrule
+    Unknown & 93,808 & 20 \\
+    Omitted & 52,051 & 5 \\
+    \midrule
+    \textbf{Total} & 694,346 & 400 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Typical Planting Dates for Summer Crops, Pellegrini, Argentina}
+  \label{table:plantingdates}
+  \begin{tabu}{X[0.45,m,c]X[1,m,c]X[.95,m,c]X[0.5,m,c]}
+    \toprule
+    \textbf{Crop} & \textbf{Ideal Planting Range} & \textbf{Latest Planting Date} & \textbf{Harvesting Begins} \\
+    \midrule
+    Soy & December 15 to January 15 & End of February & May 1 \\
+    Corn & January 15 to February 15 & End of February & June 1 \\
+    Sorghum & January 15 to February 15 & End of February & June 1 \\
+    Poroto & 15 January to 20 February & Early March & May 10 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+
+\section{Elimination of Mixels}
+
+I found 1,359 pure pixels in the 100 pixel by 100 pixel Kansas study area. Clipped to boundary shapefile, the Pellegrini TSI contained 129,873 pixels total, of which 97,054 were pure. The numbers of pure pixels in each of the summer crops of interest are shown in Table \ref{table:mixels}. It is interesting, though perhaps nothing more than a curious coincidence, that the percent of the total pixel count for each of the crops is roughly equal between the Kansas study site and Pellegrini, omitting the unknown fields. However, the lower level of overall development in Pellegrini is reflected by the tenfold increase in pure pixels of all other land covers, primarily due to the high amount of forested area. 
+
+\todo[inline]{FIGURE OUT HOW TO USE S COLUMN FROM SIUNITX TO ALIGN NUMBERS ON DECIMAL POINT WHILE USING CENTERING FOR COLUMNS}
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Mixel and Pure Pixel Counts}
+  \label{table:mixels}
+  \begin{tabu}{X[1]|X[0.6,r]X[1,r]|X[0.6,r]X[1,r]}
+    \toprule
+     & \multicolumn{2}{c|}{\textbf{Summer 2012 Kansas TSI}} & \multicolumn{2}{c}{\textbf{Summer 2014 Pellegrini TSI}} \\
+    & Count & Percent of Total & Count & Percent of Total \\
+    \midrule
+    \textbf{Total Pixels} & 10,000 & 100.00 & 129,873 & 100.00 \\
+    \ \ \ \ Pure Pixels & 1,359 & 13.59 & 97,054 & 74.73 \\
+    \ \ \ \ \ \ \ \ Corn & 414 & 4.14 & 5,855 & 4.51 \\
+    \ \ \ \ \ \ \ \ Soy & 354 & 3.54 & 3,936 & 3.03 \\
+    \ \ \ \ \ \ \ \ Sorghum & 16 & 0.16 & 183 & 0.14 \\
+    \ \ \ \ \ \ \ \ Unknown & --- & --- & 10,676 & 8.22 \\
+    \ \ \ \ \ \ \ \ All Others & 575 & 5.75 & 76,404 & 58.83 \\
+    \ \ \ \ Mixels & 8,641 & 86.41 & 32,819 & 25.27 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+\section{Extracted Reference Signatures}
+
+Before extracting the reference signatures for each summer crop, the pixels for each crop had to be clustered. Figure \ref{map:KSclusters} shows the spatial distribution of the three clusters for each crop. Given the small number of pixels, the k-means algorithm only found a single cluster for sorghum.
+
+The temporal signatures of each of the clusters are plotted in Figures \ref{fig:KScornsigs} through \ref{fig:KSsorghumsig}. Each of the crops have a somewhat similar appearance to one another, but each can be differentiated: corn peaks earlier in the year than soy or sorghum, soy has the highest peak VI value of the three, while sorghum has much lower VI values than soy and a slightly longer growing season.
+
+\mymissingfigure{map:KSclusters}{FIGURE 4-UP OF MAPS OF CLUSTERS KS}
+
+\mymissingfigure{fig:KScornsigs}{SIGNATURE PLOT OF CORN}
+\mymissingfigure{fig:KSsoysigs}{SIGNATURE PLOT OF SOY}
+\mymissingfigure{fig:KSsorghumsig}{SIGNATURE PLOT OF SORGHUM}
+\mymissingfigure{fig:KSwheatsoysig}{SIGNATURE PLOT OF WWHEAT/SOY?}
+
+\section{Fitting and Classifying the TSIs}
+
+Fitting the seven crop reference signatures---three corn, three soy, and one sorghum---to the TSIs produced seven fit rasters for each TSI. The minimum values were typically in the range of 175 to 250, while the maximum fit values were often around 3000.\footnote{NDVI and EVI range between -0.2 and 1.0, so the RMSE values should be 0.0175 or 0.3000. However, the MODIS VIs are distributed as 16-bit signed integer rasters; to allow the VI values to be recorded with such a format, they are multiplied by 10,000, hence the values shown here. I chose not to convert the measurements back to the proper decimal values to simplify processing, though the tools I developed should work either way.  Users must take the responsibility be aware of the significance of the fit values and understand what values to expect based on their input data.} 
+
+The Kansas classification achieved an accuracy of 84.3 percent, a map of which is shown in Figure \ref{map:KSclassification}; the confusion matrix is Table \ref{table:ksresults}. This classification was generated by iterating over the range of thresholds from 400 to 1150 by steps of 150. The best threshold combination from that process was then manually adjusted by steps of 50 for each fit raster until the maximum accuracy classification was found using the thresholds in Table \ref{table:ksbestthresh}.
+
+The Argentina classification had a top accuracy of 87.7 percent (Table \ref{table:ARbestresult}). Looking more closely at the results, the accuracy seems to be skewed upward by the high number of non-summer-crop sample points, which were correctly classified as ``other.'' Within the summer crop sample points, the accuracy is much lower; only one of the twenty three soy points and zero of the two sorghum points were correctly classified. Corn fared a bit better, but was still underwhelming, as only 68.5 percent of the corn points were classified correctly. The thresholds used for this classification, in Table \ref{table:ARbestthresh}, show that the corn\_~2 and soy\_~3 signatures contributed to the classification most heavily, the corn\_~1 and soy\_~2 signatures contributed only a little, and the corn\_~3, soy\_~1, and sorghum signatures did not contribute at all (hence the zero points of sorghum classified).
+
+A map of the classification, shown in Figure \ref{map:ARclassification}, illustrates how well the classification stayed within summer crop fields, and did not classify much beyond. However, almost all of the summer crop fields are classified as corn, reflecting the low summer crop accuracies shown in Table \ref{table:ARbestresult}.
+
+\mymissingfigure{map:KSclassification}{Map of KS best classification}
+
+\mymissingfigure{map:ARclassification}{MAp of AR best classification}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Summer 2012 Kansas Study Site Classification Accuracy}
+  \label{table:ksresults}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 369 & 65 & 5 & 18 & 457 & 80.74\% \\     & Soy & 32 & 273 & 11 & 48 & 364 & 75.00\% \\     & Sorghum & 0 & 0 & 1 & 4 & 5 & 20.00\% \\     & Other & 13 & 16 & 1 & 503 & 533 & 94.37\% \\     & Total & 414 & 354 & 18 & 573 & 1,359 &  \\
+     & Producer Acc. & 89.13\% & 77.12\% & 5.56\% & 87.78\% &  &  \\
+    \multicolumn{8}{r}{Overall Acc.: 84.33\%} \\    \multicolumn{8}{r}{Kappa: 0.76} \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Kansas Best Classification Thresholds}
+  \label{table:ksbestthresh}
+  \begin{tabu} to 4in {ZZ}
+    \toprule
+    \textbf{Signature} & \textbf{Threshold Value} \\
+    \midrule
+    Corn\_~1 & 1,000 \\
+    Corn\_~2 & 750 \\
+    Corn\_~3 & 500 \\
+    Soy\_~1 & 750 \\
+    Soy\_~2 & 1,300 \\
+    Soy\_~3 & 500 \\
+    Sorghum & 400 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Summer 2014 Pellegrini Best Classification Accuracy}
+  \label{table:ARbestresult}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 24 & 13 & 0 & 8 & 45 & 53.33\% \\     & Soy & 0 & 1 & 1 & 3 & 5 & 0.00\% \\     & Sorghum & 0 & 0 & 0 & 0 & 0 & 0.00\% \\     & Other & 11 & 9 & 1 & 304 & 325 & 93.54\% \\     & Total & 35 & 23 & 2 & 315 & 375 &  \\     & Producer Acc.  & 68.57\% & 4.35\% & 0.00\% & 96.51\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 87.73\%} \\    \multicolumn{8}{r}{Kappa: 0.53} \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+  
+\begin{Spacing}{1.0}
+\begin{table}
+  \centering
+  \caption{Argentina Best Classification Thresholds}
+  \label{table:ARbestthresh}
+  \begin{tabu} to 4in {ZZ}
+    \toprule
+    \textbf{Signature} & \textbf{Threshold Value} \\
+    \midrule
+    Corn\_~1 & 550 \\
+    Corn\_~2 & 850 \\
+    Corn\_~3 & 0 \\
+    Soy\_~1 & 0 \\
+    Soy\_~2 & 600 \\
+    Soy\_~3 & 950 \\
+    Sorghum & 0 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+\end{Spacing}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

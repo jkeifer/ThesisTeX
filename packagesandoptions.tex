@@ -82,7 +82,6 @@
 %\setlist[enumerate]{}  % thought about setting vertical spacing, but gave up
 %\setlist[itemize]{}
 
-\usepackage[obeyFinal, colorinlistoftodos]{todonotes}
 \usepackage{afterpage}
 \usepackage{longtable}
 \usepackage{lscape}
@@ -92,9 +91,6 @@
 \usepackage{booktabs}
 \usepackage{stmaryrd}
 \usepackage[figuresright]{rotating}
-\usepackage{xltxtra} %Xeletex Package
-\usepackage{fontspec} %Font package
-\usepackage{xunicode} %Xeletex
 
 \normalem %normal emphasis for package ulem
 \vrefwarning %warnings, not errors, for vrefs for varioref package
@@ -124,3 +120,13 @@
     \vskip+\abovecaptionskip
     \vskip-\belowcaptionskip
 }
+
+
+%*************** TODO NOTES ***************
+\usepackage[obeyFinal, colorinlistoftodos]{todonotes}
+
+\newcommand{\mymissingfigure}[3][]{%
+  \begin{figure}%
+    \missingfigure[#1]{#3}\captionof{figure}{#3}\label{#2}%
+  \end{figure}%
+  }
