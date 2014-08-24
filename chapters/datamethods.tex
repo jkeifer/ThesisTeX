@@ -70,12 +70,12 @@ Similarly, Wardlow, Egbert, et al. \autocites{wardlow2002discriminating}{wardlow
 
 \textcite{masialeti2010a-comparative} found that VI values from one year have a significant correlation with values from other years. Comparing the phenological curves of crops formed by the NDVI values from 2001 MODIS data \autocite[from][]{wardlow2005state-level} with those from 2005 MODIS data, the authors found the overall shape of each crop's curve is maintained year-to-year, with a subtle shift in the beginning of the curve (earlier or later planting), a scaling of the maximum of the curve, and and scaling of the spread of the curve (a longer or shorter growing season), depending on weather and other external variables (Fig. \ref{fig:transformations}). They surmised, with a means to account for the shift and scaling of the curve, one could use VI values from one year to classify those from another.
 
-\begin{figure}
+\begin{ssfigure}
   \centering
   \includegraphics[width=\textwidth]{Graphics/transformations.pdf}
   \caption[Example transformations of a crop's VI curve due to interannual variations in growing conditions.]{Example transformations of a crop's VI curve due to interannual variations in growing conditions. The original signature was derived from soy in southwestern Kansas. The other signatures were arbitrarily adjusted to illustrate each of the possible transformations.}
   \label{fig:transformations}
-\end{figure}
+\end{ssfigure}
 
 Even without a mechanism to account for interannual differences, \textcite{brown2007multitemporal} used crop phenologies derived from multiple years of data to test four phenological classification methods. The authors fit the known phenologies to the unknown phenologies from other years by comparing the VI values throughout the growing season. The degree of likeness between a known VI curve and the unknown VI curve determined the classification. They showed that the best of the four classification methods was to find the sum of the square errors between the known and unknown curves (the SSE method, \citeauthor{brown2007multitemporal} pg. 131).
 

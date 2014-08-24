@@ -100,8 +100,8 @@
 \setparaheadstyle{\normalfont\sffamily}
 
 \nouppercaseheads  % prevents the headers from being uppercase
-\makeevenhead{headings}{\normalfont\sffamily\mdseries\rightmark}{}{\normalfont\sffamily\mdseries\thepage}
-\makeoddhead{headings}{\normalfont\sffamily\mdseries\rightmark}{}{\normalfont\sffamily\mdseries\thepage}
+\makeevenhead{headings}{\normalfont\sffamily\mdseries\small\rightmark}{}{\normalfont\sffamily\mdseries\small\thepage}
+\makeoddhead{headings}{\normalfont\sffamily\mdseries\small\rightmark}{}{\normalfont\sffamily\mdseries\small\thepage}
 
 \aliaspagestyle{chapter}{empty}%this suppresses numbers on chapters
 
@@ -148,25 +148,52 @@
 %\ifoptionfinal {⟨option ﬁnal given⟩} {⟨option ﬁnal not given⟩}
 
 % *************** Enable hyperlinks in PDF documents ***************
-\ifpdf
-    \pdfcompresslevel=9
-        \usepackage[plainpages=false,pdfpagelabels,bookmarksnumbered,%
-        colorlinks=true,%
-        linkcolor=sepia,%
-        citecolor=sepia,%
-        filecolor=maroon,%
-        %pagecolor=red,%
-        urlcolor=sepia,%
-        pdftex,%
-        unicode]{hyperref} 
-    \pdfimageresolution=600
-    \usepackage{thumbpdf} 
-\else
-    \usepackage{hyperref}
-\fi
+%\ifpdf
+%    \pdfcompresslevel=9
+%        \usepackage[plainpages=false,pdfpagelabels,bookmarksnumbered,%
+%        colorlinks=true,%
+%        linkcolor=sepia,%
+%        citecolor=sepia,%
+%        filecolor=maroon,%
+%        %pagecolor=red,%
+%        urlcolor=sepia,%
+%        pdftex,%
+%        unicode]{hyperref} 
+%    \pdfimageresolution=600
+%    \usepackage{thumbpdf} 
+%\else
+%    \usepackage{hyperref}
+%\fi
+\usepackage[hidelinks, draft=false]{hyperref}
+%\hypersetup{final}
 \usepackage[all]{hypcap}  % fixes problem when you click on a link and go to caption, not figure or table itself
 
+%links for endnotes
+%\usepackage{hyperendnotes}  % .sty is buggy and breaks document
+
 \usepackage{memhfixc}
+
+
+%***************** NEW ENVIRONMENTS *****************
+
+\newenvironment{LastLineCentered}%
+  {\setlength{\parindent}{0pt}\setlength{\leftskip}{0pt plus 0.5fil}\setlength{\rightskip}{0pt plus -0.5fil}}{\par}
+  
+\newenvironment{ssfigure}{%
+  \begin{Spacing}{1.2}
+  \begin{figure}}{%
+  \end{figure}
+  \end{Spacing}
+  %\ignorespacesafterend
+}
+
+\newenvironment{sstable}{%
+  \begin{Spacing}{1.0}
+  \begin{table}}{%
+  \end{table}
+  \end{Spacing}
+  %\ignorespacesafterend
+}
 
 
 % *************** End of document style definition ***************

@@ -2,7 +2,7 @@
 
 \section{Examining the Kansas Signatures}
 
-The Kansas signatures extracted from the k-means clusters (Figures \ref{fig:KScornsigs} through \ref{fig:KSsorghumsig}) were not as variable as I was expecting. Based on some initial testing results, presented in Appendix \ref{appendix:testing:r3}, I expected to find some strange looking cluster signatures. Aside from the soy\_1 signature, and perhaps the corn\_1 signature to some degree, the cluster signatures were fairly typical in appearance. The sorghum signature, while looking as expected over the TSI's date range, does seem to be missing the late-season downslope.
+The Kansas signatures extracted from the k-means clusters (Figure \ref{fig:KScropsigs}) were not as variable as I was expecting. Based on some initial testing results, presented in Appendix \ref{appendix:testing:r3}, I expected to find some strange looking cluster signatures. Aside from the Soy\_1 signature, and perhaps the Corn\_1 signature to some degree, the cluster signatures were fairly typical in appearance. The Sorghum\_1 signature appears more or less as expected over the TSI's date range, but does seem to be missing the late-season downslope.
 
 Using the k-means algorithm to cluster each crop's pixels might not have adequately captured the variability in the crop signatures as labeled by the CDL to allow the fit algorithm to match the CDL classification. That is, perhaps k-means separates pixels that would be considered similar using the fit algorithm. Future research might want to consider clustering based on the fit of each pixel to one another; pixels with low fit values to one another would be grouped together, as they are transformations of the same base temporal signature. Pixels with high fit values compared to one another would suggest a different base temporal signature.
 
@@ -12,7 +12,7 @@ Despite the fact the k-means might not capture similarity in the same way as the
 
 The initial verification of the Kansas reference signatures, done by classifying the TSI of the Kansas study area, demonstrated the method performs well when used to match the original source data (Table \ref{table:ksresults}). The 84.4 percent overall accuracy and kappa value of 0.76 are well within the range considered acceptable, especially given the CDL's published accuracy of 88.4 percent (to which this classification is compared).
 
-Some confusion between corn and soy, as well as soy and ``other,'' pulled down the overall accuracy, as well as the producer and user accuracies of each of those classes. The similarities between the corn and soy signatures may cause late corn and early soy to be confused if the $tshift$ range allows overlap between the two. I believe much of the soy and ``other'' confusion was due to the soy\_1 reference signature (Figure \ref{fig:KSsoysigs}). Examining the CDL classes of the best fit pixels in the fit raster showed a number of grassland pixels were well fit by that particular signature. However, omitting that particular signature seemed to allow one of the corn signatures to take many of the soy pixels, which I find strange due to the peculiar shape of the soy\_1 signature. In fact, the signature does not match the traditional soy signature, and makes me question the validity of the CDL in this case (also see Appendix \ref{appendix:testing:r3} for more CDL problems, and Appendix \ref{appendix:cdl} for notes about the CDL).
+Some confusion between corn and soy, as well as soy and ``other,'' pulled down the overall accuracy, as well as the producer and user accuracies of each of those classes. The similarities between the corn and soy signatures may cause late corn and early soy to be confused if the $tshift$ range allows overlap between the two. I believe much of the soy and ``other'' confusion was due to the Soy\_1 reference signature (Figure \ref{fig:KSsoysigs}). Examining the CDL classes of the best fit pixels in the fit raster showed a number of grassland pixels were well fit by that particular signature. However, omitting that particular signature seemed to allow one of the corn signatures to take many of the soy pixels, which I find strange due to the peculiar shape of the Soy\_1 signature. In fact, the signature does not match the traditional soy signature, and makes me question the validity of the CDL in this case (also see Appendix \ref{appendix:testing:r3} for more CDL problems, and Appendix \ref{appendix:cdl} for notes about the CDL).
 
 Classifying sorghum did not seem to be very effective; only two of the 18 sorghum pixels were accurately identified. The sorghum fit raster had the lowest threshold value at 450, but increasing the threshold only caused greater class confusion. Omitting the signature entirely had a slight negative effect on the overall accuracy, as the ``other'' pixels it misclassifies would otherwise be misclassified by corn and soy. It is possible that I should have added another 16-day composite to the TSI to capture the tail-end of the sorghum signature, though I believe doing so would have caused more harm as winter crop plantings would begin to interfere with summer crop signatures (see the ``end-of-year bump'' discussion in Appendix \ref{appendix:testing:r4}). Moreover, the similarities between sorghum and soy signatures might cause confusion if the sorghum threshold were to be raised. However, due to the low number of sorghum pixels, the validity of any conclusions about classifying this particular crop is questionable. A larger sample size and more testing are required.
 
@@ -26,14 +26,13 @@ From their appearance in Landsat imagery, the main locations where the other cla
 
 \section{Clustering Pellegrini}
 
-To further examine the class confusion in Pellegrini, I used the same k-means clustering as in Kansas to identify the three main signatures for each of the eight land cover classes in the ground truth dataset. The extracted signatures are shown in Figures \ref{fig:ARcornsigs} through \ref{fig:ARothersigs}. The cause of the corn-soy confusion is immediately visible: both crops peak around the same date. I did not expect this result, as the typical planting dates I collected suggest soy should peak earlier than corn.\footnote{Even if soy had peaked earlier than corn, I would not have been able to achieve an accurate classification with the current tools, as corn-before-soy is a key assumption. That is, a single $tshift$ parameter is specified for all reference signatures. It would be possible to rewrite the tool to allow different $tshift$ values for different signatures, which might have sufficed if soy did peak before corn, but does not help when the peaks are coincident.} However, I also gathered that rain was the limiting factor in planting, and often farmers will wait until a certain amount of rain has fallen before planting. In fact, I was told the rains this year were quite late, and on multiple occasions farmers told me they had planted a field late due to lack of rain. While I must admit I am not a farmer and do not know this for certain, the reason for waiting did not seem to be out of concern for plant health, in that too early of planting would negatively impact the crop's health, but seemed to be primarily economic: farmers do not want to pay to plant crops that will not grow if the rains never come.
+To further examine the class confusion in Pellegrini, I used the same k-means clustering as in Kansas to identify the three main signatures for each of the eight land cover classes in the ground truth dataset. The extracted corn, soy, and sorghum signatures are shown in Figure \ref{fig:cropsigsAR}, while the poroto and pasture signatures are in Figure \ref{fig:ARporotopasturesigs}. The forest, nothing, and other signatures are in Figure \ref{fig:ARothersigs}. The cause of the corn-soy confusion is immediately visible: both crops peak around the same date. I did not expect this result, as the typical planting dates I collected suggest soy should peak earlier than corn.\footnote{Even if soy had peaked earlier than corn, I would not have been able to achieve an accurate classification with the current tools, as corn-before-soy is a key assumption. That is, a single $tshift$ parameter is specified for all reference signatures. It would be possible to rewrite the tool to allow different $tshift$ values for different signatures, which might have sufficed if soy did peak before corn, but does not help when the peaks are coincident.} However, I also gathered that rain was the limiting factor in planting, and often farmers will wait until a certain amount of rain has fallen before planting. In fact, I was told the rains this year were quite late, and on multiple occasions farmers told me they had planted a field late due to lack of rain. While I must admit I am not a farmer and do not know this for certain, the reason for waiting did not seem to be out of concern for plant health, in that too early of planting would negatively impact the crop's health, but seemed to be primarily economic: farmers do not want to pay to plant crops that will not grow if the rains never come.
 
 I also observed fields of corn, soy, sorghum, and poroto in many different states of development, from the early, barely-germinated stage to the late, fruit-bearing stage. To me, the broad range of development again suggests that water is the only limiting factor defining the typical planting dates. That is, the threat of changing temperatures does not affect planting decisions like in Kansas, and farmers have much more flexibility. Additionally, early and late planted crops should mature about the same time, due to their development being limited by water. My method should be able to accommodate the range of planting and maturation dates by adjusting the bounds on the $tshift$ parameter, except for one problem: my method deals with similar-looking signatures, like corn and soy, by making an assumption that each should peak within different time ranges. In Kansas, corn peaks before soy, and as such they can be differentiated. However, in Pellegrini, the agricultural practices do not allow that assumption to be met. When both crops peak about the same date, their temporal signatures are not significantly different, leading to the class confusion exhibited.
 
 I believe higher temporal resolution data might create more detailed temporal signatures, which could allow for more difference to be detected between different crops. Combining such data with certain filtering methods may allow signatures to be smoothed in ways that might accentuate differences between similar crops like corn and soy (see \textcite{doraiswamy2006improved} and \textcite{sakamoto2010a-two-step} for examples of higher temporal resolution data and filtering).
 
-\begin{Spacing}{1.0}
-\begin{table}
+\begin{sstable}
   \centering
   \caption{Summer 2014 Pellegrini Best Classification Accuracy Checked Against All Pure Pixels}
   \label{table:ARpurepxresults}
@@ -42,11 +41,9 @@ I believe higher temporal resolution data might create more detailed temporal si
      & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 3,239 & 2,074 & 61 & 1,199 & 6,573 & 49.28\% \\     & Soy & 188 & 279 & 36 & 484 & 987 & 28.27\% \\     & Sorghum & 0 & 0 & 0 & 0 & 0 & 0.00\% \\     & Other & 2,184 & 1,523 & 60 & 74,284 & 78,051 & 95.17\% \\     & Total & 5,611 & 3,876 & 157 & 75,967 & 85,611 &  \\     & Producer Acc. & 57.73\% & 7.20\% & 0.00\% & 97.78\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 90.88\%} \\    \multicolumn{8}{r}{Kappa: 0.51} \\
     \bottomrule
   \end{tabu}
-\end{table}
-\end{Spacing}
+\end{sstable}
 
-\begin{Spacing}{1.0}
-\begin{table}
+\begin{sstable}
   \centering
   \caption{Pellegrini Corn and Soy Confusion with ``Other'' Land Cover Classes}
   \label{table:ARotherconfusion}
@@ -61,18 +58,33 @@ I believe higher temporal resolution data might create more detailed temporal si
     Nothing & 485 & 2 & 0.41 & 1 & 0.21 \\
     \bottomrule
   \end{tabu}
-\end{table}
-\end{Spacing}
+\end{sstable}
 
 \mymissingfigure{fig:ARweirdsig}{A temporal signature representative of the unknown areas confused with corn and soy.} % See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/Pellegrini/MODIS_10-13_6-14_resampled/Summer2014/multidate_image_aqua105/interpolatedband10/plots_2014-08-20_1511.pdf
 
-\mymissingfigure{fig:ARcornsigs}{Temporal signatures of corn clusters.}
-\mymissingfigure{fig:ARsoysigs}{Temporal signatures of soy clusters.}
-\mymissingfigure{fig:ARsorghumsigs}{Temporal signatures of sorghum clusters.}
-\mymissingfigure{fig:ARporotosigs}{Temporal signatures of poroto clusters.}
-\mymissingfigure{fig:ARpasturesigs}{Temporal signatures of pasture clusters.}\mymissingfigure{fig:ARforestedsigs}{Temporal signatures of forested clusters.}
-\mymissingfigure{fig:ARnothingsigs}{Temporal signatures of nothing clusters.}
-\mymissingfigure{fig:ARothersigs}{Temporal signatures of other clusters.}
+\begin{ssfigure}
+  \centering
+  \input{plots/cropsigsAR.pgf}
+  \caption{Corn, Soy, and Sorghum Signatures Extracted from the Pellegrini TSI}
+  \medskip
+  \small
+  These are the signatures from the k-means crop clusters found in the Pellegrini TSI. While some strange exceptions like Soy\_3, Sorghum\_1, and Sorghum\_3 deviate from the rest, the overwhelming similarities between signatures of different crops is striking. Unlike the crop signatures from Kansas, Pellegrini's crops are not temporally separated, but peak almost simultaneously.
+  \label{fig:ARcropsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/poroto_pasture_sigsAR.pgf}
+  \caption{Poroto and pasture cluster signatures.}
+  \label{fig:ARporotopasturesigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/othersigsAR.pgf}
+  \caption{Other cluster signatures.}
+  \label{fig:ARothersigs}
+\end{ssfigure}
 
 
 

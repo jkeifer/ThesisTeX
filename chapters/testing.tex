@@ -1,5 +1,5 @@
 \chapter{A Breakdown of all Completed Testing}
-\label{}
+\label{appendix:testing}
 
 \section{Round 1 Testing: Initial Classifications}
 \subsection*{Testing Considerations}
@@ -22,19 +22,19 @@ I classified both NDVI and EVI data for each of the sample areas using its own r
 
 I knew these tests would not directly answer my question about temporal variation in the construction of reference temporal signatures. To get an accurate answer, I knew I would need to repeat the above testing, replacing location with time as the key variable. However, given my hypothesis about the effects of spatial variation, I wanted to find out my results before devising this test. If I found the spatial distribution of pixels negatively affected the classification accuracies, then I could reasonably conclude adding a temporal component would have a similar outcome, as temporal variance would also introduce discrepancies in season start date, maximum VI intensity, and/or season length. In such a case, additional testing of this parameter would not be necessary to proceed.
 
-\begin{figure}
+\begin{ssfigure}
   \centering
   \includegraphics[width=.9\textwidth]{Graphics/Testing/STUDYSITES.pdf}
   \caption{The six study sites in Kansas.}
   \label{fig:studysites}
-\end{figure}
+\end{ssfigure}
 
-\begin{figure}
+\begin{ssfigure}
   \centering
   \includegraphics[width=.7\textwidth]{Graphics/Testing/clip1_30mCDL_smpl_old.pdf}
   \caption{Points dropped on pixels to use for reference signatures in study site 1.}
   \label{fig:refpoints}
-\end{figure}
+\end{ssfigure}
 
 \subsection*{Round 1 Results and Discussion}
 \label{appendix:testing:r1:results}
@@ -45,8 +45,7 @@ Some clear patterns pop out when reviewing Table \ref{table:round1results}. Firs
 
 [INCLUDE THE TOP ACCURACIES OF EACH OF THE OTHER SAMPLE SITES IN TABLES]
 
-\begin{Spacing}{1.0}
-\begin{table}
+\begin{sstable}
   \centering
   \caption{Round 1 Testing: Sample Site 3 Best Accuracy Using NDVI}
   \label{table:round1ss3acc}
@@ -64,8 +63,7 @@ Some clear patterns pop out when reviewing Table \ref{table:round1results}. Firs
     \multicolumn{7}{r}{Kappa: 0.49} \\   
     \bottomrule
   \end{tabu}
-\end{table}
-\end{Spacing}
+\end{sstable}
 
 Another pattern that stands out is that using NDVI resulted in a higher top accuracy for every sample site. The numbers are fairly close between the two, so I am hesitant to conclude that optimizations would fail to make EVI-based classifications as or more accurate than NDVI-based classifications. Nonetheless, based on these results, I have determined to continue testing with NDVI only, as it seems to perform better.
 
@@ -84,8 +82,7 @@ I began my Round 2 testing by diving back into my Round 1 results. I wasn’t su
 
 I first studied the classification results for sample site 1 from Round 1 produced with its own reference signatures (Fig. \ref{fig:ss1r1class}). I noticed that the major patterns generally matched the CDL fairly well. If the classification \textit{looks} correct, however, where were the errors? Obviously there should be many incorrect pixels, as this classification only had an accuracy of about 61 percent. Yet they weren’t obvious at first glance.
 
-\begin{Spacing}{1.2}
-\begin{figure}
+\begin{ssfigure}
   \centering
   \begin{subfigure}[t]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_CDL.pdf}
@@ -113,8 +110,7 @@ I first studied the classification results for sample site 1 from Round 1 produc
   \end{subfigure}
   \caption{Round 1 Testing: Sample Site 1 Classification.}
   \label{fig:ss1r1class}
-\end{figure}
-\end{Spacing}
+\end{ssfigure}
 
 To find these incorrect pixels, I created two images: an image with the incorrect pixels masked in black, and an image with the correct pixels masked in black (Figs. \ref{subfig:ss1r1correct} and \ref{subfig:ss1r1incorrect}). In the former, I noticed that many of the incorrect pixels seemed to fall on the edges of fields. In the latter, I noticed some class confusion, a finding reinforced by the confusion matrix for this classification (Table \ref{table:ss1r1acc}).
 
@@ -130,17 +126,16 @@ For these reasons, I hypothesized the low classification accuracy was because mi
 
 The first step in removing the mixels was to extract the MODIS raster grid from the sample site 1 TSI as vector polygons. The CDL raster is of sufficient spatial resolution (30-meter) to allow identification of fields; I converted the CDL to vector, and all continuous pixels of the same land cover value were merged into single vector features. Next, I intersected these CDL features with the pixel polygon features of the MODIS grid. From the resulting vector features I was able to select only those with an area close to that of a full MODIS pixel. Specifically, I decided to select all features greater than or equal to 53,000 m$^2$ in area (a full MODIS pixel being 53,824 m$^2$). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in Fig. \ref{fig:ss1purepx}, was 1,359 features selected. These features can be thought to represent MODIS pixels which have “pure” signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
 
-\begin{figure}
+\begin{ssfigure}
   \centering
   \includegraphics[width=.9\textwidth]{Graphics/Testing/clip1_30mCDL_pure_pixels.pdf}
   \caption{Round 2 Testing: Pure pixels in Study Site 1.}
   \label{fig:ss1purepx}
-\end{figure}
+\end{ssfigure}
 
 To allow me to classify only these pure pixels, I found the centroid of each of the selected pixel polygon features. The subset option of the Find Fit Tool allowed me to specify a shapefile of point features, which were converted to a list of pixel coordinates from the TSI; the tool then found the fit of the pixels in this list only. All the other pixels were assigned the  no data value. All other classification steps were the same as in Round 1, except the no data values in the fit rasters were ignored by the Classify tool when considering accuracy.
 
-\begin{Spacing}{1.0}
-\begin{figure}
+\begin{ssfigure}
   \centering
   \begin{subfigure}[t]{.63\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2.pdf}
@@ -156,11 +151,9 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
   \end{subfigure}
   \caption{Round 2 Testing: Classification of Study Site 1 Pure Pixels.}
   \label{fig:ss1r2}
-\end{figure}
-\end{Spacing}
+\end{ssfigure}
 
-\begin{Spacing}{1.0}
-\begin{table}
+\begin{sstable}
   \centering
   \caption{Round 2 Testing: Sample site 1, NDVI, Pure Pixels}
   \label{table:ss1r2acc}
@@ -179,12 +172,48 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
     \multicolumn{8}{r}{Kappa: 0.68} \\  
     \bottomrule
   \end{tabu}
-\end{table}
-\end{Spacing}
+\end{sstable}
+
 
 \subsection*{Round 2 Results and Discussion}
 
 The pure-pixel-only classification is shown in Fig. \ref{fig:ss1r2}, and its confusion matrix is Table \ref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the “other” pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion because the similar shape and close maximum dates of early soy and late corn are not differentiable to the fit algorithm. However, if this were the issue, I would expect to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. That the confusion is mainly one-sided led me to believe this is not the problem. Additionally, that so many “other” pixels were classified as corn suggested to me that the reference signatures I created might not be accurate.
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstsoyKS.pgf}
+  \caption{Soy sample point signatures and mean signature}
+    \label{fig:KSsoyfirstsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstcornKS.pgf}
+  \caption{Corn sample point signatures and mean signature}
+    \label{fig:KScornfirstsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstsorghumKS.pgf}
+  \caption{Sorghum sample point signatures and mean signature}
+    \label{fig:KSsorghumfirstsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstwheatKS.pgf}
+  \caption{Winter wheat sample point signatures and mean signature}
+    \label{fig:KSwheatfirstsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstwheatsoyKS.pgf}
+  \caption{Winter wheat/soy double crop sample point signatures and mean signature}
+    \label{fig:KSwheatsoyfirstsigs}
+\end{ssfigure}
+
 
 \missingfigure{MAKE CSVs OF DATA AND MAKE PLOTS FOR NEXT PARAGRAPH}
 
@@ -193,12 +222,18 @@ I plotted the signature of each of the pixels contributing to the reference sign
 \section{Round 3 Testing: Refining the Reference Signatures}
 \label{appendix:testing:r3}
 
-ENVI has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixels’ values. This tool proved perfect for refining the reference curves, allowing me to drop points on only those pixels having an appearance matching my expectations for the crop designated by the CDL (see Fig. \todo[inline]{INSERT REF TO FIGURE})
-. The new reference signatures, and the signatures of the newly-selected pixels are shown in Figs. \todo[inline]{INSERT REFERENCE TO PLOTS}
+ENVI has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixels’ values. This tool proved perfect for refining the reference curves, allowing me to drop points on only those pixels having an appearance matching my expectations for the crop designated by the CDL (see Figure \todo[inline]{INSERT REF TO FIGURE})
+. The new reference signatures are shown in Figure \ref{fig:KSenvisigs}.
 
 \missingfigure{INSERT FIGURE OF NEW AND OLD POINTS FOR REF CURVE GENERATION} %TODO fig
 
-\missingfigure{PLOT ENVI CURVES} %TODO fig
+\begin{ssfigure}
+  \centering
+  \input{plots/envisigsKS.pgf}
+  \caption{Refined Crop Signatures Extracted from the 2012 Kansas TSI}
+  \label{fig:KSenvisigs}
+\end{ssfigure}
+
 
 \subsection*{Round 3 Results and Discussion}
 
