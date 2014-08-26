@@ -78,9 +78,9 @@
 
 % *************** Chapter and section style ***************
 \makechapterstyle{mychapterstyle}{%
-    \renewcommand{\chapnamefont}{\normalfont\sffamily\bfseries\large}%
-    \renewcommand{\chapnumfont}{\normalfont\sffamily\bfseries\large}%
-    \renewcommand{\chaptitlefont}{\normalfont\sffamily\bfseries\LARGE}%
+    \renewcommand{\chapnamefont}{\normalfont\sffamily\bfseries}%\large}%
+    \renewcommand{\chapnumfont}{\normalfont\sffamily\bfseries}%\large}%
+    \renewcommand{\chaptitlefont}{\normalfont\sffamily\bfseries}%\LARGE}%
     \renewcommand{\printchaptertitle}[1]{%
         \chaptitlefont{##1}
         }%
@@ -94,9 +94,9 @@
 
 \chapterstyle{mychapterstyle}
 
-\setsecheadstyle{\normalfont\sffamily\bfseries\large}
-\setsubsecheadstyle{\normalfont\sffamily\bfseries}
-\setsubsubsecheadstyle{\normalfont\sffamily\bfseries}
+\setsecheadstyle{\normalfont\sffamily\bfseries}%\large}
+\setsubsecheadstyle{\normalfont\sffamily\mdseries}
+\setsubsubsecheadstyle{\normalfont\sffamily\mdseries}
 \setparaheadstyle{\normalfont\sffamily}
 
 \nouppercaseheads  % prevents the headers from being uppercase

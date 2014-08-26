@@ -63,17 +63,18 @@ extrafilter = "NDVI"
 # list of crop names to find within signatures
 signaturenames = [#("Soy", "soy_" + extrafilter),
                   #("Corn", "corn_" + extrafilter),
-                  #("Sorghum", "sorghum_" + extrafilter),
+                  ("Sorghum", "sorghum_" + extrafilter),
                   #("Poroto", "poroto"),
                   #("Pasture", "pasture"),
                   #("Forested", "forested"),
                   #("Nothing", "nothing"),
                   #("Other", "other"),
                   #("Wheat", "wheat_" + extrafilter),
-                  ("Wheat/Soy Double Crop", "wwheatsoydbl_" + extrafilter),
+                  #("Wheat/Soy Double Crop", "wwheatsoydbl_" + extrafilter),
                  ]
 # directory to search for sigs
-signaturedirectory = "/Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Refs/2012/clip1/"
+signaturedirectory = "/Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Refs/2012clip1test2/clip1/"
+oldsigdir = "/Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Refs/2012/clip1/corn_NDVI_mean.ref"
 
 # dir for output
 outputdir = "/Users/phoetrymaster/Documents/School/Geography/Thesis/ThesisTeX/plots/"
@@ -81,7 +82,7 @@ outputdir = "/Users/phoetrymaster/Documents/School/Geography/Thesis/ThesisTeX/pl
 
 
 # plot name
-name = "firstwheatsoyKS.pgf"
+name = "refinedsorghumKS.pgf"
 
 # find sigs in directory and add to sig collection
 meansigs = find_files(signaturedirectory, "mean.ref")
@@ -159,7 +160,7 @@ for k, signaturename in enumerate(signaturenames):
             lbl = "Sample Point Signatures"
             vivals = [v/10000.0 for v in signature.vivalues]
             ax1.plot(signature.daysofyear, vivals,
-                     color='r', linestyle='-', label=lbl, linewidth=1, alpha=0.40)
+                     color='m', linestyle='-', label=lbl, linewidth=1, alpha=0.40)
             mindoy = min(mindoy, signature.daysofyear[0])  # get lowest doy
             maxdoy = max(maxdoy, signature.daysofyear[-1])  # get highest doy
 
@@ -185,7 +186,7 @@ for k, signaturename in enumerate(signaturenames):
             color = COLORLIST[k]  # get color from colorlist
             vivals = [v/10000.0 for v in signature.vivalues]
             ax1.plot(signature.daysofyear, vivals,
-                     color='r', linestyle=linestyles[j], label="Mean Signature", linewidth=2, path_effects=pe)
+                     color='m', linestyle=linestyles[j], label="Mean Signature", linewidth=2, path_effects=pe)
             mindoy = min(mindoy, signature.daysofyear[0])  # get lowest doy
             maxdoy = max(maxdoy, signature.daysofyear[-1])  # get highest doy
 

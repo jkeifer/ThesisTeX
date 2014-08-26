@@ -35,11 +35,21 @@ While I hope in the future libraries of temporal signatures will allow researche
 
 I decided, in order to maximize ease of use, the tool would need to accept a set of points as an input, find the pixel coordinates in the TSI for each point, then extract each point’s temporal signature. The average of these signatures could be calculated then written to a file for later use.
 
-To implement this solution, I created a library to read point features from shapefiles, and wrote a function to take the geographic coordinates of each point in a shapefile and convert them into a list of pixel coordinates in a specified image. Next, I wrote a set of functions to read the values of such a list of pixel coordinates and write them to a text file with the format shown in figure \todo[inline]{USE A REAL EXAMPLE}. Then, I created a function to find the mean of each date, writing the result to another file. Each of the created files was in plain-text ASII format, and I decided to use the file extension .ref.
-
-\missingfigure{Example .ref file}
+To implement this solution, I created a library to read point features from shapefiles, and wrote a function to take the geographic coordinates of each point in a shapefile and convert them into a list of pixel coordinates in a specified image. Next, I wrote a set of functions to read the values of such a list of pixel coordinates and write them to a text file with the format shown in Figure \ref{fig:reffile}. Then, I created a function to find the mean of each date, writing the result to another file. Each of the created files was in plain-text ASII format, and I decided to use the file extension .ref.
 
 I based the formatting of the .ref files on the .sig files used by ENVI for hyperspectral signatures. Using a plain-text file-based data format currently seems to be the best solution for storing reference signatures, as the data is very simply structured and files are highly portable. However, future implementations of the EST may benefit from a more rigid or better contained data format.
+
+\begin{ssfigure}
+  \centering
+  \includegraphics[scale=0.75]{Graphics/reffile.png}
+  \caption{An Example .ref File Used to Store Reference Temporal Signatures}
+  \medskip
+  \small
+  Comments are marked by // and each non-comment row represents a VI value (right column) for a given DOY (left column), separated by a space.
+  \label{fig:reffile}
+\end{ssfigure}
+
+
 
 \section{The Fit Algorithm}
 \label{appendix:tools:fit}

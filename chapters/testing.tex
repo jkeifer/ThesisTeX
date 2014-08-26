@@ -179,6 +179,15 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
 
 The pure-pixel-only classification is shown in Fig. \ref{fig:ss1r2}, and its confusion matrix is Table \ref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the “other” pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion because the similar shape and close maximum dates of early soy and late corn are not differentiable to the fit algorithm. However, if this were the issue, I would expect to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. That the confusion is mainly one-sided led me to believe this is not the problem. Additionally, that so many “other” pixels were classified as corn suggested to me that the reference signatures I created might not be accurate.
 
+First, I plotted the reference signatures I extracted from study site 1 (Figure \ref{fig:KSfirstsigs}. Comparing the plotted signatures to those shown in \citeauthor{wardlow2005state-level} revealed numerous discrepancies \mkbibparens{\citeyear{wardlow2005state-level}}. To determine the cause of the differences, I plotted the signatures of the pixels used to generate each of the reference signatures (shown in Figures \ref{fig:KSsoyfirstsigs} through \ref{fig:KSwheatsoyfirstsigs}). These plots showed high variance between pixels, and strange peaks inconsistent with the accepted temporal signatures for these crops. \todo[inline]{explain differences to and changes in new refs} I realized I needed to change my strategy for identifying pixels to use in making the reference signatures: rather than simply finding pure pixels, I needed to ensure the signatures of sampled pixels were representative of the expected crop signature.
+
+\begin{ssfigure}
+  \centering
+  \input{plots/firstsigsKS.pgf}
+  \caption{Soy sample point signatures and mean signature}
+    \label{fig:KSfirstsigs}
+\end{ssfigure}
+
 \begin{ssfigure}
   \centering
   \input{plots/firstsoyKS.pgf}
@@ -215,17 +224,48 @@ The pure-pixel-only classification is shown in Fig. \ref{fig:ss1r2}, and its con
 \end{ssfigure}
 
 
-\missingfigure{MAKE CSVs OF DATA AND MAKE PLOTS FOR NEXT PARAGRAPH}
-
-I plotted the signature of each of the pixels contributing to the reference signatures \todo[inline]{REFERENCE TO FIGURE} to see what the signatures looked like. Comparing them to the signatures shown in \citeauthor{wardlow2005state-level} revealed numerous discrepancies \mkbibparens{\citeyear{wardlow2005state-level}}. I decided that I needed to change my strategy for identifying pixels to use in making the reference signatures. Rather than simply finding pure pixels, I needed to ensure the signatures of sampled pixels were representative of the expected crop signature.
-
 \section{Round 3 Testing: Refining the Reference Signatures}
 \label{appendix:testing:r3}
 
 ENVI has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixels’ values. This tool proved perfect for refining the reference curves, allowing me to drop points on only those pixels having an appearance matching my expectations for the crop designated by the CDL (see Figure \todo[inline]{INSERT REF TO FIGURE})
 . The new reference signatures are shown in Figure \ref{fig:KSenvisigs}.
 
-\missingfigure{INSERT FIGURE OF NEW AND OLD POINTS FOR REF CURVE GENERATION} %TODO fig
+\missingfigure{INSERT MAP OF NEW AND OLD POINTS FOR REF CURVE GENERATION} %TODO fig
+
+\begin{ssfigure}
+  \centering
+  \input{plots/refinedsoyKS.pgf}
+  \caption{Refined Soy sample point signatures and mean signature}
+    \label{fig:KSsoyrefinedsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/refinedcornKS.pgf}
+  \caption{Refined Corn sample point signatures and mean signature}
+    \label{fig:KScornrefinedsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/refinedsorghumKS.pgf}
+  \caption{Refined Sorghum sample point signatures and mean signature}
+    \label{fig:KSsorghumrefinedsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/refinedwheatKS.pgf}
+  \caption{Refined Winter wheat sample point signatures and mean signature}
+    \label{fig:KSwheatrefinedsigs}
+\end{ssfigure}
+
+\begin{ssfigure}
+  \centering
+  \input{plots/refinedwheatsoyKS.pgf}
+  \caption{Refined Winter wheat/soy double crop sample point signatures and mean signature}
+    \label{fig:KSwheatsoyrefinedsigs}
+\end{ssfigure}
 
 \begin{ssfigure}
   \centering

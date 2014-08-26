@@ -50,12 +50,12 @@ I am sure brighter minds than mine could come up with better ways to deal with m
 
 \item[Idea:] How does the mean used to calculate the RMSE change the classification accuracy?
 
-\item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. With this approach, equation \ref{eq:1} becomes:
+\item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. With this approach, Equation \ref{eq:1} becomes:
 \begin{equation}
 \label{eq:geometricmean}
   RMSE = \Biggl[\biggl[\prod_{x=j(1), j(2)...}^{n}\bigl(f\left(x\right)-g\left(x\right)\bigr)^{2}\biggr]^{\frac{1}{2}}\Biggr]^{\frac{1}{n}}
 \end{equation}
-I found it to be too insensitive and it resulted in unrealistically low fit values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are “other”) in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require implementation to test.
+I found it to be too insensitive and it resulted in unrealistically low fit values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are “other”) in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require any programming changes to test.
 
 \item[Idea:] Is this the right way to go about comparing a reference signature to an unknown pixel’s signature? Would another comparison method be more effective and/or efficient?
 
