@@ -14,3 +14,81 @@ A number of studies have addressed soy and deforestation in Northwest Argentina,
 {boletta2006assessing}{gasparri2009deforestation}. While the extreme deforestation in Argentina is undeniable---and certainly soy plays a part---its role has not been examined in full, leaving unsubstantiated the perception of soy as the driving force in this process.
 
 The goal of this research is to develop an image classification capable of mapping agricultural crops by type, allowing soy to be explicitly identified on remotely sensed imagery. The accurate and efficient mapping of soy distributions and their changes over time could allow further investigation of the roles of soy in deforestation. The direct and indirect effects soy crops have had on deforestation can thus be understood conceptually and systemically at both regional and local scales, which could lead to the development of more effective policies for land management \autocite{brown2007multitemporal}.
+
+
+\section{Composite Vegetation Indices and Time-Series Images}
+
+The differentiation of crop types in remotely-sensed imagery is not a straightforward process. The use of a vegetation index (VI), such as the normalized difference vegetation index (NDVI) or the enhanced vegetation index (EVI), can help identify crops by their specific VI values in an image.
+
+NDVI is a normalized ratio of the red and near-infrared bands, and can be expressed mathematically as:
+\begin{equation}
+  NDVI = \frac{\rho~_{NIR} - \rho~_{red}}{\rho~_{NIR} + \rho~_{red}}
+\end{equation}
+where $\rho~_{NIR}$ and $\rho~_{red}$ are the measured surface reflectance in their respective bands. As a ratio, the index minimizes multiplicative noise, but has issues with non-linearity and additive noise \autocite{huete2002overview}.
+
+With advances in calibration, atmospheric correction, and other noise removal techniques, which are integrated into the MODIS data processing workflow, a ratioing index is less necessary. The EVI was specifically developed for the MODIS platform to help correct some of the deficiencies of the NDVI. It has better sensitivity to high biomass, canopy structure, and leaf area, and less susceptibility to atmospheric degradation. EVI is calculated as:
+\begin{equation}
+  EVI = G\frac{\rho~_{NIR} - \rho~_{red}}{\rho~_{NIR} +  C_1\times\rho~_{red} - C_2 \times \rho~_{blue} + L}
+\end{equation}
+Again, each $\rho$ is the measured surface reflectance in the respective band, after complete or partial atmospheric correction. The blue band is used to ``subtract'' aerosol effects from the red band. Additionally, four coefficients are introduced: $G$ is the gain factor, $C_1$ and $C_2$ are used in the aerosol calculation, while $L$ ``is the canopy background adjustment that addresses nonlinear, differential NIR and red radiant transfer through a canopy'' \citereset\autocite[196]{huete2002overview}. The values of these coefficients as used in the MODIS EVI calculation are 2.5, 6.0, 7.5, and 1.0, respectively.
+
+Some crops, such as soy and sugarcane, have very different spectral reflectance throughout their development and maturation, however others, such as soy and corn, can have very similar reflective curves, leading to overlapping VI ranges \autocite{price1994how-unique}. Such overlap can make it impossible to determine a crop type with specificity using traditional approaches; even using hyperspectral data, few differentiating characteristics between crops can hinder classification. To combat this ambiguity, a time series of images can be used to find VI values throughout a year, allowing the development of a classifier based on annual phenology rather than a single-date image \autocites{gu2010phenological}{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{zhang2003monitoring}.
+	
+MODIS 16-day VI composite imagery from both the Terra and Aqua Earth Observing System (EOS) satellites is available from the Land Processes Distributed Active Archive Center (LPDAAC).\footnote{For those interested in working with MODIS data, the web address of LPDAAC is https://lpdaac.usgs.gov/, though data is not directly available from their servers without an exact link. I found the best tool for searching the available data was NASA’s Reverb|Echo web tool, at https://reverb.echo.nasa.gov/. Using this tool, one can get a list of links in a text file, and can use wget or curl to bulk download the files in the list.} Each MODIS satellite images the entire Earth daily: the Terra satellite makes its passes in the morning, while Aqua follows in the afternoon. This temporal resolution is the greatest advantage of the MODIS platform, as the likelihood of getting enough cloud-free data to develop a phenologic model is significantly increased over other common platforms like Landsat Thematic Mapper (TM) and Landsat Operational Land Imager (OLI), which only have repeat coverage every sixteen days. MODIS data, however, comes at the price of a reduced spatial resolution of 231 meters compared to Landsat’s 30-meter pixels.\footnote{Though the literature typically denotes MODIS data as 250-meter, the composite vegetation indices are actually 231-meter. However, to stay consistent with conventions, I will refer to the data as 250-meter.} At this resolution, crop mapping is restricted to medium farms and larger---those with fields of at least 250 meters square, though often a field must be up to two times larger in at least one dimension to ensure a pure pixel can be isolated. For the purposes of this investigation, however, this limitation is inconsequential, as small farms have a relatively minor impact on deforestation due to their size. Moreover, the crop of interest, GM soy, is only profitably grown using highly mechanized, input-intensive agricultural practices at very large scales. Small fields do not have high enough yields to overcome the significant capital investment required. \todo[inline]{NEED A SOURCE FOR THIS---TALK TO POLO]}
+
+LPDAAC creates the VI composites using the maximum VI value over the proceeding 16-day time period. The images are numbered by the day of the year (DOY) of the last date in the image's date range, so an image from DOY 17 is the composite of the images from January 2 through January 17.\footnote{Following this pattern exactly will make the first image from the following year be from January 4, but the MODIS composite numbering ``resets'' at the end of each year. Thus the image interval at the end of the year is shortened, allowing the next image to be produced January 1, though it still covers the proceeding 16 days.} Both NDVI and EVI are included in the MODIS VI products, and require no preprocessing for immediate use (unless cloud cover is pervasive in the area).
+
+
+\section{Crop Phenologies and Phenological Classification}
+\label{chapter:methods:phenology-fitting}
+
+\citeauthor{gu2010phenological} outlined that phenological statistics regarding vegetation development can be derived from a MODIS VI time-series, including “start-of-season time (SOST), start-of-season NDVI (SOSN), end-of-season time (EOST), end-of-season NDVI (EOSN), maximum NDVI (MAXN), maximum NDVI time (MAXT), duration of season (DUR), amplitude of NDVI (AMP), and seasonal time integrated NDVI (TIN)” \mkbibparens{\citeyear[529]{gu2010phenological}}. A principal component analysis (PCA) can then be used to extract the meaningful variation in the data.
+
+Similarly, Wardlow, Egbert, et al. \autocites{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area} showed that a decision tree classifier can be used to classify vegetation time-series data into increasingly refined categories until specific crop types are isolated and classified. By beginning with a basic land cover classification (e.g. forest, urban, agriculture), crops in the agriculture class can be broken down into winter and summer varieties using peaks in the vegetation index (winter wheat will peak earlier in the year than summer crops like corn and soy). Then, using training sites of known crop types defined by ground truth data, a final crop classification can be assigned by finding pixel values for key dates where like crops can be differentiated. That is, using the growing season in the Northern Hemisphere as an example, if from the training sites we know crop A has VI values between 0.7 and 0.8 on June 26 and between 0.5 and 0.6 on August 29, while crop B is between 0.55 and 0.65 and 0.75 and 0.85 on the same dates, pixels in the summer crop class can be assigned one of these types by testing their pixel values on these dates. While the authors found this method to have about an 85 percent overall accuracy \autocite{wardlow2005state-level}, the downside of this method is that it requires training sites with previously-determined crop types to produce a classification, which can be time consuming and expensive to acquire.
+
+\textcite{masialeti2010a-comparative} found that VI values from one year have a significant correlation with values from other years. Comparing the phenological curves of crops formed by the NDVI values from 2001 MODIS data \autocite[from][]{wardlow2005state-level} with those from 2005 MODIS data, the authors found the overall shape of each crop's curve is maintained year-to-year, with a subtle shift in the beginning of the curve (earlier or later planting), a scaling of the maximum of the curve, and and scaling of the spread of the curve (a longer or shorter growing season), depending on weather and other external variables (Fig. \ref{fig:transformations}). They surmised, with a means to account for the shift and scaling of the curve, one could use VI values from one year to classify those from another.
+
+Even without a mechanism to account for interannual differences, \textcite{brown2007multitemporal} used crop phenologies derived from multiple years of data to test four phenological classification methods. The authors fit the known phenologies to the unknown phenologies from other years by comparing the VI values throughout the growing season. The degree of likeness between a known VI curve and the unknown VI curve determined the classification. They showed that the best of the four classification methods was to find the sum of the square errors between the known and unknown curves (the SSE method, \citeauthor{brown2007multitemporal} pg. 131).
+
+The similarities between the methods presented in \citeauthor{brown2007multitemporal} and hyperspectral remote sensing techniques are striking. Hyperspectral techniques compare known spectral \textit{signatures} from a signature library to the unknown pixel signatures in an image. One method, spectral feature fitting, uses a least-squares comparison reminiscent of SSE from \citeauthor{brown2007multitemporal} \autocites{solutions2013selected}{clark2003imaging}. The key difference between the two, besides comparing reflectance across time versus reflectance across the electromagnetic spectrum, is that spectral feature fitting does not require any training data from the processed image. All of the spectral signatures used for identification are from standardized spectral libraries, which contain the many spectra of different materials.
+
+Accordingly, one goal of this study is to realize a method of vegetation classification using multi- or hyper-temporal imagery that does not require training data to be extracted from the imagery itself, rather relying on standard libraries of phenological curves---\textit{temporal} signatures---for different vegetation and non-vegetation land covers. A major challenge of this idea is that, unlike spectral signatures, temporal signatures are not necessarily consistent location to location, nor year to year as mentioned above. A viable classification method thusly must provide a way to transform the temporal signatures, within appropriate bounds, to match the horizontal scaling, vertical scaling, and time shifting of an unknown pixel before finding the degree of fit between the signature curve and the pixel curve.
+
+\textcites{sakamoto2005a-crop}{sakamoto2010a-two-step} demonstrates a method using MODIS time-series data for use in finding key dates in a crop’s phenology, enabling better crop management strategies. Specifically, the authors’ two-step filter (TSF) method uses a wavelet transformation and a constrained minimization function to find a reference signature for a specific crop’s phenological development, and then fits that signature to known pixels of that crop type, finding the scaled dates of key transitions between developmental stages in the plants’ growth. This TSF method demonstrates that reference signatures can be fit to a pixel’s signature using a minimization function, accounting for the variations from the reference curve and the pixel curve.  This minimization method provides the means to account for the scaling and time shift differences, allowing previously-known temporal signatures (e.g. not from training sites) to be fit to pixel signatures in a TSI.
+
+Specifically, from page 2151 of \textcite{sakamoto2010a-two-step}:
+\begin{equation}
+\label{eq:1}
+  RMSE = \biggl[\frac{1}{365/s}\sum_{x=j(0), j(1)…}^{n}\bigl(f\left(x\right)-g\left(x\right)\bigr)^{2}\biggr]^{\frac{1}{2}}
+\end{equation}
+where $n$ is the number of dates in the TSI, $f(x)$ is the temporal signature for a given pixel in a dataset, and $x$ is the DOY, as defined by $j(y)$:
+\begin{subequations}
+\label{eq:DOYcalc}
+  \begin{align}
+    j\left(~y\right) &= k\bigl(~i\cdot~s\left(~y - 1\right)\bigr) \label{eq:jofy}\\
+    \text{where\ \ \ \ } k\left(~z\right) &=
+    \begin{cases}
+      z, & \mbox{if } z \leq 0\\
+      \left(z\bmod~365\right)\bmod~i-1, & \mbox{if } z > 0
+    \end{cases} \label{eq:kofz}
+  \end{align}
+\end{subequations}
+such that $s$ is the interval of the imagery and $d$ is the starting date of the imagery. $g(x)$ in Equation \ref{eq:1} is given by:
+\begin{equation}
+\label{eq:gofx}
+  g(x) = yscale\times~h\left(xscale\times(x + tshift)\right)
+\end{equation}
+
+Here, $x$ again is the DOY, $yscale$ and  $xscale$ are coefficients controlling the vertical and horizontal scaling of a reference signature $h(x)$, and $tshift$ is a constant representing the horizontal shift, in days, of $h(x)$ (see Fig. \ref{fig:transformations}). Thus, if we minimize Equation \ref{eq:1} bounding $yscale$, $xscale$, and $tshift$  in $g(x)$ with reasonable values for each, we can calculate how well a given reference temporal signature $h(x)$ can be made to fit the pixel signature $f(x)$. Comparing a pixel's RMSE fit value from each of the reference signatures allows final classification; the signature with the lowest RMSE value has the best fit, and, of the tested signatures, provides the most probable identification.
+
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=\textwidth]{Graphics/transformations.pdf}
+  \caption{Example Transformations of a Crop's VI Curve}
+  \medskip
+  \small
+  The original signature was derived from soy in southwestern Kansas. The other signatures were arbitrarily adjusted to illustrate each of the possible transformations.
+  \label{fig:transformations}
+\end{ssfigure}
+
+
