@@ -15,7 +15,7 @@ The purpose of this study is to develop a set of tools to allow the classificati
 \end{itemize}
 \end{Spacing}
 
-The first three datasets are publicly available from US agencies. The Pellegrini boundary is from the public Natural Earth Administrative Boundaries global dataset \todo[inline]{CITE DATA SOURCE}. The land cover dataset for Pellegrini was digitized from Landsat 8 images (path 230, row 78), and the crop identifications were collected in the field.
+The first three datasets are publicly available from U.S. agencies. The Pellegrini boundary is from the GDAM Global Administrative Areas Dataset, version 1.0 (available at http://www.gdam.org). The land cover dataset for Pellegrini was digitized from Landsat 8 images (path 230, row 78), and the crop identifications were collected in the field.
 
 An outline of the processing workflow is below:
 
@@ -74,7 +74,7 @@ As a reference library of temporal signatures does not yet exist, I had to extra
 
 \autoref{eq:1} (page \pageref{eq:1}) was implemented using the programming language Python \autocite{python2.7.8} with a command line interface to allow easy processing of the TSIs. Details of the tool can be found in \autoref{appendix:tools:fit} on page \pageref{appendix:tools:fit}. The tool iterates through every pixel in a TSI, comparing each reference signature with the pixel signature. The tool is able clip an input TSI to either pixel bounds or a shapefile containing a polygon, and can also use an optional point shapefile to limit the processed pixels to only those coincident with points. An output raster is created for each signature to record the RMSE from every pixel comparison.
 
-The reference signatures extracted from the Kansas TSI clusters were fit to the Kansas TSI to verify the classifier. The TSI was clipped to the pixel bounds \todo[inline]{Insert the correct pixel coordinates}. Then, the same Kansas signatures were fit to the Pellegrini TSI, which was clipped to the boundary shapefile. The fit rasters from each TSI were then classified. In both cases, the bounds for the $xscale$ and $yscale$ parameters were 0.6 to 1.4. The $tshift$ bounds for the Kansas processing were -10 to +10 days, while the bounds for the Pellegrini processing were 120 to 140 days (still $\pm10$ days, but shifted 130 days).\footnote{I have not formally tested other bounds. See Appendix \ref{appendix:future:fitting}.}
+The reference signatures extracted from the Kansas TSI clusters were fit to the Kansas TSI to verify the classifier. The TSI was clipped to pixel row 2482 and column 1089, extending 100 rows and 100 columns. Then, the same Kansas signatures were fit to the Pellegrini TSI, which was clipped to the boundary shapefile. The fit rasters from each TSI were then classified. In both cases, the bounds for the $xscale$ and $yscale$ parameters were 0.6 to 1.4. The $tshift$ bounds for the Kansas processing were -10 to +10 days, while the bounds for the Pellegrini processing were 120 to 140 days (still $\pm10$ days, but shifted 130 days).\footnote{I have not formally tested other bounds. See Appendix \ref{appendix:future:fitting}.}
 
 \subsection{Classifying the Fit Rasters}
 

@@ -42,7 +42,9 @@
 
 % *************** Set Date Format ***************
 \usepackage[nodayofweek]{datetime}
-%\setdefaultdate{\dateaustralian} %gets dates of dd month yyyy without ordinal or comma
+\setdefaultdate{\dateaustralian}  % formats dates of dd month yyyy without ordinal or comma
+
+\newdateformat{noyear}{\THEDAY\ \monthname[\THEMONTH]} 
 
 
 % ********* Reference Settings **********
