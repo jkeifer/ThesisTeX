@@ -32,11 +32,39 @@ With advances in calibration, atmospheric correction, and other noise removal te
 \end{equation}
 Again, each $\rho$ is the measured surface reflectance in the respective band, after complete or partial atmospheric correction. The blue band is used to ``subtract'' aerosol effects from the red band. Additionally, four coefficients are introduced: $G$ is the gain factor, $C_1$ and $C_2$ are used in the aerosol calculation, while $L$ ``is the canopy background adjustment that addresses nonlinear, differential NIR and red radiant transfer through a canopy'' \citereset\autocite[196]{huete2002overview}. The values of these coefficients as used in the MODIS EVI calculation are 2.5, 6.0, 7.5, and 1.0, respectively.
 
-Some crops, such as soy and sugarcane, have very different spectral reflectance throughout their development and maturation, however others, such as soy and corn, can have very similar reflective curves, leading to overlapping VI ranges \autocite{price1994how-unique}. Such overlap can make it impossible to determine a crop type with specificity using traditional approaches; even using hyperspectral data, few differentiating characteristics between crops can hinder classification. To combat this ambiguity, a time series of images can be used to find VI values throughout a year, allowing the development of a classifier based on annual phenology rather than a single-date image \autocites{gu2010phenological}{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{zhang2003monitoring}.
+Some crops, such as soy and sugarcane, have very different spectral reflectance throughout their development and maturation, however others, such as soy and corn, can have very similar reflective curves, leading to overlapping VI ranges \autocite{price1994how-unique}. Such overlap can make it impossible to determine a crop type with specificity using traditional approaches; even using hyperspectral data, few differentiating characteristics between crops can hinder classification. To combat this ambiguity, a time series of images can be used to find VI values throughout a year, allowing the development of a classifier based on annual phenology rather than a single-date image \autocites{gu2010phenological}{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{zhang2003monitoring}. \autoref{fig:tsi} shows an example of how the VI values change over a growing season.
 	
 MODIS 16-day VI composite imagery from both the Terra and Aqua Earth Observing System (EOS) satellites is available from the Land Processes Distributed Active Archive Center (LPDAAC).\footnote{For those interested in working with MODIS data, the web address of LPDAAC is https://lpdaac.usgs.gov/, though data is not directly available from their servers without an exact link. I found the best tool for searching the available data was NASA’s Reverb|Echo web tool, at https://reverb.echo.nasa.gov/. Using this tool, one can get a list of links in a text file, and can use wget or curl to bulk download the files in the list.} Each MODIS satellite images the entire Earth daily: the Terra satellite makes its passes in the morning, while Aqua follows in the afternoon. This temporal resolution is the greatest advantage of the MODIS platform, as the likelihood of getting enough cloud-free data to develop a phenologic model is significantly increased over other common platforms like Landsat Thematic Mapper (TM) and Landsat Operational Land Imager (OLI), which only have repeat coverage every sixteen days. MODIS data, however, comes at the price of a reduced spatial resolution of 231 meters compared to Landsat’s 30-meter pixels.\footnote{Though the literature typically denotes MODIS data as 250-meter, the composite vegetation indices are actually 231-meter. However, to stay consistent with conventions, I will refer to the data as 250-meter.} At this resolution, crop mapping is restricted to medium farms and larger---those with fields of at least 250 meters square, though often a field must be up to two times larger in at least one dimension to ensure a pure pixel can be isolated. For the purposes of this investigation, however, this limitation is inconsequential, as small farms have a relatively minor impact on deforestation due to their size. Moreover, the crop of interest, GM soy, is only profitably grown using highly mechanized, input-intensive agricultural practices at very large scales. Small fields do not have high enough yields to overcome the significant capital investment required. \todo[inline]{NEED A SOURCE FOR THIS---TALK TO POLO]}
 
-LPDAAC creates the VI composites using the maximum VI value over the proceeding 16-day time period. The images are numbered by the day of the year (DOY) of the last date in the image's date range, so an image from DOY 17 is the composite of the images from January 2 through January 17.\footnote{Following this pattern exactly will make the first image from the following year be from January 4, but the MODIS composite numbering ``resets'' at the end of each year. Thus the image interval at the end of the year is shortened, allowing the next image to be produced January 1, though it still covers the proceeding 16 days.} Both NDVI and EVI are included in the MODIS VI products, and require no preprocessing for immediate use (unless cloud cover is pervasive in the area).
+LPDAAC creates the VI composites using the maximum VI value over the proceeding 16-day time period. The images are numbered by the day of the year (DOY) of the last date in the image's date range, so an image from DOY 17 is the composite of the images from January 2 through January 17.\footnote{Following this pattern exactly will make the first image from the following year be from January 4, but the MODIS composite numbering ``resets'' at the end of each year. Thus the image interval at the end of the year is shortened, allowing the next image to be produced January 1, though it still covers the proceeding 16 days.} Both NDVI and EVI are included in the MODIS VI products, and require no preprocessing for immediate use (unless cloud cover is pervasive in the area). A chronological series of these VIs can be assembled into a time series image (TSI), which can then be used for processing.
+
+\begin{ssfigure}
+  \centering
+  \begin{subfigure}[t]{\textwidth}
+    \includegraphics[width=\textwidth]{Graphics/vi_band1.png}
+    \caption*{December 19, 2013}
+    \label{subfig:vi_1}
+  \end{subfigure}
+  \\
+  \vspace{0.125in}
+  \begin{subfigure}[t]{\textwidth}
+    \includegraphics[width=\textwidth]{Graphics/vi_band4.png}
+    \caption*{February 2, 2014}
+    \label{subfig:vi_4}
+  \end{subfigure}
+  \\
+  \vspace{.125in}
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=\textwidth]{Graphics/vi_band8.png}
+    \caption*{April 7, 2014}
+    \label{subfig:vi_8}
+  \end{subfigure}
+  \caption{Example VI Progression}
+  \label{fig:tsi}
+  \medskip
+  \small
+  These MODIS NDVI images show the progression of VI values for a section of a MODIS tile containing the north half of Pellegrini and the surrounding area. The relative constant values for the forested areas stand in stark contrast to the fields, which predominately begin with low VI values in the first image, increasing as the crops mature to the greater values shown in the last image.
+\end{ssfigure}
 
 
 \section{Crop Phenologies and Phenological Classification}
