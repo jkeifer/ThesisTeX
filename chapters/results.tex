@@ -5,7 +5,9 @@
 
 The digitized polygons for both identified and unknown features are shown in \autoref{map:pellegrini:groundtruth}. The area of each of the land cover classes is broken down in \autoref{table:pellegrini:LCarea}. Compared to the 2000 to 2005 crop areas from \textcite{volante2005analisis}, corn seems to have expanded significantly in the area, while soy has retreated, despite the impression of the contrary in the country as a whole. I gathered from talks with farmers that the decline of soy may be due to increased expenses in the region due to pests, fungus, poor soil, and transportation. Sorghum, a hectare count of which \citeauthor{volante2005analisis} omitted for Pellegrini, does not occupy much land relative to the other crops, and, across Argentina as a whole, experienced a significant decline in production from 1970 to 2003 \autocite{paruelo2005expansion}. However, the 1,646 hectares I observed may indicate a reversal of sorghum's popularity to demand for cattle feed in feedlots, and could likely be a bigger piece of the Pellegrini agricultural pie in coming years.
 
-Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 104 as actively-cultivated agriculture: thirty five points as corn, twenty three points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty one points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty five points could not be verified due to inaccessibility or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
+Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 106 as actively-cultivated agriculture: thirty six points as corn, twenty four points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty two points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty two points could not be verified due to inaccessibility, uncertainty, or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
+
+I tried to get direct observations of all crop sample points to accurately record the crop types. However, this strategy proved to be difficult in many cases; I was able to visit only forty seven of the crop points. Often, fields were inaccessible due to road conditions or locked gated. Forty five crop observations came from interviews with farmers and land owners. In a few cases I was able to meet with agricultural engineers who were even able to provide me with maps of the fields they managed (see \autoref{pic:localmap}. The last fourteen crop point identifications were interpreted from Landsat imagery.
 
 In conferring with local farmers and land owners, I was able to gather typical planting and harvesting dates for the major summer crops of soy, corn, sorghum, and poroto, shown in Table \ref{table:plantingdates}. It is interesting to note that soy is most frequently planted before corn, unlike in Kansas (see Table \ref{table:KSplantingdates}). I also found that the winter growing season is completely separate from the summer growing season. Unlike Kansas, where the beginning of the summer crops, namely corn's early development, overlaps with the end of winter wheat growth, the growth and harvesting of Pellegrini's winter crops is completed before summer planting begins. Thus, where double cropping is limited in Kansas to a winter crop and a late-developing summer crop (overwhelmingly a winter wheat and soy or winter wheat and sorghum combination), any winter crop can be paired with any summer crop in Pellegrini.
 
@@ -24,22 +26,32 @@ In conferring with local farmers and land owners, I was able to gather typical p
     \toprule
     \textbf{Cover Type} & \textbf{Hectares} & \textbf{Sample Points} \\
     \midrule
-    Forested & 389,541 & 247 \\
-    Other & 41,588 & 21 \\
-    Corn & 40,818 & 35 \\
+    Forested & 389,541 & 248 \\
+    Other & 41,588 & 22 \\
+    Corn & 40,818 & 36 \\
     Pasture & 35,057 & 37 \\
-    Soy & 27,240 & 23 \\
+    Soy & 27,240 & 24 \\
     Poroto & 9,539 & 7 \\
     Nothing & 3,057 & 3 \\
     Sorghum & 1,646 & 2 \\
     \midrule
-    Unknown & 93,808 & 20 \\
+    Unknown & 93,808 & 17 \\
     Omitted & 52,051 & 5 \\
     \midrule
     \textbf{Total} & 694,346 & 400 \\
     \bottomrule
   \end{tabu}
 \end{sstable}
+
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=1.0\textwidth]{Graphics/Pics/map.png}
+  \caption{Map of \textit{Estancia La Armonia}, a Large Farm}
+  \label{pic:localmap}
+  \medskip
+  \small
+  This map is exemplary of those used by the larger farming operations to plan their land use. This farm, \textit{Estancia La Armonia}, primarily raises cattle, so most all of the fields shown are pasture areas. The fields shown highlighted in green are sorghum, which I was told is used as part of the feed mixture in a small cattle feedlot operation.
+\end{ssfigure}
 
 \begin{sstable}
   \centering

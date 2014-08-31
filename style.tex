@@ -102,10 +102,12 @@
 \setparaheadstyle{\normalfont\sffamily}
 
 \nouppercaseheads  % prevents the headers from being uppercase
-\makeevenhead{headings}{\normalfont\sffamily\mdseries\small\rightmark}{}{\normalfont\sffamily\mdseries\small\thepage}
-\makeoddhead{headings}{\normalfont\sffamily\mdseries\small\rightmark}{}{\normalfont\sffamily\mdseries\small\thepage}
+\makeevenhead{headings}{\normalfont\sffamily\mdseries\footnotesize\rightmark\small\ }{}{\normalfont\sffamily\mdseries\small\thepage}  % the "\small \ " is to vertically align the left and right parts of the header because of the difference in font size
+\makeoddhead{headings}{\normalfont\sffamily\mdseries\footnotesize\rightmark\small\ }{}{\normalfont\sffamily\mdseries\small\thepage}
 
-\aliaspagestyle{chapter}{empty}%this suppresses numbers on chapters
+\aliaspagestyle{chapter}{empty}  % this suppresses numbers on chapters
+
+\usepackage{indentfirst}  % indent first paragraph
 
 
 % *************** Table of contents style ***************
