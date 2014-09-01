@@ -1,5 +1,3 @@
-%!TEX encoding = UTF-8 Unicode
-%!TEX TS-program = xelatex
 \documentclass[12pt, letterpaper, oneside, draft]{memoir}
 \tolerance=1000 % sets whitespace tolerance level (adjusts hyphenation)
 
@@ -30,8 +28,6 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 
 \newcommand\gc{\rowcolor[rgb]{0.93,0.93,0.93}}
 
-\renewcommand{\texttt}[1]{{\small\ttfamily #1}}
-%\renewcommand{\textsf}[1]{{\small\sffamily #1}} % for some reason, this kills all the refs!
 
 % *************** THE DOCUMENT ***************
 \begin{document}
@@ -84,11 +80,11 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \setcounter{endnote}{0}
 
 \input{chapters/discussion.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \input{chapters/conclusion.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \appendix
@@ -96,23 +92,23 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \renewcommand\chaptername{Appendix}
 
 \input{chapters/fieldwork.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \input{chapters/development.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \input{chapters/testing.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \input{chapters/futuretesting.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 \input{chapters/notes_cdl.tex}
-\theendnotes
+\clearpage\theendnotes
 \setcounter{endnote}{0}
 
 %\clearpage
@@ -120,6 +116,9 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 
 
 % **************** End Notes ****************
+
+%%%% CONVERTED TO CHAPTER NOTES %%%%
+
 %\addtoendnotes{\unexpanded{\enotedivision{}{}}} % To divide by chapter
 %\addcontentsline{toc}{chapter}{Notes} % Add to ToC
 %\theendnotes % Add the notes section

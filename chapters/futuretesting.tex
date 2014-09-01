@@ -67,25 +67,25 @@ I found it to be too insensitive and it resulted in unrealistically low fit valu
 The thresholding and classification step is the part of this process I dislike the most. My original intention was to create a method for classifying crops without ground truth, but this part of the process requires ground truth to 
 
 \begin{description}
-\item[Idea:] How much difference do different thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the fit rasters without sacrificing much accuracy.
+\item[Idea:] How much difference do different RMSE thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the fit rasters without sacrificing much accuracy.
 
 \item[Comment:] Understanding if this is a viable alternative is likely necessary if the method is to be used with no ground truth as desired.
 
-\item[Idea:] Do the optimal thresholds vary little, or are they highly variable?
+\item[Idea:] Do the optimal RMSE thresholds vary little, or are they highly variable?
 
-\item[Comment:] While I have not been testing this formally, the wide spread of the optimal thresholds that I’ve identified across all my classifications suggests that the best threshold values are unique to every circumstance and quite variable.
+\item[Comment:] While I have not been testing this formally, the wide spread of the optimal RMSE thresholds that I’ve identified across all my classifications suggests that the best RMSE threshold values are unique to every circumstance and quite variable.
 
-\item[Idea:] Is there a faster way to iterate through the many possible thresholds than brute force?
+\item[Idea:] Is there a faster way to iterate through the many possible RMSE thresholds than brute force?
 
 \item[Comment:] One challenge in the thresholding process is that I have observed local maxima in the classification accuracy. In other words, the accuracy may peak with a certain threshold combination, but that peak may only be a local maxima, and a different threshold combination may allow an even higher accuracy.
 
-\item[Idea:] Might the variation within the fit values for a signature contain useful information that could be used to find an optimized threshold value statistically?
+\item[Idea:] Might the variation within the fit values for a signature contain useful information that could be used to find an optimized RMSE threshold value statistically?
 
-\item[Comment:] This connects with the previous question. Additionally, if the thresholds could be determined statistically, then no ground truth would be needed to create the classification.
+\item[Comment:] This connects with the previous question. Additionally, if the RMSE thresholds could be determined statistically, then no ground truth would be needed to create the classification.
 
 \item[Idea:] If multiple signatures are used for a single crop, each resulting in a separate fit raster, should the fit raster for that crop be combined before thresholding using the lowest value for each pixel?
 
-\item[Comment:] Barring the realization of a new method for thresholding the fit rasters, this question deserves some thought. Processing time increases exponentially with each additional fit raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the fit rasters for a single crop were of equal validity, this would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the fit rasters of any such signatures by holding them at low thresholds. Preempting the thresholding process by merging the fit rasters of a signature would not allow the thresholding to weigh the fit rasters unequally.
+\item[Comment:] Barring the realization of a new method for thresholding the fit rasters, this question deserves some thought. Processing time increases exponentially with each additional fit raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the fit rasters for a single crop were of equal validity, this would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the fit rasters of any such signatures by holding them at low RMSE thresholds. Preempting the thresholding process by merging the fit rasters of a signature would not allow the RMSE thresholding to weigh the fit rasters unequally.
 
 \item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See \todo[inline]{REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES}
 for more details.
