@@ -3,7 +3,7 @@
 
 \section{Ground Truth and Agricultural Practices in Pellegrini}
 
-I travelled to Pellegrini \noyear\formatdate{12}{3}{1} through \noyear\formatdate{3}{4}{1} during the summer growing season to collect crop data. Using field observation, interviews, and satellite image interpretation, I gathered identifications for 378 of 400 sample points randomly distributed throughout the department, as well as many additional fields I also came across. Areas of homogenous land cover were digitized from Landsat imagery, and the collected data was used to classify the digitized polygons, where applicable (\autoref{map:pellegrini:groundtruth}). Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 106 as actively-cultivated agriculture: thirty six points as corn, twenty four points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty two points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty two points could not be verified due to inaccessibility, uncertainty, or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
+I travelled to Pellegrini \datenoyear{12}{3} through \formatdate{3}{4}{2014} during the summer growing season to collect crop data. Using field observation, interviews, and satellite image interpretation, I gathered identifications for 378 of 400 sample points randomly distributed throughout the department, as well as many additional fields I also came across. Areas of homogenous land cover were digitized from Landsat imagery, and the collected data was used to classify the digitized polygons, where applicable (\autoref{map:pellegrini:groundtruth}). Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 106 as actively-cultivated agriculture: thirty six points as corn, twenty four points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty two points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty two points could not be verified due to inaccessibility, uncertainty, or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
 
 I tried to get direct observations of all crop sample points to accurately record the crop types. However, this strategy proved to be difficult in many cases; I was able to visit only forty seven of the crop points. Often, fields were inaccessible due to road conditions or locked gated. Forty five crop observations came from interviews with farmers and land owners. In a few cases I was able to meet with agricultural engineers who were even able to provide me with maps of the fields they managed (see \autoref{pic:localmap}. The last fourteen crop point identifications were interpreted from Landsat imagery.
 
@@ -61,10 +61,10 @@ In conferring with local farmers and land owners, I found the typical planting a
     \toprule
     \textbf{Crop} & \textbf{Ideal Planting Range} & \textbf{Latest Planting Date} & \textbf{Harvesting Begins} \\
     \midrule
-    Soy & \noyear\formatdate{15}{12}{1} to \noyear\formatdate{15}{1}{1} & End of February & \noyear\formatdate{1}{5}{1} \\
-    Corn & \noyear\formatdate{15}{1}{1} to \noyear\formatdate{15}{2}{1} & End of February & \noyear\formatdate{1}{6}{1} \\
-    Sorghum & \noyear\formatdate{15}{1}{1} to \noyear\formatdate{15}{2}{1} & End of February & \noyear\formatdate{1}{6}{1} \\
-    Poroto & \noyear\formatdate{15}{1}{1} to \noyear\formatdate{20}{2}{1} & Early March & \noyear\formatdate{10}{5}{1} \\
+    Soy & \datenoyear{15}{12} to \datenoyear{15}{1} & End of February & \datenoyear{1}{5} \\
+    Corn & \datenoyear{15}{1} to \datenoyear{15}{2} & End of February & \datenoyear{1}{6} \\
+    Sorghum & \datenoyear{15}{1} to \datenoyear{15}{2} & End of February & \datenoyear{1}{6} \\
+    Poroto & \datenoyear{15}{1} to \datenoyear{20}{2} & Early March & \datenoyear{10}{5} \\
     \bottomrule
   \end{tabu}
 \end{sstable}
@@ -72,27 +72,46 @@ In conferring with local farmers and land owners, I found the typical planting a
 
 \section{Elimination of Mixels}
 
-I found 1,359 pure pixels in the 100 pixel by 100 pixel Kansas study area. Clipped to boundary shapefile, the Pellegrini TSI contained 129,873 pixels total, of which 97,054 were pure. The numbers of pure pixels in each of the summer crops of interest are shown in Table \ref{table:mixels}. It is interesting, though perhaps nothing more than a curious coincidence, that the percent of the total pixel count for each of the crops is roughly equal between the Kansas study site and Pellegrini, omitting the unknown fields. However, the lower level of overall development in Pellegrini is reflected by the tenfold increase in pure pixels of all other land covers, primarily due to the high amount of forested area. 
+I found 1,359 pure pixels in the 100 pixel by 100 pixel Kansas study area. The low percentage of pure pixels in the study area is due to the large pixel size relative to the fields, as well as a few irregular features cutting across the pixel grid. The distribution of pure pixels across the land classes is shown in \autoref{table:mixels}
 
-\todo[inline]{FIGURE OUT HOW TO USE S COLUMN FROM SIUNITX TO ALIGN NUMBERS ON DECIMAL POINT WHILE USING CENTERING FOR COLUMNS}
+%\todo[inline]{FIGURE OUT HOW TO USE S COLUMN FROM SIUNITX TO ALIGN NUMBERS ON DECIMAL POINT WHILE USING CENTERING FOR COLUMNS}
+%
+%\begin{sstable}
+%  \centering
+%  \caption{Mixel and Pure Pixel Counts}
+%  \label{table:mixels}
+%  \begin{tabu}{X[1]|X[0.6,r]X[1,r]|X[0.6,r]X[1,r]}
+%    \toprule
+%     & \multicolumn{2}{c|}{\textbf{Summer 2012 Kansas TSI}} & \multicolumn{2}{c}{\textbf{Summer 2014 Pellegrini TSI}} \\
+%    & Count & Percent of Total & Count & Percent of Total \\
+%    \midrule
+%    \textbf{Total Pixels} & 10,000 & 100.00 & 129,873 & 100.00 \\
+%    \ \ \ \ Pure Pixels & 1,359 & 13.59 & 97,054 & 74.73 \\
+%    \ \ \ \ \ \ \ \ Corn & 414 & 4.14 & 5,855 & 4.51 \\
+%    \ \ \ \ \ \ \ \ Soy & 354 & 3.54 & 3,936 & 3.03 \\
+%    \ \ \ \ \ \ \ \ Sorghum & 16 & 0.16 & 183 & 0.14 \\
+%    \ \ \ \ \ \ \ \ Unknown & --- & --- & 10,676 & 8.22 \\
+%    \ \ \ \ \ \ \ \ All Others & 575 & 5.75 & 76,404 & 58.83 \\
+%    \ \ \ \ Mixels & 8,641 & 86.41 & 32,819 & 25.27 \\
+%    \bottomrule
+%  \end{tabu}
+%\end{sstable}
 
 \begin{sstable}
   \centering
-  \caption{Mixel and Pure Pixel Counts}
+  \caption{Summer 2012 Kansas TSI Mixel and Pure Pixel Counts}
   \label{table:mixels}
-  \begin{tabu}{X[1]|X[0.6,r]X[1,r]|X[0.6,r]X[1,r]}
+  \begin{tabu} to 4in {XX[r]X[r]}
     \toprule
-     & \multicolumn{2}{c|}{\textbf{Summer 2012 Kansas TSI}} & \multicolumn{2}{c}{\textbf{Summer 2014 Pellegrini TSI}} \\
-    & Count & Percent of Total & Count & Percent of Total \\
+     & Count & Percent of Total \\
     \midrule
-    \textbf{Total Pixels} & 10,000 & 100.00 & 129,873 & 100.00 \\
-    \ \ \ \ Pure Pixels & 1,359 & 13.59 & 97,054 & 74.73 \\
-    \ \ \ \ \ \ \ \ Corn & 414 & 4.14 & 5,855 & 4.51 \\
-    \ \ \ \ \ \ \ \ Soy & 354 & 3.54 & 3,936 & 3.03 \\
-    \ \ \ \ \ \ \ \ Sorghum & 16 & 0.16 & 183 & 0.14 \\
-    \ \ \ \ \ \ \ \ Unknown & --- & --- & 10,676 & 8.22 \\
-    \ \ \ \ \ \ \ \ All Others & 575 & 5.75 & 76,404 & 58.83 \\
-    \ \ \ \ Mixels & 8,641 & 86.41 & 32,819 & 25.27 \\
+    \textbf{Total Pixels} & 10,000 & 100.00 \\
+    \ \ \ \ Pure Pixels & 1,359 & 13.59 \\
+    \ \ \ \ \ \ \ \ \textit{Corn} & 414 & 4.14 \\
+    \ \ \ \ \ \ \ \ \textit{Soy} & 354 & 3.54 \\
+    \ \ \ \ \ \ \ \ \textit{Sorghum} & 16 & 0.16 \\
+    \ \ \ \ \ \ \ \ \textit{All Others} & 575 & 5.75 \\
+    \ \ \ \ Mixels & 8,641 & 86.41 \\
     \bottomrule
   \end{tabu}
 \end{sstable}

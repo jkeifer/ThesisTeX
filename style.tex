@@ -44,7 +44,13 @@
 \usepackage[nodayofweek]{datetime}
 \setdefaultdate{\dateaustralian}  % formats dates of dd month yyyy without ordinal or comma
 
-\newdateformat{noyear}{\THEDAY\ \monthname[\THEMONTH]} 
+\newdateformat{noyear}{\THEDAY\ \monthname[\THEMONTH]}
+\newdateformat{aagdate}{\THEDAY\ \monthname[\THEMONTH]\ \THEYEAR}
+
+% command to print noyear dates, args {dayno}{monthno}
+\newcommand{\datenoyear}[2]{%
+  \noyear\formatdate{#1}{#2}{1}%
+  \aagdate}
 
 
 % ********* Reference Settings **********
@@ -184,19 +190,17 @@
   {\setlength{\parindent}{0pt}\setlength{\leftskip}{0pt plus 0.5fil}\setlength{\rightskip}{0pt plus -0.5fil}}{\par}
   
 \newenvironment{ssfigure}{%
-  \begin{Spacing}{1.2}
-  \begin{figure}}{%
-  \end{figure}
+  \begin{figure}
+  \begin{Spacing}{1.2}}{%
   \end{Spacing}
-  %\ignorespacesafterend
+  \end{figure}
 }
 
 \newenvironment{sstable}{%
-  \begin{Spacing}{1.0}
-  \begin{table}}{%
-  \end{table}
+  \begin{table}
+  \begin{Spacing}{1.0}}{%
   \end{Spacing}
-  %\ignorespacesafterend
+  \end{table}
 }
 
 
