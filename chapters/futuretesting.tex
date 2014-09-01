@@ -15,7 +15,7 @@ Given the practical constraints of this particular project, many aspects of this
 
 \item[Comment:] I have used two methods to average individual pixel crop signatures. The first, used throughout the work presented in the rest of this thesis, is a simple mean of the values at any given date.
 
-I have also tried using a method something like “fit averaging”: using the same function as is used to find the fit values for each reference signature, the time shift and horizontal and vertical differences between two signatures can be found. Dividing each of those transformations by two and applying them to one of the original signatures theoretically creates a new signature halfway between the two original signatures. However, in practice, this resulted in strange curve forms when the signatures averaged were not very similar. It may be that this method deserves a second test using the refined sample points, which all have similar shapes, as this approach may be particularly sensitive to outliers. It could also be that I my program to perform this function has errors.
+I have also tried using a method something like “fit averaging”: using the same function as is used to find the RMSE values for each reference signature, the time shift and horizontal and vertical differences between two signatures can be found. Dividing each of those transformations by two and applying them to one of the original signatures theoretically creates a new signature halfway between the two original signatures. However, in practice, this resulted in strange curve forms when the signatures averaged were not very similar. It may be that this method deserves a second test using the refined sample points, which all have similar shapes, as this approach may be particularly sensitive to outliers. It could also be that I my program to perform this function has errors.
 
 On the subject of outliers in reference signature generation, it may also be worthwhile to test how using a geometric rather than arithmetic mean of the sampled pixels’ values might alleviate the effect of outliers.
 \end{description}
@@ -31,7 +31,7 @@ I am sure brighter minds than mine could come up with better ways to deal with m
 
 \item[Idea:] Do all land covers contribute equally to the temporal signature of a mixel, or do some land covers have a greater influence on the signature of a mixel? Might the percent mixed threshold discussed above vary depending on the land covers contributing to a mixel’s signature?
 
-\item[Idea:] Could the classification be used with higher spatial resolution data in such a way to combine the strengths of this classification method with the ability of higher-resolution data to distinguish smaller features? One example of such a method might be to use this process with a low threshold on the fit rasters to identify only fields that have a very high probability of being a given crop. Then, those fields could be used in a standard supervised classification process as training sites, much in the same way unsupervised classifiers are used to generate training sites for supervised classifiers.
+\item[Idea:] Could the classification be used with higher spatial resolution data in such a way to combine the strengths of this classification method with the ability of higher-resolution data to distinguish smaller features? One example of such a method might be to use this process with a low threshold on the RMSE rasters to identify only fields that have a very high probability of being a given crop. Then, those fields could be used in a standard supervised classification process as training sites, much in the same way unsupervised classifiers are used to generate training sites for supervised classifiers.
 
 \item[Comment:] This is one of my favorite ideas, and I am very excited about the potential of combining data and techniques like these. I sincerely hope that someone (perhaps myself) will try this idea. I have high expectations for such a combination. Not only would this idea allow for higher spatial resolution classifications to be made, but would also not require the current thresholding step nor ground truth to create a classification.
 \end{description}
@@ -50,12 +50,12 @@ I am sure brighter minds than mine could come up with better ways to deal with m
 
 \item[Idea:] How does the mean used to calculate the RMSE change the classification accuracy?
 
-\item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. With this approach, Equation \ref{eq:1} becomes:
+\item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. With this approach, \autoref{eq:1} becomes:
 \begin{equation}
 \label{eq:geometricmean}
   RMSE = \Biggl[\biggl[\prod_{x=j(1), j(2)...}^{n}\bigl(f\left(x\right)-g\left(x\right)\bigr)^{2}\biggr]^{\frac{1}{2}}\Biggr]^{\frac{1}{n}}
 \end{equation}
-I found it to be too insensitive and it resulted in unrealistically low fit values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are “other”) in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require any programming changes to test.
+I found it to be too insensitive and it resulted in unrealistically low RMSE values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are “other”) in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require any programming changes to test.
 
 \item[Idea:] Is this the right way to go about comparing a reference signature to an unknown pixel’s signature? Would another comparison method be more effective and/or efficient?
 
@@ -67,7 +67,7 @@ I found it to be too insensitive and it resulted in unrealistically low fit valu
 The thresholding and classification step is the part of this process I dislike the most. My original intention was to create a method for classifying crops without ground truth, but this part of the process requires ground truth to 
 
 \begin{description}
-\item[Idea:] How much difference do different RMSE thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the fit rasters without sacrificing much accuracy.
+\item[Idea:] How much difference do different RMSE thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the RMSE rasters without sacrificing much accuracy.
 
 \item[Comment:] Understanding if this is a viable alternative is likely necessary if the method is to be used with no ground truth as desired.
 
@@ -79,13 +79,13 @@ The thresholding and classification step is the part of this process I dislike t
 
 \item[Comment:] One challenge in the thresholding process is that I have observed local maxima in the classification accuracy. In other words, the accuracy may peak with a certain threshold combination, but that peak may only be a local maxima, and a different threshold combination may allow an even higher accuracy.
 
-\item[Idea:] Might the variation within the fit values for a signature contain useful information that could be used to find an optimized RMSE threshold value statistically?
+\item[Idea:] Might the variation within the RMSE values for a signature contain useful information that could be used to find an optimized RMSE threshold value statistically?
 
 \item[Comment:] This connects with the previous question. Additionally, if the RMSE thresholds could be determined statistically, then no ground truth would be needed to create the classification.
 
-\item[Idea:] If multiple signatures are used for a single crop, each resulting in a separate fit raster, should the fit raster for that crop be combined before thresholding using the lowest value for each pixel?
+\item[Idea:] If multiple signatures are used for a single crop, each resulting in a separate RMSE raster, should the RMSE rasters for that crop be combined before thresholding using the lowest RMSE for each pixel?
 
-\item[Comment:] Barring the realization of a new method for thresholding the fit rasters, this question deserves some thought. Processing time increases exponentially with each additional fit raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the fit rasters for a single crop were of equal validity, this would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the fit rasters of any such signatures by holding them at low RMSE thresholds. Preempting the thresholding process by merging the fit rasters of a signature would not allow the RMSE thresholding to weigh the fit rasters unequally.
+\item[Comment:] Barring the realization of a new method for thresholding the RMSE rasters, this question deserves some thought. Processing time increases exponentially with each additional RMSE raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the RMSE rasters for a single crop were of equal validity, this idea would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the RMSE rasters of any such signatures by holding them at low RMSE thresholds. Preempting the thresholding process by merging the RMSE rasters of a signature would not allow the RMSE thresholding to weigh the RMSE rasters unequally.
 
 \item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See \todo[inline]{REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES}
 for more details.

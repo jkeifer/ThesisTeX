@@ -1,7 +1,7 @@
 % *************** Set Biblatex Style and Options ***************
 
 \usepackage{csquotes}
-\usepackage[authordate-trad, backend=biber, firstinits=true, maxcitenames=3, isbn=false, doi=false, eprint=false, shorthandfull, sorting=nyt, sortcites=true, ibidtracker=false]{biblatex-chicago}
+\usepackage[authordate-trad, backend=biber, firstinits=true, maxcitenames=3, isbn=false, doi=false, eprint=false, shorthandfull, sorting=nyt, sortcites=true, ibidtracker=false, abbreviate=true]{biblatex-chicago}
 \addbibresource[datatype=bibtex]{thesis.bib}
 
 %Check for page range in postnotes to use a colon not comma
@@ -87,15 +87,19 @@
 %Set custom strings for url and date labels (available at and last accessed)
 \DefineBibliographyStrings{american}{%
   url = {available at},
-  urlseen = {last accessed},
+  urlseen = {last accessed}, 
 }
-%\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+%\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}  % removed "Available at:" 2014-09-01
 \DeclareFieldFormat{urldate}{\mkbibparens{\bibstring{urlseen}\addcolon\space{#1}}}
 
 % Set url + date appearance in bib (add doi here if needed)
 \renewbibmacro*{bib+doi+url}{%
   \usebibmacro{url+urldate}
   }
+  
+
+% Abbreviate edited by as eds.
+\DeclareFieldFormat{editortype}{\mkbibparens{#1}}
   
 %Remove Quotes around titles
 \DeclareFieldFormat

@@ -21,12 +21,25 @@
 
 % *************** Load packages ***************
 \input{packagesandoptions.tex}
-
-\usepackage{xltxtra} %Xeletex Package
-\usepackage{fontspec} %Font package
-\usepackage{xunicode} %Xeletex
+\usepackage{mathspec}  % loads fontspec as well
+\usepackage{xltxtra}  % xelatex package
+\usepackage{xunicode}  % xelatex unicode support?
 
 %TODO MOVE ALL GROUPS OF SETTINGS (I.E. TABLES & FIGURES, DOCUMENT LAYOUT, ETC. TO NEW TEX FILES INSIDE A SETTINGS FOLDER]
+
+
+% *************** Set Fonts ***************
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{Baskerville}
+\setromanfont[Mapping=tex-text]{Baskerville}
+\setsansfont[Mapping=tex-text]{Myriad Pro}
+\newfontfamily\titleFont[Ligatures=TeX]{Myriad Pro}
+\setmonofont{DejaVu Sans Mono}
+
+\setmathrm{Baskerville}  % math roman font
+\setmathfont(Digits,Latin){Baskerville}  % math digits and latin characters
+
+\usepackage[final]{microtype}
 
 
 % *************** Enable index generation ***************
@@ -55,15 +68,6 @@
 
 % ********* Reference Settings **********
 \input{bibsettings.tex}
-
-
-% *************** Set Fonts ***************
-\usepackage[final]{microtype}
-\defaultfontfeatures{Ligatures=TeX}
-\setromanfont[Mapping=tex-text]{Baskerville}
-\setsansfont[Mapping=tex-text]{Myriad Pro}
-\newfontfamily\titleFont[Ligatures=TeX]{Myriad Pro}
-\setmonofont{DejaVu Sans Mono}
 
 
 % *************** Page layout ***************
@@ -193,6 +197,7 @@
   \begin{figure}
   \begin{Spacing}{1.2}}{%
   \end{Spacing}
+  \medskip
   \end{figure}
 }
 
@@ -200,6 +205,7 @@
   \begin{table}
   \begin{Spacing}{1.0}}{%
   \end{Spacing}
+  \medskip
   \end{table}
 }
 
