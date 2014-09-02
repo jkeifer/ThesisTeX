@@ -3,21 +3,28 @@
 
 \section{Ground Truth and Agricultural Practices in Pellegrini}
 
-I travelled to Pellegrini \datenoyear{12}{3} through \formatdate{3}{4}{2014} during the summer growing season to collect crop data. Using field observation, interviews, and satellite image interpretation, I gathered identifications for 378 of 400 sample points randomly distributed throughout the department, as well as many additional fields I also came across. Areas of homogenous land cover were digitized from Landsat imagery, and the collected data was used to classify the digitized polygons, where applicable (\autoref{map:pellegrini:groundtruth}). Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 106 as actively-cultivated agriculture: thirty six points as corn, twenty four points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty two points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty two points could not be verified due to inaccessibility, uncertainty, or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
-
-I tried to get direct observations of all crop sample points to accurately record the crop types. However, this strategy proved to be difficult in many cases; I was able to visit only forty seven of the crop points. Often, fields were inaccessible due to road conditions or locked gated. Forty five crop observations came from interviews with farmers and land owners. In a few cases I was able to meet with agricultural engineers who were even able to provide me with maps of the fields they managed (see \autoref{pic:localmap}. The last fourteen crop point identifications were interpreted from Landsat imagery.
-
-The total area of each of land cover class is shown in \autoref{table:pellegrini:LCarea}. Compared to the 2000 through 2005 crop areas from \textcite{volante2005analisis}, corn seems to have expanded significantly in the area, while soy has retreated, despite the impression of the contrary in the country as a whole. I gathered from talks with farmers that the decline of soy may be due to increased expenses in the region due to pests, fungus, poor soil, and transportation. Sorghum, a hectare count of which \citeauthor{volante2005analisis} omitted for Pellegrini, does not occupy much land relative to the other crops, and, across Argentina as a whole, experienced a significant decline in production from 1970 to 2003 \autocite{paruelo2005expansion}. However, the 1,646 hectares I observed may indicate a reversal of sorghum's popularity due to increasing demand as cattle feed in feedlots, and could likely be a bigger piece of the Pellegrini agricultural pie in coming years.
-
-In conferring with local farmers and land owners, I found the typical planting and harvesting dates for the major summer crops of soy, corn, sorghum, and poroto, shown in \autoref{table:plantingdates}. The dates I collected did not match those I found published for the country as a whole (see \autoref{chapter:studyareas:pellegrini}, \autopageref{chapter:studyareas:pellegrini}). In fact, based on my data, soy is most frequently planted before corn, in contrast to Kansas and the rest of Argentina (see \autoref{table:KSplantingdates} on \autopageref{table:KSplantingdates} for Kansas dates). I was also told that the winter growing season is separate from the summer growing season. Unlike Kansas, where the beginning of the summer crops (namely corn's early development) overlaps with the end of winter wheat growth, the harvesting of Pellegrini's winter crops is typically completed before summer planting begins. Thus, where double cropping is limited in Kansas to a winter crop and a late-developing summer crop (overwhelmingly a winter wheat and soy or winter wheat and sorghum combination), any winter crop can be paired with any summer crop in Pellegrini.
-
+I travelled to Pellegrini \datenoyear{12}{3} through \formatdate{3}{4}{2014} during the summer growing season to collect crop data. Using field observation, interviews, and satellite image interpretation, I gathered identifications for 378 of 400 sample points randomly distributed throughout the department, as well as many additional fields I also came across. Areas of homogenous land cover were digitized from Landsat imagery, and the collected data was used to classify the digitized polygons, where applicable (\autoref{map:pellegrini:groundtruth}).
 \begin{ssfigure}
   \centering
   \includegraphics[width=\textwidth]{Graphics/collecteddata.pdf}
   \caption{Pellegrini Summer 2014 Collected and Digitized Ground Truth Dataset}
   \label{map:pellegrini:groundtruth}
 \end{ssfigure}
+Of my 400 sample points, I was able to visually classify 247 of the points as forested from Landsat OLI imagery before leaving for Argentina. Of the remaining 153, I identified 106 as actively-cultivated agriculture: thirty six points as corn, twenty four points as soy, two points as sorghum, seven points as poroto, and thirty seven points as pasture. Twenty two points were identified as ``other,'' representing all non-forest, non-agricultural, and/or mixed-use land cover classes. Another three points, based on the literal descriptions communicated to me by land managers, were identified as ``nothing.'' I am unsure if these fields were simply left fallow or are something else, but they are not under active cultivation. Twenty two points could not be verified due to inaccessibility, uncertainty, or falling on a mixed-use area, and were removed from the final set of sample points used for the accuracy assessment.
 
+I tried to get direct observations of all crop sample points to accurately record the crop types. However, this strategy proved to be difficult in many cases; I was able to visit only forty seven of the crop points. Often, fields were inaccessible due to road conditions or locked gated. Forty five crop observations came from interviews with farmers and land owners. In a few cases I was able to meet with agricultural engineers who were even able to provide me with maps of the fields they managed (see \autoref{pic:localmap}).
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=1.0\textwidth]{Graphics/Pics/map.png}
+  \caption{Map of \textit{Estancia La Armonia}, a Large Farm}
+  \label{pic:localmap}
+  \medskip
+  \small
+  This map is exemplary of those used by the larger farming operations to plan their land use. This farm, \textit{Estancia La Armonia}, primarily raises cattle, so most all of the fields shown are pasture areas. The fields shown highlighted in green are sorghum, which I was told is used as part of the feed mixture in a small cattle feedlot operation.
+\end{ssfigure}
+The last fourteen crop point identifications were interpreted from Landsat imagery.
+
+The total area of each of land cover class is shown in \autoref{table:pellegrini:LCarea}.
 \begin{sstable}
   \centering
   \caption[Summer 2014 Pellegrini Land Cover Classes, From Ground Truth]{Summer 2014 Pellegrini Land Cover Classes, From Ground Truth\\~By Area, with Sample Point Counts}
@@ -42,17 +49,9 @@ In conferring with local farmers and land owners, I found the typical planting a
     \bottomrule
   \end{tabu}
 \end{sstable}
+Compared to the 2000 through 2005 crop areas from \textcite{volante2005analisis}, corn seems to have expanded significantly in the area, while soy has retreated, despite the impression of the contrary in the country as a whole. I gathered from talks with farmers that the decline of soy may be due to increased expenses in the region due to pests, fungus, poor soil, and transportation. Sorghum, a hectare count of which \citeauthor{volante2005analisis} omitted for Pellegrini, does not occupy much land relative to the other crops, and, across Argentina as a whole, experienced a significant decline in production from 1970 to 2003 \autocite{paruelo2005expansion}. However, the 1,646 hectares I observed may indicate a reversal of sorghum's popularity due to increasing demand as cattle feed in feedlots, and could likely be a bigger piece of the Pellegrini agricultural pie in coming years.
 
-\begin{ssfigure}
-  \centering
-  \includegraphics[width=1.0\textwidth]{Graphics/Pics/map.png}
-  \caption{Map of \textit{Estancia La Armonia}, a Large Farm}
-  \label{pic:localmap}
-  \medskip
-  \small
-  This map is exemplary of those used by the larger farming operations to plan their land use. This farm, \textit{Estancia La Armonia}, primarily raises cattle, so most all of the fields shown are pasture areas. The fields shown highlighted in green are sorghum, which I was told is used as part of the feed mixture in a small cattle feedlot operation.
-\end{ssfigure}
-
+In conferring with local farmers and land owners, I found the typical planting and harvesting dates for the major summer crops of soy, corn, sorghum, and poroto, shown in \autoref{table:plantingdates}.
 \begin{sstable}
   \centering
   \caption{Typical Planting Dates for Summer Crops, Pellegrini, Argentina}
@@ -68,6 +67,7 @@ In conferring with local farmers and land owners, I found the typical planting a
     \bottomrule
   \end{tabu}
 \end{sstable}
+The dates I collected did not match those I found published for the country as a whole (see \autoref{chapter:studyareas:pellegrini}, \autopageref{chapter:studyareas:pellegrini}). In fact, based on my data, soy is most frequently planted before corn, in contrast to Kansas and the rest of Argentina (see \autoref{table:KSplantingdates} on \autopageref{table:KSplantingdates} for Kansas dates). I was also told that the winter growing season is separate from the summer growing season. Unlike Kansas, where the beginning of the summer crops (namely corn's early development) overlaps with the end of winter wheat growth, the harvesting of Pellegrini's winter crops is typically completed before summer planting begins. Thus, where double cropping is limited in Kansas to a winter crop and a late-developing summer crop (overwhelmingly a winter wheat and soy or winter wheat and sorghum combination), any winter crop can be paired with any summer crop in Pellegrini.
 
 
 \section{Elimination of Mixels}
@@ -121,8 +121,6 @@ I found 1,359 pure pixels in the 100 pixel by 100 pixel Kansas study area. The l
 
 Before extracting the reference signatures for each summer crop, the pixels for each crop had to be clustered. \autoref{map:KSclusters} shows the spatial distribution of the three clusters for each crop. Given the small number of pixels, the k-means algorithm only found a single cluster for sorghum.
 
-The temporal signatures of each of the clusters are plotted in \autoref{fig:KScropsigs}. Each of the crops have a somewhat similar appearance to one another, but each can be differentiated: corn peaks earlier in the year than soy or sorghum, soy has a rounder peak than corn, while sorghum has lower VI values and a slightly later growing season than soy.
-
 \begin{ssfigure}
   \centering
   \includegraphics[width=\textwidth]{Graphics/KSclustered.pdf}
@@ -130,6 +128,7 @@ The temporal signatures of each of the clusters are plotted in \autoref{fig:KScr
   \label{map:KSclusters}
 \end{ssfigure}
 
+The temporal signatures of each of the clusters are plotted in \autoref{fig:KScropsigs}. Each of the crops have a somewhat similar appearance to one another, but each can be differentiated: corn peaks earlier in the year than soy or sorghum, soy has a rounder peak than corn, while sorghum has lower VI values and a slightly later growing season than soy.
 
 \begin{ssfigure}
   \centering
@@ -148,22 +147,11 @@ Fitting the seven crop reference signatures---three corn, three soy, and one sor
 
 The Kansas classification achieved an overall accuracy of 84.4 percent, a map of which is shown in \autoref{map:KSclassification}; the confusion matrix is \autoref{table:ksresults}. This classification was generated by iterating over the range of RMSE thresholds from 450 to 1150 by steps of 150. The best RMSE threshold combination from that process was then manually adjusted by steps of 50 for each RMSE raster until the maximum accuracy classification was found using the RMSE thresholds in \autoref{table:ksbestthresh}.
 
-The Argentina classification had a top overall accuracy of 87.8 percent (\autoref{table:ARbestresult}). Looking more closely at the results, the accuracy seems to be skewed upward by the high number of non-summer-crop sample points, which were correctly classified as ``other.'' Within the summer crop sample points, the accuracy is much lower; only one of the twenty three soy points and zero of the two sorghum points were correctly classified. Corn fared a bit better, but was still underwhelming, as only 68.6 percent of the corn points were classified correctly. The RMSE thresholds used for this classification, in \autoref{table:ARbestthresh}, show that the Corn\_2 and Soy\_3 signatures contributed to the classification most heavily, the Corn\_1 and Soy\_2 signatures contributed only a little, and the Corn\_3, Soy\_1, and the Sorghum\_1 signatures did not contribute at all (hence the zero points of sorghum classified).
-
-A map of the classification, shown in \autoref{map:ARclassification}, illustrates how well the classification stayed within summer crop fields, and did not classify much beyond. However, almost all of the summer crop fields are classified as corn, reflecting the low summer crop accuracies shown in \autoref{table:ARbestresult}.
-
 \begin{ssfigure}
   \centering
   \includegraphics[width=\textwidth]{Graphics/KSclass.pdf}
-  \caption{Kansas Summer 2012 Classification}
+  \caption[Kansas Summer 2012 Classification]{}
   \label{map:KSclassification}
-\end{ssfigure}
-
-\begin{ssfigure}
-  \centering
-  \includegraphics[width=\textwidth]{Graphics/ARclassed.pdf}
-  \caption{Pellegrini Summer 2014 Classification}
-  \label{map:ARclassification}
 \end{ssfigure}
 
 \begin{sstable}
@@ -187,7 +175,8 @@ A map of the classification, shown in \autoref{map:ARclassification}, illustrate
   \end{tabu}
 \end{sstable}
 
-\begin{sstable}
+\begin{table}[b]
+  \begin{Spacing}{1.0}
   \centering
   \caption{Kansas Best Classification RMSE Thresholds}
   \label{table:ksbestthresh}
@@ -204,7 +193,10 @@ A map of the classification, shown in \autoref{map:ARclassification}, illustrate
     Sorghum & 450 \\
     \bottomrule
   \end{tabu}
-\end{sstable}
+  \end{Spacing}
+\end{table}
+
+The Argentina classification had a top overall accuracy of 87.8 percent (\autoref{table:ARbestresult}). Looking more closely at the results, the accuracy seems to be skewed upward by the high number of non-summer-crop sample points, which were correctly classified as ``other.'' Within the summer crop sample points, the accuracy is much lower; only one of the twenty three soy points and zero of the two sorghum points were correctly classified. Corn fared a bit better, but was still underwhelming, as only 68.6 percent of the corn points were classified correctly. The RMSE thresholds used for this classification, in \autoref{table:ARbestthresh}, show that the Corn\_2 and Soy\_3 signatures contributed to the classification most heavily, the Corn\_1 and Soy\_2 signatures contributed only a little, and the Corn\_3, Soy\_1, and the Sorghum\_1 signatures did not contribute at all (hence the zero points of sorghum classified).
 
 \begin{sstable}
   \centering
@@ -212,12 +204,23 @@ A map of the classification, shown in \autoref{map:ARclassification}, illustrate
   \label{table:ARbestresult}
   \begin{tabu}{rrrrrrrl}
     \toprule
-     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 24 & 13 & 0 & 8 & 45 & 53.33\% \\     & Soy & 0 & 2 & 1 & 2 & 5 & 40.00\% \\     & Sorghum & 0 & 0 & 0 & 0 & 0 & 0.00\% \\     & Other & 12 & 9 & 1 & 306 & 328 & 93.29\% \\     & Total & 36 & 24 & 2 & 316 & 378 &  \\     & Producer Acc. & 66.67\% & 8.33\% & 0.00\% & 96.84\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 87.83\%} \\    \multicolumn{8}{r}{Kappa: 0.54} \\
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\
+     &  & Corn & Soy & Sorghum & Other & Total & User Acc. \\
+    \midrule
+    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 24 & 13 & 0 & 8 & 45 & 53.33\% \\
+     & Soy & 0 & 2 & 1 & 2 & 5 & 40.00\% \\
+     & Sorghum & 0 & 0 & 0 & 0 & 0 & 0.00\% \\
+     & Other & 12 & 9 & 1 & 306 & 328 & 93.29\% \\
+     & Total & 36 & 24 & 2 & 316 & 378 &  \\
+     & Producer Acc. & 66.67\% & 8.33\% & 0.00\% & 96.84\% &  &  \\
+    \multicolumn{8}{r}{Overall Accuracy: 87.83\%} \\
+    \multicolumn{8}{r}{Kappa: 0.54} \\
     \bottomrule
   \end{tabu}
 \end{sstable}
 
-\begin{sstable}
+\begin{table}[b]
+  \begin{Spacing}{1.0}
   \centering
   \caption{Pellegrini Best Classification RMSE Thresholds}
   \label{table:ARbestthresh}
@@ -234,4 +237,14 @@ A map of the classification, shown in \autoref{map:ARclassification}, illustrate
     Sorghum\_1 & 0 \\
     \bottomrule
   \end{tabu}
-\end{sstable}
+  \end{Spacing}
+\end{table}
+
+A map of the classification, shown in \autoref{map:ARclassification}, illustrates how well the classification stayed within summer crop fields, and did not classify much beyond. However, almost all of the summer crop fields are classified as corn, reflecting the low summer crop accuracies shown in \autoref{table:ARbestresult}.
+
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=\textwidth]{Graphics/ARclassed.pdf}
+  \caption[Pellegrini Summer 2014 Classification]{}
+  \label{map:ARclassification}
+\end{ssfigure}
