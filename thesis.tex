@@ -15,8 +15,7 @@
 \newcommand{\thesisCommitteeTwo}{Leopoldo Rodriguez}
 %\newcommand{\thesisCommitteeThree}{committee3}
 \newcommand\thesisAbstract{%
-Subtropical deforestation in Latin America is thought to be driven by demand for agricultural land, particularly to grow soybeans. However, existing remote sensing methods that can differentiate crop types to verify this hypothesis require high spatial or spectral resolution data, or extensive ground truth information to develop training sites, none of which are freely available for much of the world. Here, I propose a new method of crop classification using multi-temporal MODIS vegetation indices as a base image from which to extract crops using their phenologies. I test and refine this method in Kansas, USA using the USDA crop data layer as reference. I then test the applicability of the method to other regions of the world by applying it to data from Pellegrini, Santiago Del Estero, Argentina. The study is to examine if using phenological profiles in image classification is a viable method to verify the initial hypothesis that soybeans are driving deforestation in subtropical South America.
-}
+Subtropical deforestation in Latin America is thought to be driven by demand for agricultural land, particularly to grow soybeans. However, existing remote sensing methods that can differentiate crop types to verify this hypothesis require high spatial or spectral resolution data, or extensive ground truth information to develop training sites, none of which are freely available for much of the world. I developed a new method of crop classification based on the phonological signatures of crops extracted from multi-temporal MODIS vegetation indices. I tested and refined this method using the USDA Cropland Data Layer from Kansas, USA as a reference. I then applied the method to classify crop types for a study site in Pellegrini, Santiago Del Estero, Argentina. The results show that this method is unable to effectively separate summer crops in Pellegrini, but can differentiate summer crops and non-summer crops well. Unmet assumptions about agricultural practices are primarily responsible for the ineffective summer crop classification, underlining the need for researchers to have a complete understanding of ground conditions when designing a remote sensing analysis.}
 
 \newcommand\chapterWithSubtitle[2]{\chapter[#1]{#1: #2}}
 
@@ -35,7 +34,6 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \todo[inline]{Add textspanish to all spanish words, phrases, and passages}
 \todo[inline]{Check accents in all spanish}
 \todo[inline]{Need a new title}
-\todo[inline]{try moving all figures and tables to the front in a separate file and using flafter package}
 \todo[inline]{appendix for attached source files (see formatting guide)}
 
 
@@ -53,61 +51,50 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 % *************** Main matter ***************
 
 \mainmatter
+\setcounter{endnote}{0}
 
 \input{chapters/intro.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/background.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/studyarea.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/datamethods.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 %\input{chapters/timeline.tex}
 %\input{chapters/preliminaryresults.tex}
 
 \input{chapters/results.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/discussion.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/conclusion.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \appendix
 \captionsetup{list=no}
 \renewcommand\chaptername{Appendix}
 
 \input{chapters/fieldwork.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/development.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/testing.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/futuretesting.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 \input{chapters/notes_cdl.tex}
-\clearpage\theendnotes
-\setcounter{endnote}{0}
+\ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
 
 %\clearpage
 %\input{chapters/projectcode.tex}
