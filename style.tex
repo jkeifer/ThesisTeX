@@ -102,7 +102,8 @@
        
 }
 
-\renewcommand*{\cftappendixname}{Appendix\space}
+\renewcommand*{\cftappendixname}{Appendix\space}  % Table of contents to show Appendix A instead of just A
+
 
 \chapterstyle{mychapterstyle}
 
@@ -180,6 +181,8 @@
 %\fi
 \usepackage[hidelinks, draft=false]{hyperref}
 %\hypersetup{final}
+\usepackage[noabbrev, nameinlink, capitalise]{cleveref}
+
 \usepackage[all]{hypcap}  % fixes problem when you click on a link and go to caption, not figure or table itself
 
 %links for endnotes

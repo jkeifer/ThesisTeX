@@ -1,5 +1,5 @@
 \chapter{Data and Methods}
-\label{chapter:methods}
+\label{methods}
 
 \section{Overview}
 
@@ -28,7 +28,7 @@ An outline of the processing workflow is below:
   \item Use the CDL to isolate the pure corn, soy, and sorghum pixels in the Kansas TSI
   \item Identify the unique phenological groups in each set of isolated pixels using k-means clustering
   \item Extract the pixel values for each unique phenological group from the time series image and find the mean value for each date to form the unique signatures for each crop
-  \item Fit the Kansas signatures to the Kansas TSI using the TSF method (see \autoref{chapter:methods:phenology-fitting})
+  \item Fit the Kansas signatures to the Kansas TSI using the TSF method (see \autoref{methods:phenology-fitting})
   \item Classify the Kansas RMSE rasters and assess the classification accuracy
   \item Fit the Kansas signatures to the Argentina TSI
   \item Classify the Argentina RMSE rasters and assess the accuracy
@@ -57,12 +57,14 @@ Ancillary information about agricultural practices in the region was also collec
 To use the CDL as a ground truth with the Kansas TSI, the 30-meter CDL pixels were resampled by majority to match the larger TSI pixels. This allowed a direct comparison between the crop values from the CDL and the pixel signatures in the TSI.
 
 \subsection{Building the TSIs}
+\label{buildingTSIs}
 
 For this study, I chose to classify the 2012 Kansas summer growing season and the 2014\footnote{To clarify, I have chosen to refer to the summer growing season by the harvesting year, given that the Argentine summer technically ranges from \datenoyear{21}{12} to \datenoyear{20}{3}. This is the same date range as the Northern Hemisphere's winter season, which is typically referred to by the year in which it ends, e.g. winter 2014. I find other references to the growing seasons in Argentina to be somewhat confusing. Often, a year range is used, such as 2013-2014, to denote that the grown season actually begins in 2013. Sometimes, as planting dates in Argentina as a whole are primarily September through December, the proceeding year is used to refer to the entire growing season, which I find especially misleading.} Argentina summer growing season. I assembled the MODIS 16-day composite VI images into multi-date time-series images (TSI) covering the growth cycle of the summer crops, where each band in a TSI is a 16-day composite VI and the bands are ordered consecutively (see \autoref{appendix:tools:build} on \autopageref{appendix:tools:build} for the description of the Build Multidate Image Tools). The Kansas summer TSI covered the date range DOY 97 through DOY 273, and was made with data from the Terra satellite (LPDAAC product MOD13Q1, tile h10v05). Prior to creating the TSIs, each of the 16-day composites was reprojected from the native MODIS sinusoidal reference system using LPDAAC's MODIS Reprojection Tool \autocite{modis4.1}. I reprojected the Kansas data into the Albers Equal Area Conic projection for the contiguous U.S. using the 1983 North American Datum (WKID: 5070) to match the reference system of the USDA CDL.
 
 In Argentina, as it is in the Southern Hemisphere and the seasons are inverted to those of the Northern hemisphere, the growing season shifts, as must the date range for the VI time-series. The TSI for Pellegrini must begin at the end of the proceeding year to adequately capture the entirety of the summer phenologies. To accomplish this, the time-series image for summer 2014 began with the 16-day composite image from DOY 353 of 2013 (or DOY −13 with reference to 2014) and ended with the image from DOY 161 of 2014 (MODIS grid tile h12v11). This specific date range was chosen based on information provided by local farmers to ensure coverage of the earliest planting and latest harvesting dates, as well as manual inspection of pixel signatures throughout the study area. Persistent clouds necessitated using an image from the Aqua satellite of DOY 105 (LPDAAC product MYD13Q1) in place of DOY 113 from Terra. Due to no viable imagery from Aqua or Terra, DOY 129 was interpolated via a simple mean from the DOY 105 Aqua image and the DOY 145 Terra image. The Argentina composite images were reprojected with the UTM Zone 20S reference system (WKID: 32720).
 
 \subsection{Eliminating Mixels}
+\label{methods:mixels}
 
 After building the TSIs, the next processing step was to eliminate mixels from the Kansas TSI. Mixels, or pixels that contain more than one land cover type within the 250 by 250 meter cell area, have mixed temporal signatures, and cannot be clearly classified. To prevent errors, mixels had to be removed from the Kansas datasets (see \autoref{appendix:testing:r2} on \autopageref{appendix:testing:r2} for more information). Pure pixels, the non-mixels in an image, were isolated using ArcGIS \autocite{arcgis10.1} by intersecting a vectorized version of the original 30-meter CDL ground truth with a vector grid of the TSI pixels. From the resulting geometry, all polygons with an area greater than 53,000 square meters (or 98 percent of a MODIS pixel) were selected as pure. I also manually selected two sorghum pixel features that were omitted due to intermixed soy pixels. I chose to add these pixels due to the low number of sorghum features retained, and that the intermixed soy appeared to be errors.
 

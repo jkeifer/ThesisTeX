@@ -4,7 +4,7 @@
 \section{Round 1 Testing: Initial Classifications}
 \subsection*{Testing Considerations}
 
-I began testing the tool with three main questions. I wanted to know how the accuracy of classification is affected by:
+I began testing the toolset (explained in \autoref{appendix:tools}) with three main questions. I wanted to know how the accuracy of classification is affected by:
 
 \begin{Spacing}{1.2}
 \begin{itemize}
@@ -14,126 +14,185 @@ I began testing the tool with three main questions. I wanted to know how the acc
 \end{itemize}
 \end{Spacing}
 
-To test these factors, I chose six small sample areas dispersed across Kansas, each 100 MODIS pixels square, or about 2.3 KM$^2$ (\autoref{fig:studysites}). Using the USDA CDL as reference, I identified areas containing a mix of corn, wheat, soy, sorghum, and winter wheat pixels. I did my best to distribute the small areas across the state to capture a wide variety of growing conditions. This task was surprisingly difficult, given the large extent of the state and the concomitant variation in growing conditions. The crops favored tended to change from one area to another; for example, few sites in western Kansas had little more than corn and wheat.
-
-Within each sample site, I found four to eight MODIS pixels of each of the previously listed crop types. I took care to choose only pixels in the center of fields, under the assumption such pixels would be more representative of the crop’s true temporal signature. On each chosen pixel, I digitized a vector point feature, keeping points for each crop and study area in separate shapefiles  (\autoref{fig:refpoints}). I used these shapefiles as inputs to the RSG, and created two sets of reference temporal signatures for each study area: one set from the NDVI MODIS data, and another from the EVI data. I also found the mean of the signatures identified for each crop in easy study area, which gave me mean NDVI and EVI reference temporal signatures averaged across all six study sites.
-
-I classified both NDVI and EVI data for each of the sample areas using its own reference signatures, the reference signatures derived from each of the other sample areas, and the mean signatures from all of the sample areas. This allowed me to test how the spatial distribution of pixels used to construct reference signatures affects the accuracy of classification, and which of these two VIs performs better. My initial hypothesis was that averaging signatures across multiple sites would decrease the “truthfulness” of the reference signatures because of geographical discrepancies in season start date, maximum VI intensity, and/or season length. If reference signatures are usable between study areas, but averaging multiple sites together does in fact negatively affect the derived reference curves, I expected to see rather consistent classification accuracies independent of the reference signature set used, but that the mean reference signatures produced a lower classification accuracy than those derived from single sample sites. However, if reference signatures are not useable between study areas, I expected low accuracies when the reference signatures from different study areas are used for classification, while the mean reference signatures should perform somewhere between those of the study area in question and those of the other study areas. If spatial distribution has no effect, my expectations was that the classification accuracies would be relatively consistent no matter which reference signature set is used.
-
-I knew these tests would not directly answer my question about temporal variation in the construction of reference temporal signatures. To get an accurate answer, I knew I would need to repeat the above testing, replacing location with time as the key variable. However, given my hypothesis about the effects of spatial variation, I wanted to find out my results before devising this test. If I found the spatial distribution of pixels negatively affected the classification accuracies, then I could reasonably conclude adding a temporal component would have a similar outcome, as temporal variance would also introduce discrepancies in season start date, maximum VI intensity, and/or season length. In such a case, additional testing of this parameter would not be necessary to proceed.
+To test these factors, I chose six small study sites dispersed across Kansas, each 100 MODIS pixels square, or about 2.3 square kilometers (\autoref{fig:studysites}). Using the USDA CDL as reference, I identified areas containing a mix of corn, soy, sorghum, winter wheat,  and winter wheat/soybean double crop pixels. I did my best to distribute the study sites across the state to capture a wide variety of growing conditions. This task was surprisingly difficult, given the large extent of the state and the concomitant variation in growing conditions. The crops favored tended to change from one area to another. For example, few areas in western Kansas had little more than corn and wheat.
 
 \begin{ssfigure}
   \centering
-  \includegraphics[width=.9\textwidth]{Graphics/Testing/STUDYSITES.pdf}
-  \caption{The six study sites in Kansas.}
+  \includegraphics[width=\textwidth]{Graphics/Testing/STUDYSITES.pdf}
+  \caption{The Six Kansas Study Sites}
   \label{fig:studysites}
 \end{ssfigure}
+
+Next, I assembled a TSI for all of Kansas from summer 2012 MODIS 16-day NDVI composite imagery, as described in \autoref{buildingTSIs} on \autopageref{buildingTSIs}. I also used the same procedure to create a Kansas TSI using the MODIS EVI composites. I clipped smaller, individual NDIV and EVI TSIs for each of the six study sites from the larger Kansas image.
+
+Within each sample site, I found four to eight TSI pixels of corn, soy, sorghum, winter wheat, and winter wheat/soy double crop. I took care to choose only pixels in the center of fields, under the assumption such pixels would be more representative of each crop’s true temporal signature. On each chosen pixel, I digitized a vector point feature (see\autoref{fig:refpoints} for an example from study site 1). I separated the points in separate shapefiles for each crop in each study site. I used these shapefiles as inputs to the RSG. Both NDVI and EVI reference temporal signatures were extracted in each study site TSI. Averaging the six extracted NDVI reference signatures for each crop gave me NDVI reference temporal signatures averaged across all six study sites. I also did the same averaging of the EVI signatures.
 
 \begin{ssfigure}
   \centering
   \includegraphics[width=.7\textwidth]{Graphics/Testing/clip1_30mCDL_smpl_old.pdf}
-  \caption{Points dropped on pixels to use for reference signatures in study site 1.}
+  \caption{Points Marking Pixels Used to Extract Reference Signatures in Study Site 1}
   \label{fig:refpoints}
 \end{ssfigure}
+
+I created seven classifications of the EVI TSIs for each of the study sites: one classification using the study site's own reference signatures, five classifications of the study site, each one using the reference signatures derived from one of the other study sites, and one classification using the mean reference signatures averaged across all of the study sites. I repeated this procedure to produce an additional seven classifications of the NDVI TSIs of each study site. For all of these classifications I used only the corn, soy, and winter wheat reference signatures.
+
+By assessing the accuracy of these classifications I could test two of my initial questions: how the spatial distribution of pixels used to construct reference signatures affects the accuracy of classification, and which of the VIs had better performance. For the spatial distribution testing, I determined there could be four possible outcomes:
+
+\begin{enumerate}
+\begin{Spacing}{1.2}
+  \item \textit{Reference signatures are usable between study sites, but averaging multiple sites increases classification accuracy.}\\
+  Classification accuracies will be largely independent of the reference signature set used. However, the mean reference signatures will produce a higher classification accuracy than those derived from single study sites.
+  \item \textit{Reference signatures are usable between study sites, but averaging multiple sites decreases classification accuracy.}\\
+  Classification accuracies will be largely independent of the reference signature set used. However, the mean reference signatures will produce a lower classification accuracy than those derived from single study sites.
+  \item \textit{Reference signatures are not useable between study sites.}\\
+  Classifications using reference signatures from different study sites will have consistently lower accuracies than the study site's own reference signatures. The mean reference signatures will perform somewhere between those of the study site in question and those of the other study sites.
+  \item \textit{Spatial distribution has no effect.}\\
+  The classification accuracies will be relatively consistent no matter which reference signature set is used.
+\end{Spacing}
+\end{enumerate}
+
+I initially hypothesized that averaging signatures across multiple sites would decrease the ``truthfulness'' of the reference signatures. That is, geographical discrepancies in season start date, maximum VI intensity, and/or season length would skew the resultant mean reference signature away from a ``true'' reference signature. Such skewing should negatively affect classification accuracy. I therefore expected outcome two.
+
+As for my third question (about temporal variation in the construction of reference temporal signatures), I decided to wait and see what results I got from these tests. If I found a wider spatial distribution of pixels negatively affected the classification accuracies, then I could reasonably conclude adding a temporal component would have a similar outcome: temporal variance, like spatial variance, would introduce discrepancies in season start date, maximum VI intensity, and/or season length.
+
 
 \subsection*{Round 1 Results and Discussion}
 \label{appendix:testing:r1:results}
 
-Some clear patterns pop out when reviewing \autoref{table:round1results}. First, a quick scan of all the values shows that none of the classifications had a very high degree of accuracy, though study site 3 stands out with much higher accuracies than the rest. A more detailed examination of of study site 3’s results shows that the increased accuracy is due to the fact that relatively few of the pixels in the sample site are crop pixels, and a high accuracy can be achieved by not classifying the majority of the pixels, such that they are considered “other.” A breakdown of highest accuracy sample site 3 classification, that using sample site 3’s reference signatures and NDVI data, is shown in \autoref{table:round1ss3acc}. One can see the relative abundance of “other” pixels that skews the accuracy upward compared to the other sample sites.
-
-\input{tables/round1overallacc.tex}
-
-[INCLUDE THE TOP ACCURACIES OF EACH OF THE OTHER SAMPLE SITES IN TABLES]
+The accuracies of the fourteen classifications testing the spatial distribution of reference signatures and the performance of the two MODIS VIs is shown in \autoref{table:round1results}. Some clear patterns are immediately obvious. First, none of the classifications had a very high degree of accuracy; study site 3 stands out with much higher accuracies than the rest. Secondly, NDVI resulted in a higher top accuracy for every sample site. Thirdly, aside from study site 5 in the EVI-based classifications, each site's highest accuracy occurred when its own signatures were used for the classification. Lastly, generally all of the mean reference signature classifications are between the lowest and highest accuracies for each study site.
 
 \begin{sstable}
   \centering
-  \caption{Round 1 Testing: Sample Site 3 Best Accuracy Using NDVI}
-  \label{table:round1ss3acc}
-  \begin{tabu}{rrrrrrl}
+  \caption[Overall Percent Accuracy for each Round 1 Classification]{Overall Percent Accuracy for Each Round 1 Classification,\\~by Study Site (SS). Green cells indicate highest accuracy for each SS.}
+  \label{table:round1results}
+  \begin{tabu}{ZZZZZZZZ}
     \toprule
-     & Corn & Soy & Wheat & Other & Total & User Accuracy \\
+    \multicolumn{8}{c}{\textbf{EVI}} \\
     \midrule
-    Corn & 861 & 133 & 0 & 334 & 1328 & 65\% \\
-    Soy & 28 & 558 & 13 & 198 & 797 & 70\% \\
-    Wheat & 2 & 4 & 23 & 37 & 66 & 35\% \\
-    Other & 884 & 424 & 74 & 6427 & 7809 & 82\% \\
-    Total & 1775 & 1119 & 110 & 6996 & &  \\
-    Producer Accuracy & 49\% & 50\% & 21\% & 92\% &  &  \\
-    \multicolumn{7}{r}{Overall Accuracy: 79\%} \\
-    \multicolumn{7}{r}{Kappa: 0.49} \\   
+    & \multicolumn{7}{c}{Reference Signatures Source} \\
+    & SS 1 & SS 2 & SS 3 & SS 4 & SS 5 & SS 6 & Mean \\
+    \midrule
+    SS 1 & \cellcolor{LimeGreen}55.61 & & 45.34 & 54.36 & 43.83 & 49.06 & 49.63\\
+    \rowcolor{light-gray}SS 2 & 53.11 & \cellcolor{LimeGreen}64.93 & 50.00 & 47.86 & 40.79 & 42.60 & 53.69 \\
+    SS 3 & 73.87 & 69.40 & \cellcolor{LimeGreen}75.23 & 73.53 & 70.57 & 71.86 & 73.71 \\
+    \rowcolor{light-gray}SS 4 & 50.42 & 45.54 & 49.26 & \cellcolor{LimeGreen}53.46 & 45.30 & 49.66 & 52.54 \\
+    SS 5 & 42.05 & 45.62 & \cellcolor{LimeGreen}56.00 & 54.68 & 55.06 & 49.02 & 40.29 \\
+    \rowcolor{light-gray}SS 6 & 47.78 & 48.66 & 38.43 & 47.53 & 41.60 & \cellcolor{LimeGreen}49.55 & 48.44 \\
+    \bottomrule
+    & & & & & & & \\
+    & & & & & & & \\
+    \toprule
+    \multicolumn{8}{c}{\textbf{NDVI}} \\
+    \midrule
+    & \multicolumn{7}{c}{Reference Signatures Source} \\
+    & SS 1 & SS 2 & SS 3 & SS 4 & SS 5 & SS 6 & Mean \\
+    \midrule
+    SS 1 & \cellcolor{LimeGreen}61.08 & 48.29 & 47.91 & 60.72 & 44.85 & 51.81 & 52.75 \\
+    \rowcolor{light-gray}SS 2 & 56.08 & \cellcolor{LimeGreen}67.39 & 42.66 & 52.59 & 50.62 & 48.95 & 61.21 \\
+    SS 3 & 74.88 & 71.75 & \cellcolor{LimeGreen}78.69 & 77.16 & 70.62 & 71.75 & 73.70 \\
+    \rowcolor{light-gray}SS 4 & 56.30 & 42.25 & 46.89 & \cellcolor{LimeGreen}59.21 & 44.72 & 54.26 & 52.48 \\
+    SS 5 & 53.57 & 48.51 & 45.93 & 62.18 & \cellcolor{LimeGreen}62.83 & 60.21 & 53.07 \\
+    \rowcolor{light-gray}SS 6 & & 51.90 & 38.28 & 49.82 & 47.15 & \cellcolor{LimeGreen}55.71 & 54.36 \\
     \bottomrule
   \end{tabu}
 \end{sstable}
 
-Another pattern that stands out is that using NDVI resulted in a higher top accuracy for every sample site. The numbers are fairly close between the two, so I am hesitant to conclude that optimizations would fail to make EVI-based classifications as or more accurate than NDVI-based classifications. Nonetheless, based on these results, I have determined to continue testing with NDVI only, as it seems to perform better.
+A more detailed examination of of study site 3’s results shows that the increased accuracy is due to the fact that relatively few of the pixels in the sample site are crop pixels (\autoref{table:round1ss3acc}). A higher accuracy thus results because so many pixels were left unclassified as ``other.''
 
-Perhaps most striking pattern in \autoref{table:round1results} is that, aside from sample site 5 in the EVI-based classifications, the highest accuracies occurred when the reference signatures generated from a particular study site were used to classify that same study site. This is not wholly unexpected—even if temporal signatures are largely location-independent, there is likely to be some location-specific phenomena influencing the shape of the signature curves. In some cases, it appears that some of the classifications using other reference signatures were of similar accuracy, as occurs with sample site 1 when it is classified using sample site 4’s signatures (61.1 percent versus 60.7 percent). However, in other cases, the accuracy is marked lower, exemplified by sample site 1 when it is classified using signatures from sample sites 2, 3, 5, and 6 (all are around 10 percent lower in accuracy).
+\begin{sstable}
+  \centering
+  \caption{Round 1 Testing: Study Site 3 Best Accuracy, Using NDVI Data}
+  \label{table:round1ss3acc}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     & & Corn & Soy & Wheat & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 861 & 133 & 0 & 334 & 1328 & 64.83\% \\     & Soy & 28 & 558 & 13 & 198 & 797 & 70.01\% \\     & Wheat & 2 & 4 & 23 & 37 & 66 & 34.84\% \\     & Other & 884 & 424 & 74 & 6427 & 7809 & 82.30\% \\     & Total & 1775 & 1119 & 110 & 6996 & 10000 &  \\     & Producer Acc. & 48.51\% & 49.87\% & 20.91\% & 91.87\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 78.69\%} \\    \multicolumn{8}{r}{Kappa: 0.49} \\
+    \bottomrule
+  \end{tabu}
+\end{sstable}
+
+As for NDVI versus EVI, the results show that NDVI consistently has higher classification accuracies. For this reason, I chose to continue all the following tests using NDVI. However, the EVI results were not far behind, so I am hesitant to conclude that future optimizations could not make EVI-based classifications as or more accurate than NDVI-based classifications. Further testing is required in this regard.
+
+That each study site had its highest accuracy classification using its own references signatures was probably the most significant finding of the test. This result was not wholly unexpected: even if temporal signatures are largely location-independent, there is likely to be some location-specific phenomena influencing the shape of the signature curves. In some cases, it appears that some classifications using other study site reference signatures were of similar accuracy. For instance, the study site 1 NDVI classification using sample site 4’s signatures has an accuracy of 60.7 percent, versus 61.1 percent with study site 1's own signatures. However, in all other cases (using signature from sample sites 2, 3, 4, 5, and 6), the sample site 1 NDVI classification accuracies are about 10 percent lower.
 
 The accuracies of the mean reference signature classifications are generally low. They are never the worst, which may suggest that it is better to average a greater number of pixels together if the representative-ness of the chosen pixels cannot be established. However, this conclusion would support a more selective and refined approach to creating reference signatures: don’t try to average out bad pixels, eliminate them in the first place.
 
-Looking back on the scenarios I outlined in my testing considerations above, I actually found none of them completely captured the behavior shown in the results. I did not see relatively consistent classification accuracies independent of the set of reference signatures used, but I also found that the reference signatures from some sample sites did well at classifying others. The mean signatures were also somewhat in the middle, generally not doing terribly well, but sometimes coming close. The best interpretation I could make of the results is that, under the right circumstances, reference signatures can be used to classify other areas. However, the cases where the reference signatures are not portable, in addition to the low overall accuracy levels, were concerning. I began to consider that I might not be able to answer the initial testing questions; instead, I realized I needed to take a step back and better explore what factors effect the classification process.
+Looking back on the outcomes I outlined above, I actually found none of them completely captured the behavior shown in the results. I did not see relatively consistent classification accuracies independent of the set of reference signatures used, but I also found that the reference signatures from some sample sites did well at classifying others. The mean signatures were also somewhat in the middle: generally they did not do terribly well, but sometimes came close. The best interpretation I could make of these results is that, under the right circumstances, reference signatures can be used to classify other areas. However, the cases where the reference signatures were not portable were concerning, as were the low overall accuracy levels. I began to consider that I might not be able to answer the initial testing questions. Instead, I realized I needed to take a step back and better explore what factors affect the classification process.
+
 
 \section{Round 2 Testing: Eliminating Mixels}
 \label{appendix:testing:r2}
 
 \subsection*{Pre-testing Investigation}
 
-I began my Round 2 testing by diving back into my Round 1 results. I wasn’t sure exactly what I needed to test, but I knew my previous results held more clues. For the sake of simplifying my investigation, I decided to focus solely on sample site 1 for the remainder of my testing. If I could boost the accuracy of its classification, I would identify some of the factors influential in the classification process. I chose sample site 1 over the others as it has the best variety of crops in which I am interested, and also includes some large non-crop areas of different land cover types. This mix seemed to offer the best testing environment of my six sites.
+I began my Round 2 testing by diving back into my Round 1 results. I wasn’t sure exactly what I needed to test, but I knew my previous results held more clues. For the sake of simplifying my investigation, I decided to focus solely on sample site 1 (SS1) for the remainder of my testing. If I could boost the accuracy of its classification, I would identify some of the factors influential in the classification process. I chose SS1 over the others as it has the best variety of crops in which I am interested, and also includes some large non-crop areas of different land cover types. This mix seemed to offer the best testing environment.
 
-I first studied the classification results for sample site 1 from Round 1 produced with its own reference signatures (\autoref{fig:ss1r1class}). I noticed that the major patterns generally matched the CDL fairly well. If the classification \textit{looks} correct, however, where were the errors? Obviously there should be many incorrect pixels, as this classification only had an accuracy of about 61 percent. Yet they weren’t obvious at first glance.
+First, I studied the classification results for SS1 from Round 1 produced with its own reference signatures (\autoref{fig:ss1r1class}). I noticed that the major patterns generally matched the CDL fairly well. If the classification \textit{looks} correct, however, where were the errors? Obviously there should be many incorrect pixels, as this classification only had an accuracy of 61.1 percent. Yet they weren’t obvious at first glance.
 
 \begin{ssfigure}
   \centering
   \begin{subfigure}[t]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_CDL.pdf}
-    \caption{The 2012 CDL.}
+    \caption{The 2012 CDL for SS1}
     \label{subfig:ss1r1CDL}
   \end{subfigure}
   \quad
   \begin{subfigure}[t]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1.pdf}
-    \caption{Round 1 classification using SS 1 signatures.}
+    \caption{Round 1 classification using SS1 signatures}
     \label{subfig:ss1r1class}
   \end{subfigure}
   \\
   \vspace{.25in}
   \begin{subfigure}[b]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1_correct.pdf}
-    \caption{Correctly classified pixels. Incorrect pixels in black.}
+    \caption{Correctly classified pixels\break~Incorrect pixels are black}
     \label{subfig:ss1r1correct}
   \end{subfigure}
   \quad
   \begin{subfigure}[b]{.475\textwidth}
     \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round1_incorrect.pdf}
-    \caption{Incorrectly classified pixels. Correct pixels in black.}
+    \caption{Incorrectly classified pixels\break~Correct pixels are black}
     \label{subfig:ss1r1incorrect}
   \end{subfigure}
   \caption{Round 1 Testing: Sample Site 1 Classification.}
   \label{fig:ss1r1class}
+  \medskip
+  \small
+  Corn pixels are shown in yellow, while soy pixels are dark green, and winter wheat pixels are brown. Notice that the classification in (b) looks to do a decent job of capturing where the different crops occur in (a), but (c) and (d) show numerous errors on the edges of fields, and some class confusion.
 \end{ssfigure}
 
-To find these incorrect pixels, I created two images: an image with the incorrect pixels masked in black, and an image with the correct pixels masked in black (\autoref{subfig:ss1r1correct} and \autoref{subfig:ss1r1incorrect}). In the former, I noticed that many of the incorrect pixels seemed to fall on the edges of fields. In the latter, I noticed some class confusion, a finding reinforced by the confusion matrix for this classification (\autoref{table:ss1r1acc}).
+To find these incorrect pixels, I created an image with of the correct pixels and an image of the incorrect pixels (\autoref{subfig:ss1r1correct} and \autoref{subfig:ss1r1incorrect}). In the former, I noticed that many of the black incorrect pixels seemed to fall on the edges of fields. In the latter, I noticed some class confusion, a finding reinforced by the confusion matrix for this classification (\autoref{table:ss1r1acc}).
 
-The class confusion seemed to be a problem, but how to begin to remedy it was not immediately obvious to me. That so many border pixels were incorrectly classified, conversely, suggested to me that this classification method struggles when pixels have more than one land cover. Such pixels are often termed mixels.
+\todo[inline]{table of ss1r1 confusion matrix}
+
+The class confusion seemed to be a problem, but how to begin to remedy it was not obvious. That so many border pixels were incorrectly classified, conversely, suggested that this classification method struggles when pixels have more than one land cover. Such ``mixed-pixels'' are often termed ``mixels.''
 
 The problem with mixels is that each land cover in a mixel has a different temporal signature. The different signatures are aggregated at the pixel level and become mixed, creating a new signature representing that specific mixture of individual signatures. This problem is not unique to my temporal data; all raster land cover data have mixels. Users of spectral data even have spectral unmixing tools to extract subpixel spectral information. \todo[inline]{CITATION}
 
-In my case, the large size of the MODIS pixels increases their possible effect on classification accuracy. Many different land covers can be included within a 232-meter square. The large pixel size also means that a much greater percentage of the study area is composed of mixels than if a smaller pixel were used.
+In my case, the large size of the MODIS pixels increases their possible effect on classification accuracy. Many different land covers can be included within a 231-square-meter area. The large pixel size also means that a much greater percentage of the study area is composed of mixels than if a smaller pixel were used.
 
-For these reasons, I hypothesized the low classification accuracy was because mixels could not be processed accurately by the fit algorithm due to the contaminated signal in a mixel curve. In other words, if two crops are mixed within a pixel, the curve of that pixel’s values from the time series image will be a blend of both crops’ phenological curves, and neither will have a good fit. Additionally, the crop which may occupy the majority of the area of the pixel may not be the largest contributor a pixel’s values; for instance, due to its high maximum VI values, a crop like soy may drive a pixel’s values up at the time of the year it is mature, even if it is in the minority of the pixel. This would further reduce the accuracy when compared to the CDL resampled by majority. Consequently, I determined I needed to find a way to removed mixels from the classification.
+For these reasons, I hypothesized the low classification accuracy was partially because mixels could not be processed accurately by the fit algorithm. In other words, if two (or more) crops are mixed within a pixel, the curve of that pixel’s values will be a blend of both crops’ phenological signatures, and neither of the two crops' references signatures will fit the pixel well. Moreover, the crop which may occupy the majority of the pixel's area may not be the largest contributor a pixel’s values. For instance, a mature crop may drive up the VI values for a pixel, even if that crop is in the minority of the pixel. Consequently, I determined I needed to find a way to removed mixels from the classification.
+
 
 \subsection*{The Testing Process}
 
-The first step in removing the mixels was to extract the MODIS raster grid from the sample site 1 TSI as vector polygons. The CDL raster is of sufficient spatial resolution (30-meter) to allow identification of fields; I converted the CDL to vector, and all continuous pixels of the same land cover value were merged into single vector features. Next, I intersected these CDL features with the pixel polygon features of the MODIS grid. From the resulting vector features I was able to select only those with an area close to that of a full MODIS pixel. Specifically, I decided to select all features greater than or equal to 53,000 m$^2$ in area (a full MODIS pixel being 53,824 m$^2$). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in \autoref{fig:ss1purepx}, was 1,359 features selected. These features can be thought to represent MODIS pixels which have “pure” signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
+The first step to removing mixels was to create a vector grid match the MODIS TSI of sample site 1. Then, I converted the 30-meter CDL raster ground truth dataset to vector polygons. Intersecting these CDL features with the TSI pixel polygons combined the geometries of both. Consequently, pixel polygons that fell within a continuous land cover area were undivided, but mixels were split up into multiple polygons by each land cover class within them. To find all the non-mixels in the study area, I selected all features with an area close to that of a full MODIS pixel from the resulting polygons. Specifically, I chose to select all features greater than or equal to 53,000 square meters in area (or 98 percent of a full MODIS pixel, which is 53,824 square meters). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in \autoref{fig:ss1purepx}, was 1,359 features selected. These features can be thought to represent MODIS pixels that have ``pure'' signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
 
 \begin{ssfigure}
   \centering
   \includegraphics[width=.9\textwidth]{Graphics/Testing/clip1_30mCDL_pure_pixels.pdf}
-  \caption{Round 2 Testing: Pure pixels in Study Site 1.}
+  \caption{Pure Pixels Delineated in Study Site 1}
   \label{fig:ss1purepx}
 \end{ssfigure}
 
-To allow me to classify only these pure pixels, I found the centroid of each of the selected pixel polygon features. The subset option of the Find Fit Tool allowed me to specify a shapefile of point features, which were converted to a list of pixel coordinates from the TSI; the tool then found the fit of the pixels in this list only. All the other pixels were assigned the no data value. All other classification steps were the same as in Round 1, except the no data values in the RMSE rasters were ignored by the Classify tool when considering accuracy.
+To allow me to classify only these pure pixels, I found the centroid of each of the selected pixel polygon features. The subset option of the Find Fit Tool uses a shapefile of point features to create a list of pixel coordinates in the TSI to process. Only these 1,359 pixels were fit with the reference signatures. All the other pixels were assigned NoData (-3000 is the MODIS NoData value). Each of the other classification steps were the same as in Round 1, except the NoData values in the RMSE rasters were ignored by the Classify tool when considering accuracy.
+
+
+\subsection*{Round 2 Results and Discussion}
+
+The pure-pixel-only classification is shown in \autoref{fig:ss1r2}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the ``other'' pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion. In other words, because the similar shape and close maximum dates of early soy and late corn, they may not be differentiable to the fit algorithm. However, if this hypothesis were true, I expected to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. Additionally, this hypothesis does not explain why so many ``other'' pixels were classified as corn. Thus, I began to consider that the reference signatures I created might not be accurate.
+
+\todo[inline]{split into two figures}
 
 \begin{ssfigure}
   \centering
@@ -155,82 +214,79 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
 
 \begin{sstable}
   \centering
-  \caption{Round 2 Testing: Sample site 1, NDVI, Pure Pixels}
+  \caption{Round 2 Testing: Sample Site 1 NDVI Classification of Pure Pixels}
   \label{table:ss1r2acc}
   \begin{tabu}{rrrrrrrl}
     \toprule
-     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\
-     & & Corn & Soy & Wheat & Other & Total & User Acc. \\
-    \midrule
-    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 358 & 108 & 3 & 79 & 548 & 65\% \\
-     & Soy & 10 & 236 & 0 & 11 & 257 & 92\% \\
-     & Wheat & 36 & 6 & 348 & 29 & 419 & 83\% \\
-     & Other & 10 & 4 & 20 & 101 & 135 & 75\% \\
-     & Total & 414 & 354 & 371 & 220 & 1359 &  \\
-     & Prod. Acc. & 86\% & 67\% & 94\% & 46\% &  &  \\
-    \multicolumn{8}{r}{Overall Accuracy: 77\%} \\
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     & & Corn & Soy & Wheat & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 358 & 108 & 3 & 79 & 548 & 65.34\% \\     & Soy & 10 & 236 & 0 & 11 & 257 & 91.83\% \\     & Wheat & 36 & 6 & 348 & 29 & 419 & 83.05\% \\     & Other & 10 & 4 & 20 & 101 & 135 & 74.81\% \\     & Total & 414 & 354 & 371 & 220 & 1359 &  \\     & Producer Acc. & 86.47\% & 66.67\% & 93.80\% & 45.91\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 76.75\%} \\
     \multicolumn{8}{r}{Kappa: 0.68} \\  
     \bottomrule
   \end{tabu}
 \end{sstable}
 
-
-\subsection*{Round 2 Results and Discussion}
-
-The pure-pixel-only classification is shown in \autoref{fig:ss1r2}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the “other” pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion because the similar shape and close maximum dates of early soy and late corn are not differentiable to the fit algorithm. However, if this were the issue, I would expect to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. That the confusion is mainly one-sided led me to believe this is not the problem. Additionally, that so many “other” pixels were classified as corn suggested to me that the reference signatures I created might not be accurate.
-
-First, I plotted the reference signatures I extracted from study site 1 (\autoref{fig:KSfirstsigs}. Comparing the plotted signatures to those shown in \citeauthor{wardlow2005state-level} revealed numerous discrepancies \mkbibparens{\citeyear{wardlow2005state-level}}. To determine the cause of the differences, I plotted the signatures of the pixels used to generate each of the reference signatures (shown in \autoref{fig:KSsoyfirstsigs} through \autoref{fig:KSwheatsoyfirstsigs}). These plots showed high variance between pixels, and strange peaks inconsistent with the accepted temporal signatures for these crops. \todo[inline]{explain differences to and changes in new refs} I realized I needed to change my strategy for identifying pixels to use in making the reference signatures: rather than simply finding pure pixels, I needed to ensure the signatures of sampled pixels were representative of the expected crop signature.
+To investigate this idea, I plotted the reference signatures I extracted from study site 1 (\autoref{fig:KSfirstsigs}). Comparing the plotted signatures to those shown in phenological classification literature  revealed numerous discrepancies \autocites{wardlow2002discriminating}{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{masialeti2010a-comparative}. To determine the cause of the differences, I plotted the signatures of the pixels sampled to generate each of the reference signatures (shown in \autoref{fig:KSsoyfirstsigs} through \autoref{fig:KSwheatsoyfirstsigs}). Some of these plots showed high variance between the sampled pixels and strange early and late season peaks inconsistent with the accepted temporal signatures for these crops. For example, one abnormally-low valued soy pixel was responsible for pulling down the peak of the soy reference signature. Corn, had extremely variable pixel signatures, which complete mangled its reference signature. Sorghum, among other problems, had very high early season peaks (I have since realized this is likely due to wheat/sorghum double cropping misclassified in the CDL). To correct these and other problems, I realized I needed to change my strategy for identifying the TSI pixels to sample for the reference signatures. Rather than simply finding pure pixels, I needed to ensure the signatures of sampled pixels were representative of the expected crop signature.
 
 \begin{ssfigure}
   \centering
   \input{plots/firstsigsKS.pgf}
-  \caption{Soy sample point signatures and mean signature}
-    \label{fig:KSfirstsigs}
+  \caption{Crop Reference Signatures Extracted from Sample Site 1}
+  \label{fig:KSfirstsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/firstsoyKS.pgf}
-  \caption{Soy sample point signatures and mean signature}
+  \caption{Soy Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSsoyfirstsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/firstcornKS.pgf}
-  \caption{Corn sample point signatures and mean signature}
+  \caption{Corn Sampled Pixel Signatures and Mean Signature}
     \label{fig:KScornfirstsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/firstsorghumKS.pgf}
-  \caption{Sorghum sample point signatures and mean signature}
+  \caption{Sorghum Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSsorghumfirstsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/firstwheatKS.pgf}
-  \caption{Winter wheat sample point signatures and mean signature}
+  \caption{Winter Wheat Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSwheatfirstsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/firstwheatsoyKS.pgf}
-  \caption{Winter wheat/soy double crop sample point signatures and mean signature}
+  \caption[Winter Wheat/Soy Double Crop Sampled Pixel Signatures and Mean Signature]{Winter Wheat/Soy Double Crop Sampled Pixel Signatures\\~and Mean Signature}
     \label{fig:KSwheatsoyfirstsigs}
 \end{ssfigure}
 
+\clearpage
 
 \section{Round 3 Testing: Refining the Reference Signatures}
 \label{appendix:testing:r3}
 
-ENVI has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixels’ values. This tool proved perfect for refining the reference curves, allowing me to drop points on only those pixels having an appearance matching my expectations for the crop designated by the CDL (see Figure \todo[inline]{INSERT REF TO FIGURE})
-. The new reference signatures are shown in \autoref{fig:KSenvisigs}.
+The image analysis software ENVI \autocite{envi5.0} has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixel values. This tool proved perfect for refining the reference curves. Using it, I could ensure I only sampled crop pixels whose values appeared to match the expected crop signature. The new sample points are shown alongside the old points in \autoref{fig:newpoints}.
+%TODO Start here
+The new reference signatures are shown in \autoref{fig:KSenvisigs}.
 
-\missingfigure{INSERT MAP OF NEW AND OLD POINTS FOR REF CURVE GENERATION} %TODO fig
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{Graphics/Testing/clip1_MODIS_CDL_smpl_old_wnew.pdf}
+  \caption{Points Marking New Pixels Sampled to Create New Reference Signatures}
+  \label{fig:newpoints}
+  \medskip
+  \small
+  The blue points represent the new pixels sampled to create the new crop reference signatures. The red points are the old points used to create the original crop signatures. Some of the original pixels had good signatures and were used again for the refined signatures.
+\end{ssfigure}
+
 
 \begin{ssfigure}
   \centering
@@ -274,15 +330,24 @@ ENVI has a plotting tool that allows the user to interactively select pixels in 
   \label{fig:KSenvisigs}
 \end{ssfigure}
 
+\clearpage
 
 \subsection*{Round 3 Results and Discussion}
 
-\missingfigure{TABLE: CONFUSION MATRIX FOR ENVI CURVES} %TODO table
-
 %[LINK TO THIS CLASSIFICATION: /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Classified/test1_envicurves/fullpxonly/clip1refs/classification_2014-07-29_1446/]
 
-To my surprise, I found that refining the reference signatures actually reduced the classification accuracy to 66 percent (Table \todo[inline]{INSERT REFERENCE TO TABLE})
-. I did notice almost all of the “other” pixels were correctly classified, but also that, in contrast to the Round 2 testing, errors of omission were primarily responsible for the decrease in accuracy. That is, many corn pixels in the study were classified as other. The confusion between corn and soy also remained.
+To my surprise, refining the reference signatures actually reduced the classification accuracy to 65.8 percent (\autoref{table:ss1r3acc}). I did notice almost all of the ``other'' pixels were correctly classified, but also that, in contrast to the Round 2 testing, errors of omission were primarily responsible for the decrease in accuracy. That is, many corn pixels in the study were classified as other. The confusion between corn and soy also remained.
+
+\begin{sstable}
+  \centering
+  \caption[Round 3 Testing: Sample Site 1 NDVI Classification of Pure Pixels Using Refined Reference Signatures]{Round 3 Testing: Sample Site 1 NDVI Classification of Pure Pixels\\~Using Refined Reference Signatures}
+  \label{table:ss1r3acc}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\     &  & Corn & Soy & Wheat & Other & Total & User Acc. \\    \midrule    \multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 201 & 117 & 0 & 7 & 325 & 61.85\% \\     & Soy & 1 & 196 & 0 & 16 & 213 & 92.02\% \\     & Wheat & 41 & 9 & 340 & 40 & 430 & 79.07\% \\     & Other & 171 & 32 & 31 & 157 & 391 & 40.15\% \\     & Total & 414 & 354 & 371 & 220 & 1359 &  \\     & Producer Acc. & 48.55\% & 55.37\% & 91.64\% & 71.36\% &  &  \\    \multicolumn{8}{r}{Overall Accuracy: 65.78\%} \\    \multicolumn{8}{r}{Kappa: 0.55} \\
+    \bottomrule
+  \end{tabu}
+\end{sstable}
 
 %TODO plots
 To further understand what had happened, I plotted the signature of every incorrectly classified pixel in the study site. Looking through the plots, I began to notice some patterns. I found many adjacent pixels with similar plot shapes \missingfigure{SHOW SOME SAMPLES OF ADJACENT PIXEL SIGNATURES}. I also began to notice a few different signature shapes for each crop \missingfigure{SHOW SAMPLES OF REOCCURRING CROP SIGNATURES}. These two findings suggested to me that all pixels in a field generally have the same signature, and, assuming the truthfulness of the CDL, each crop has multiple temporal signatures.
@@ -329,7 +394,7 @@ This is at least validation that restricting the classification to only the summ
 
 In attempt to create a classification to match the CDL as best as possible, I performed a cluster analysis of the pixels of each of the crops to try to isolate the different signatures I previously identified. To begin, I created multiple masks of the TSI, each to isolate all the CDL full pixels of one of the summer crops or the wheat-soy double crop. The TSI was then processed in ENVI with each of these masks using the k-means unsupervised classifier. Each cluster of a crop represented the different temporal signatures of that crop. I converted each pixel in the resulting clusters to vector points, organized in individual shapefiles by crop and cluster number (i.e corn3.shp is corn cluster 3). Each of these files was used with the reference curve generator tool to provide the coordinates to generate a .ref file of the mean signature for each cluster.
 
-I used the fit tool to generate RMSE rasters for the .ref files, then fed them into classification/accuracy tool. That the latter tool is designed to search the RMSE raster names for the crop name it represents meant that using multiple RMSE rasters for each crop required no modifications to the code. In other words, simply telling the tool to look for “corn”, which has a value in the CDL raster of one, allowed each subset to be checked for accuracy not against itself, but against the greater whole. I determined this would provide a better means of checking the ability of the classification, as k-means might cluster pixels together that could be better fit with another of said crop’s curves, due to the difference in the k-means algorithm versus my fitting algorithm (e.g. it is  possible that a reference signature could be transformed to fit a pixel signature very well even if the pixel signature looks very different from the reference to the k-means classifier).
+I used the fit tool to generate RMSE rasters for the .ref files, then fed them into classification/accuracy tool. That the latter tool is designed to search the RMSE raster names for the crop name it represents meant that using multiple RMSE rasters for each crop required no modifications to the code. In other words, simply telling the tool to look for ``corn'', which has a value in the CDL raster of one, allowed each subset to be checked for accuracy not against itself, but against the greater whole. I determined this would provide a better means of checking the ability of the classification, as k-means might cluster pixels together that could be better fit with another of said crop’s curves, due to the difference in the k-means algorithm versus my fitting algorithm (e.g. it is  possible that a reference signature could be transformed to fit a pixel signature very well even if the pixel signature looks very different from the reference to the k-means classifier).
 
 I actually ran this processing chain twice using different cluster settings. Due to processing constraints in the classification and accuracy assessment step, I ran the first k-means with three clusters for each crop, a 1.0 percent change threshold, and 100 iterations maximum. I considered using more clusters, but three seemed to be optimal, finding multiple signatures while keeping processing times manageable. Even using only three clusters per crop, four threshold steps, and omitting the wheat-soy double crop reference, the classification/accuracy assessment tool needed over 82 minutes to complete. Adding even one more cluster per crop would have taken almost twenty-two hours to finish.
 
