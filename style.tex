@@ -116,7 +116,13 @@
 \makeevenhead{headings}{\normalfont\sffamily\mdseries\footnotesize\rightmark\small\ }{}{\normalfont\sffamily\mdseries\small\thepage}  % the "\small \ " is to vertically align the left and right parts of the header because of the difference in font size
 \makeoddhead{headings}{\normalfont\sffamily\mdseries\footnotesize\rightmark\small\ }{}{\normalfont\sffamily\mdseries\small\thepage}
 
-\aliaspagestyle{chapter}{empty}  % this suppresses numbers on chapters
+\makepagestyle{chapfirst}
+\makeoddhead{chapfirst}{}{}{\thepage}
+\makeevenhead{chapfirst}{}{}{\thepage}
+
+%\aliaspagestyle{chapter}{empty}  % this suppresses numbers on chapters
+
+\aliaspagestyle{chapter}{chapfirst}
 
 \usepackage{indentfirst}  % indent first paragraph
 

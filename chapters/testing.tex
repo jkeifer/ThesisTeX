@@ -163,7 +163,15 @@ First, I studied the classification results for SS1 from Round 1 produced with i
 
 To find these incorrect pixels, I created an image with of the correct pixels and an image of the incorrect pixels (\autoref{subfig:ss1r1correct} and \autoref{subfig:ss1r1incorrect}). In the former, I noticed that many of the black incorrect pixels seemed to fall on the edges of fields. In the latter, I noticed some class confusion, a finding reinforced by the confusion matrix for this classification (\autoref{table:ss1r1acc}).
 
-\todo[inline]{table of ss1r1 confusion matrix}
+\begin{sstable}
+  \centering
+  \caption{Round 1 Testing: Study Site 1 Best Accuracy, Using NDVI Data}
+  \label{table:ss1r1acc}
+  \begin{tabu}{rrrrrrrl}
+    \toprule
+     & & \multicolumn{4}{c}{\textbf{Reference Data}} & & \\ &  & Corn & Soy & Wheat & Other & Total & User Acc. \\\midrule\multirow{4}{*}{\rotatebox{90}{\textbf{Classified}}} & Corn & 657 & 299 & 16 & 174 & 1146 & 57.33\% \\ & Soy & 121 & 863 & 27 & 268 & 1279 & 67.47\% \\ & Wheat & 137 & 95 & 1250 & 379 & 1861 & 67.17\% \\ & Other & 688 & 803 & 885 & 3338 & 5714 & 58.42\% \\ & Total & 1603 & 2060 & 2178 & 4159 & 10000 &  \\ & Producer Acc. & 40.99\% & 41.89\% & 57.39\% & 80.26\% &  &  \\\multicolumn{8}{r}{Overall Accuracy: 61.08\%} \\\multicolumn{8}{r}{Kappa: 0.43} \\    \bottomrule
+  \end{tabu}
+\end{sstable}
 
 The class confusion seemed to be a problem, but how to begin to remedy it was not obvious. That so many border pixels were incorrectly classified, conversely, suggested that this classification method struggles when pixels have more than one land cover. Such ``mixed-pixels'' are often termed ``mixels.''
 
@@ -190,26 +198,25 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
 
 \subsection*{Round 2 Results and Discussion}
 
-The pure-pixel-only classification is shown in \autoref{fig:ss1r2}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the ``other'' pixels are classified as corn. That corn and soy have similar signatures may suggest that those crops will always have some confusion. In other words, because the similar shape and close maximum dates of early soy and late corn, they may not be differentiable to the fit algorithm. However, if this hypothesis were true, I expected to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. Additionally, this hypothesis does not explain why so many ``other'' pixels were classified as corn. Thus, I began to consider that the reference signatures I created might not be accurate.
-
-\todo[inline]{split into two figures}
+The pure-pixel-only classification is shown in \cref{fig:ss1r2class}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the ``other'' pixels are classified as corn. A map with the incorrect pixels highlighted is shown in \cref{fig:ss1r2class_correct}. That corn and soy have similar signatures may suggest that those crops will always have some confusion. In other words, because the similar shape and close maximum dates of early soy and late corn, they may not be differentiable to the fit algorithm. However, if this hypothesis were true, I expected to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. Additionally, this hypothesis does not explain why so many ``other'' pixels were classified as corn. Thus, I began to consider that the reference signatures I created might not be accurate.
 
 \begin{ssfigure}
   \centering
-  \begin{subfigure}[t]{.63\textwidth}
-    \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2.pdf}
-    \caption{The classification results.}
-    \label{subfig:ss1r2class}
-  \end{subfigure}
-  \\
-  \vspace{.15in}
-  \begin{subfigure}[t]{.63\textwidth}
-    \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2_correct.pdf}
-    \caption{Correct pixels, with incorrect pixels colored black.}
-    \label{subfig:ss1r2class_correct}
-  \end{subfigure}
-  \caption{Round 2 Testing: Classification of Study Site 1 Pure Pixels.}
-  \label{fig:ss1r2}
+  \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2.pdf}
+  \caption{Round 2 Testing: Classification of Study Site 1 Pure Pixels}
+  \label{fig:ss1r2class}
+  The classified pixels are outlined in black. Green pixels are soy, yellow are corn, and brown are winter wheat. The outlined white pixels were classified as other.
+\end{ssfigure}
+
+
+\begin{ssfigure}
+  \centering
+  \includegraphics[width=\textwidth]{Graphics/Testing/clip1_MODIS_round2_correct.pdf}
+  \caption{Round 2 Testing: Correct Pixels in Study Site 1 Pure Pixel Classification}
+  \label{fig:ss1r2class_correct}
+  \medskip
+  \small
+  This is the same as \cref{fig:ss1r2class}, except all the incorrectly classified pixels are colored black to distinguish them from the correct pixels.
 \end{ssfigure}
 
 \begin{sstable}

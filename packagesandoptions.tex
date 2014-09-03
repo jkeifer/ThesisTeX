@@ -9,6 +9,7 @@
 
 
 % ****************** For Figures and Graphics *******************
+
 %\usepackage{fixltx2e}
 %\usepackage{float}
 \usepackage[final]{graphicx}
@@ -19,6 +20,10 @@
 %\usepackage{flafter} %Don't place floats until after refs
 
 \usepackage{pgf}
+
+\setlength{\textfloatsep}{28pt plus 4.0pt minus 2.0pt}  % change space between text and floats
+
+\setlength{\floatsep}{24pt plus 12.0pt minus 6.0pt}  % change space between floats
 
 
 %************** NOTES *************
@@ -84,6 +89,7 @@
 %\setlist[enumerate]{}  % thought about setting vertical spacing, but gave up
 %\setlist[itemize]{}
 
+\usepackage{nomencl}
 \usepackage{afterpage}
 \usepackage{longtable}
 \usepackage{lscape}

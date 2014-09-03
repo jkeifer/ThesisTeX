@@ -41,12 +41,15 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 \frontmatter
 \input{front.tex}
 
-\begin{Spacing}{1.3}
-  \ifdraft{%
-    \clearpage
-    \listoftodos}{
-  }
-\end{Spacing}
+\input{listofabbreviations.tex}
+
+%% LIST OF TODOS
+%\ifdraft{%
+%  \begin{Spacing}{1.3}
+%    \clearpage
+%    \listoftodos
+%  \end{Spacing}}{
+%}
 
 % *************** Main matter ***************
 
@@ -76,6 +79,15 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 
 \input{chapters/conclusion.tex}
 \ifnum \value{endnote}>0 \clearpage\theendnotes\setcounter{endnote}{0} \fi
+
+
+% *************** References ****************
+\newpage
+\renewcommand*{\bibname}{References}
+\printbibliography[sorting=nyt]
+
+
+%*************** APPENDICES ***************
 
 \appendix
 \captionsetup{list=no}
@@ -107,12 +119,6 @@ Subtropical deforestation in Latin America is thought to be driven by demand for
 %\addtoendnotes{\unexpanded{\enotedivision{}{}}} % To divide by chapter
 %\addcontentsline{toc}{chapter}{Notes} % Add to ToC
 %\theendnotes % Add the notes section
-
-
-% *************** References ****************
-\newpage
-\renewcommand*{\bibname}{References}
-\printbibliography[sorting=nyt]
 
 
 % *************** Back matter ***************

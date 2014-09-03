@@ -6,7 +6,7 @@ Given the practical constraints of this particular project, many aspects of this
 \section{Reference Temporal Signatures}
 
 \begin{description}
-\item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple study sites and multiple sample years, respectively) effect the accuracy of classifications produced with that signature?
+\item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple study sites and multiple sample years, respectively) affect the accuracy of classifications produced with that signature?
 
 \item[Comment:] This question is one that I initially asked and tried to investigate. My findings (in \cref{appendix:testing:r1:results} on \cpageref{appendix:testing:r1:results}), were largely inconclusive due to the numerous problems I identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop. That is, extracting signatures from a large geographical area, or across multiple years, will only create reference signatures that are less ``true'' than those created with less variation, spatially or temporally.
 
@@ -92,11 +92,9 @@ I stepped through RMSE value thresholds of 400 to 850 by increments of 50. The h
 
 \item[Comment:] Barring the realization of a new method for thresholding the RMSE rasters, this question deserves some thought. Processing time increases exponentially with each additional RMSE raster. Taking the minimum value from a collection of rasters takes a negligible amount of time. Therefore, if all the RMSE rasters for a single crop were of equal validity, this idea would make sense. However, if some of the reference signatures used were not reliable or potentially inaccurate, one would want the thresholding process to eliminate the RMSE rasters of any such signatures by holding them at low RMSE thresholds. Preempting the thresholding process by merging the RMSE rasters of a signature would not allow the RMSE thresholding to weigh the RMSE rasters unequally.
 
-\item[Idea:] Can the classification tool also generate a confidence raster, and if so, would it be meaningful? See \todo[inline]{REFERENCE IDRISI DOCUMENTATION ABOUT CONFIDENCE SCORES}
-for more details.
+\item[Idea:] Can the classification tool also generate an uncertainty raster \autocite[see][pages 190-191]{eastman2012idrisi}, and if so, would it be meaningful?
 \end{description}
 
-%insert reference after confidence raster and delete "see for more details"
 
 \section{General Ideas}
 
