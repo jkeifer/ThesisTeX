@@ -167,7 +167,7 @@ To find these incorrect pixels, I created an image with of the correct pixels an
 
 The class confusion seemed to be a problem, but how to begin to remedy it was not obvious. That so many border pixels were incorrectly classified, conversely, suggested that this classification method struggles when pixels have more than one land cover. Such ``mixed-pixels'' are often termed ``mixels.''
 
-The problem with mixels is that each land cover in a mixel has a different temporal signature. The different signatures are aggregated at the pixel level and become mixed, creating a new signature representing that specific mixture of individual signatures. This problem is not unique to my temporal data; all raster land cover data have mixels. Users of spectral data even have spectral unmixing tools to extract subpixel spectral information. \todo[inline]{CITATION}
+The problem with mixels is that each land cover in a mixel has a different temporal signature. The different signatures are aggregated at the pixel level and become mixed, creating a new signature representing that specific mixture of individual signatures. This problem is not unique to my temporal data; all raster land cover data have mixels. Users of spectral data even have spectral unmixing tools to extract subpixel spectral information.
 
 In my case, the large size of the MODIS pixels increases their possible effect on classification accuracy. Many different land covers can be included within a 231-square-meter area. The large pixel size also means that a much greater percentage of the study area is composed of mixels than if a smaller pixel were used.
 
@@ -273,9 +273,7 @@ To investigate this idea, I plotted the reference signatures I extracted from st
 \section{Round 3 Testing: Refining the Reference Signatures}
 \label{appendix:testing:r3}
 
-The image analysis software ENVI \autocite{envi5.0} has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixel values. This tool proved perfect for refining the reference curves. Using it, I could ensure I only sampled crop pixels whose values appeared to match the expected crop signature. The new sample points are shown alongside the old points in \autoref{fig:newpoints}.
-%TODO Start here
-The new reference signatures are shown in \autoref{fig:KSenvisigs}.
+The image analysis software ENVI \autocite{envi5.0} has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixel values. This tool proved perfect for refining the reference curves. Using it, I could ensure I only sampled crop pixels whose values appeared to match the expected crop signature. The new sample points are shown alongside the old points in \autoref{fig:newpoints}. \Crefrange{fig:KSsoyrefinedsigs}{fig:KSwheatsoyrefinedsigs} shows the individual signatures of the new sampled pixels for each crop, and the refined reference signatures made from those new sample pixels. In each figure, the original reference signature is shown in gray to illustrate the change. The new soy and corn reference signatures peak higher; soy exhibits its distinctive bell-shaped peak, while corn peaks early, remaining at high VI values before tapering off quickly at the end of its season. The new sorghum signature displays none of the early season peaks, and is much rounder compared to the jaggedness before. Unlike the others, however, the new winter wheat and winter wheat/soy double crop signatures do not differ greatly from the originals, but the originals did not exhibit many issues. \autoref{fig:KSenvisigs} is combined plot of all the new reference signatures so they can be compared to one another.
 
 \begin{ssfigure}
   \centering
@@ -291,35 +289,35 @@ The new reference signatures are shown in \autoref{fig:KSenvisigs}.
 \begin{ssfigure}
   \centering
   \input{plots/refinedsoyKS.pgf}
-  \caption{Refined Soy sample point signatures and mean signature}
+  \caption{Refined Soy Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSsoyrefinedsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/refinedcornKS.pgf}
-  \caption{Refined Corn sample point signatures and mean signature}
+  \caption{Refined Corn Sampled Pixel Signatures and Mean Signature}
     \label{fig:KScornrefinedsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/refinedsorghumKS.pgf}
-  \caption{Refined Sorghum sample point signatures and mean signature}
+  \caption{Refined Sorghum Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSsorghumrefinedsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/refinedwheatKS.pgf}
-  \caption{Refined Winter wheat sample point signatures and mean signature}
+  \caption{Refined Winter Wheat Sampled Pixel Signatures and Mean Signature}
     \label{fig:KSwheatrefinedsigs}
 \end{ssfigure}
 
 \begin{ssfigure}
   \centering
   \input{plots/refinedwheatsoyKS.pgf}
-  \caption{Refined Winter wheat/soy double crop sample point signatures and mean signature}
+  \caption[Refined Winter Wheat/Soy Double Crop Sampled Pixel Signatures and Mean Signature]{Refined Winter Wheat/Soy Double Crop Sampled Pixel\\~Signatures and Mean Signature}
     \label{fig:KSwheatsoyrefinedsigs}
 \end{ssfigure}
 
@@ -349,17 +347,28 @@ To my surprise, refining the reference signatures actually reduced the classific
   \end{tabu}
 \end{sstable}
 
-%TODO plots
-To further understand what had happened, I plotted the signature of every incorrectly classified pixel in the study site. Looking through the plots, I began to notice some patterns. I found many adjacent pixels with similar plot shapes \missingfigure{SHOW SOME SAMPLES OF ADJACENT PIXEL SIGNATURES}. I also began to notice a few different signature shapes for each crop \missingfigure{SHOW SAMPLES OF REOCCURRING CROP SIGNATURES}. These two findings suggested to me that all pixels in a field generally have the same signature, and, assuming the truthfulness of the CDL, each crop has multiple temporal signatures.
+To further understand what had happened, I plotted the signature of every incorrectly classified pixel in the study site. A small selection of strange signatures from the many pixels labeled as corn by the CDL that were not accurately classified is shown in \cref{fig:weirdcorns}. Looking through the plots, I began to notice some patterns were repeated. Among the signatures in \cref{fig:weirdcorns} there are many similarities and differences. Pixel signatures 1, 2, 3, and 5 all share an early season peak, but tend to diverge after the first dip in values around DOY 113. Pixel 4's signature does not appear distinctly different than the corn reference signature up until DOY 257, when it begins to climb steeply to a second peak.
 
-The latter of these conclusions was particularly problematic to me. Not only does such reasoning conflict with previous research into phenological classification \todo[inline]{CITE WARDLOW AND EGBERT, OTHER CROP CLASSIFICATION SOURCES}, but is illogical considering the typical growth cycle for crops like corn and soy. The same crops within close proximity should be exposed to essentially equal growing conditions. Variations in planting date may account for slight differences in the temporal signatures. The use of irrigation or application of pesticides, fertilizers, or herbicides may also impart slight disparities between signatures. However, none of these variables would likely be accountable for the vastly different crop signatures observed.
+\begin{ssfigure}
+  \centering
+  \input{plots/weirdsigs2.pgf}
+  \caption{Selected Examples of Strange Signatures from Pixels Labeled Corn in the CDL}
+  \label{fig:weirdcorns}
+  \medskip
+  \small
+  Each of these signatures was extracted from a pixel labeled corn by the CDL that was not accurately classified in the Round 3 testing. The signatures of pixels 1, 2, 3, and 5 share features on a few key dates, but diverge on others. None of these four is remotely similar in appearance to corn. In fact, the two peaks, around DOY 97 and DOY 161, suggest some sort of double crop rotation. The only signature similar to corn is that of pixel 4, which only departs from the corn reference signature around DOY 257. After that date it sharply increases to an end-of-year peak, suggestive of winter wheat planting for the following year.
+\end{ssfigure}
 
-%TODO plots
-To get an expert opinion, I sent a few sample signatures of incorrectly classified pixels, labeled as corn in the CDL \missingfigure{INSERT GRAPHICS OF THESE SIGNATURES}, to Dana Peterson at the Kansas Applied Remote Sensing Program of the Kansas Biological Survey at University of Kansas. Conferring with her and her colleagues confirmed that the signatures could only be attributable to double cropping, and that the CDL is not correct in these cases. \todo[inline]{CITE CORRESPONDENCE}
+Comparing the pixel coordinates of all the incorrect pixel plots, I found many adjacent pixels with similar plot shapes. This finding provides evidence that all pixels in a field generally have the same signature and supports the overall theory behind this method. That is, if all plants of a crop grow under the same conditions, they should have the same temporal signatures.
 
-Another class class of signatures had an unusual bump in value at the end of the year. The crop signatures shown in Wardlow/Egbert made me think the end-of-year increase in NDVI of many incorrectly classified pixel may be related to winter wheat planting for the next year’s growing season.
+However, the many different signatures I found within each crop class of the CDL is particularly troublesome. Assuming the truthfulness of the CDL, this suggests that each crop has multiple temporal signatures. Not only does such reasoning conflict with previous research into phenological classification, but is illogical considering the typical growth cycle for crops like corn and soy. The same crops within close proximity should be exposed to essentially equal growing conditions. Variations in planting date may account for slight differences in the temporal signatures. The use of irrigation or application of pesticides, fertilizers, or herbicides may also impart slight disparities between signatures \autocites{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{sakamoto2010a-two-step}. However, none of these variables would likely be accountable for the vastly different crop signatures observed.
 
-To investigate this idea, I used the USGS Landsat Look online imagery viewer to identify some of these incorrectly classified fields and see how they appeared through time. The fields with the increase in values at the end of the year featured vegetation throughout the winter, and had significant vegetation growth early in the following year, consistent with winter wheat. Moreover, the CDL for 2013 showed many of these fields to have winter wheat in that year (including both winter wheat/soy double cropping and winter wheat only) \todo[inline]{CONFIRM THIS}.
+To get an expert opinion, on \formatdate{31}{5}{2014} I e-mailed a few of the signatures plots of incorrectly classified pixels, labeled as corn in the CDL (similar to pixels 1, 2, 3, and 5 in \cref{fig:weirdcorns}, to Dana Peterson, a research assistant at the Kansas Applied Remote Sensing Program of the Kansas Biological Survey at University of Kansas. She and her colleagues have significant experience working with phenological classifications made using MODIS VI data and the Kansas CDL. Her reply of \formatdate{1}{6}{2014} confirmed that the signature types I sent is likely attributable to double cropping, and that the CDL is not correct in these cases.
+
+The remaining incorrectly classified pixels that did not have the double crop appearance were, predominately, similar to pixel 4 in \cref{fig:weirdcorns}. These pixel signatures all had an unusual bump in value at the end of the year. Reviewing typical crop signatures plots in the phenological classification literature made me think the end-of-year increase in NDVI of many incorrectly classified pixel may be related to winter wheat planting for the next year’s growing season.
+
+To investigate this idea, I used the U.S. Geological Survey Landsat Look online imagery viewer to identify some of these incorrectly classified fields and see how they appeared through time. The fields with the increase in values at the end of the year featured vegetation throughout the winter, and had significant vegetation growth early in the following year, consistent with winter wheat. Moreover, an analysis using the CDL for 2013 showed 172 of the incorrectly classified pixels were planted with winter wheat in fall 2012.
+
 
 \section{Round 4 Testing: Different Time Ranges}
 \label{appendix:testing:r4}
@@ -368,7 +377,8 @@ To investigate this idea, I used the USGS Landsat Look online imagery viewer to 
 
 As many of the pixels this winter wheat bump did not fit the reference signatures within the utilized RMSE thresholds, I wondered what would happen if I changed the date range of the TSI. Instead of beginning and ending the TSI at the start of January, I decided to create a TSI that would include the end-of-year winter wheat bump from 2011 and end before the bump in 2012. Specifically, I selected images from 2011 DOY 305 through 2012 DOY 289.
 
-\missingfigure{CREATE A MAP OF INCORRECTLY CLASSIFIED SHOWING 2013 WINTER WHEAT PIXELS} %TODO SEE /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Classified/test1_envicurves/fullpxonly/clip1refs/classification_2014-07-29_1446/wheat2013.tif].
+%Don't think I need the map...
+%\missingfigure{CREATE A MAP OF INCORRECTLY CLASSIFIED SHOWING 2013 WINTER WHEAT PIXELS} % SEE /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Classified/test1_envicurves/fullpxonly/clip1refs/classification_2014-07-29_1446/wheat2013.tif].
 
 As by this point I had also returned from my field work in Argentina, I had a bit better idea of how my processing procedure would have to change to classify the Pellegrini imagery. In talking with the locals, I found that wheat was just one of a number of different grains that were grown in the winter dry season, and I did not have any good way to verify where nor what types of such crops were grown in the season proceeding my travels (I was there only during the summer season). To compound the problem, I also learned that, due to the length and flexibility of the summer wet season in Pellegrini, farmers were not limited to double cropping only late summer crops with a winter crop. Instead, any summer crop could be grown with a winter crop. As I was only able to extract one double crop signature from the Kansas data, the winter wheat and soy signature, I realized I would not be able to use my Kansas signatures to classify an entire agricultural year in Argentina; I would only be able to classify summer crops. Because of this, I decided to see what would happen if I limited my sample site 1 classification to only the spring and summer months, using images from DOY 97 through DOY 273.
 
