@@ -2,6 +2,7 @@
 \label{discussion}
 
 \section{Examining the Kansas Signatures}
+\label{discussion:kssigs}
 
 The Kansas signatures extracted from the k-means clusters (\autoref{fig:KScropsigs}) were not as variable as I was expecting. Based on some initial testing results, presented in \autoref{appendix:testing:r3} beginning on \autopageref{appendix:testing:r3}, I expected to find some strange looking cluster signatures. Aside from the Soy\_1 signature, and perhaps the Corn\_1 signature to some degree, the cluster signatures were fairly typical in appearance. The Sorghum\_1 signature appears more or less as expected over the TSI's date range, but does seem to be missing the late-season downslope.
 
@@ -10,6 +11,7 @@ Using the k-means algorithm to cluster each crop's pixels might not have adequat
 Despite the fact the k-means might not capture similarity in the same way as the fit algorithm, it is worth noting that the k-means clusters do not divide any fields: each pixel in a field is assigned the same cluster (\autoref{map:KSclusters}). This result shows that each pixel in a field of multiple pixels typically has a similar signature to all the others in the field, at least using k-means as a measure of similarity. This result is further confirmation of the hypothesis that each pixel of a crop that grew under the same conditions, such as a field, should have the same development and therefore same temporal signature.
 
 \section{Breakdown of the Kansas Classification}
+\label{discussion:ksclassification}
 
 The initial verification of the Kansas reference signatures, done by classifying the TSI of the Kansas study area, demonstrated the method performs well when used to match the original source data (\autoref{table:ksresults}). The 84.4 percent overall accuracy and kappa value of 0.76 are well within the range considered acceptable, especially given the CDL's published accuracy of 88.4 percent (to which this classification is compared).
 

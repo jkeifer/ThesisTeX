@@ -6,10 +6,9 @@ Given the practical constraints of this particular project, many aspects of this
 \section{Reference Temporal Signatures}
 
 \begin{description}
-\item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple sample sites and multiple sample years, respectively) effect the accuracy of classifications produced with that signature?
+\item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple study sites and multiple sample years, respectively) effect the accuracy of classifications produced with that signature?
 
-\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (presented in \todo[inline]{LINK TO SECTION}
-), were largely inconclusive due to the numerous problems I have identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop.
+\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (in \cref{appendix:testing:r1:results} on \cpageref{appendix:testing:r1:results}), were largely inconclusive due to the numerous problems I identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop. That is, extracting signatures from a large geographical area, or across multiple years, will only create reference signatures that are less ``true'' than those created with less variation, spatially or temporally.
 
 \item[Idea:] Given the previous question, would another method for combining the signatures of two pixels would be more effective when creating a reference signature?
 
@@ -59,7 +58,7 @@ I found it to be too insensitive and it resulted in unrealistically low RMSE val
 
 \item[Idea:] Is this the right way to go about comparing a reference signature to an unknown pixel’s signature? Would another comparison method be more effective and/or efficient?
 
-\item[Comment:] I only pose this question in case someone else might have a better idea than me. \todo[inline]{ADD INFO ABOUT OTHER ALTERNATIVE PROCESSES, SUCH AS BOOKMARKED IN THESIS FOLDER...DTW, PROSCRUSTES ANALYSIS, ETC...}
+\item[Comment:] I tried using the RMSE as a comparison as it was shown to work in \textcite{brown2007multitemporal} and \textcite{sakamoto2010a-two-step}. However, another measure of curve likeness might perform better. I do not know what that method might be, but some brief searches on curve fitting revealed such things as Procrustes distance, dynamic time warping, and Frechet distance. I am interested to see how a different curve comparison would affect the results.
 \end{description}
 
 \section{Thresholding and Classification}
@@ -70,6 +69,12 @@ The thresholding and classification step is the part of this process I dislike t
 \item[Idea:] How much difference do different RMSE thresholds for each crop really make in the overall accuracy? If everything else is optimized, can a single threshold value be used for all the RMSE rasters without sacrificing much accuracy.
 
 \item[Comment:] Understanding if this is a viable alternative is likely necessary if the method is to be used with no ground truth as desired.
+
+While I cannot draw any conclusions from these results, I did make some test classifications of the summer 2012 Kansas TSI using the k-means clustering discussed in \cref{methods:sigextraction} (\cpageref{methods:sigextraction}). However, unlike the process documented therein, I set the k-means tool to find ten clusters for each crop.
+
+This clustering produced thirty clusters: ten each for corn and soy, nine for wheat-soy double cropped, and one for sorghum. Processing thirty RMSE rasters with the classification/accuracy tool using just two RMSE value thresholds would theoretically take $0.35\times2^{30}$ seconds---almost twelve years---to complete on my computer. Rather than wait for that process to complete, I decided to use a single threshold across all the RMSE rasters and see what the results would be like.
+
+I stepped through RMSE value thresholds of 400 to 850 by increments of 50. The highest accuracy classification, 71.7 percent, occurred at with a RMSE threshold of 650 across all the RMSE raster. Omitting the wheat-containing reference signatures boosted the classification accuracy to 79.2 percent at the same 650 threshold value. A last test without the sorghum signature proved to be the highest accuracy at 81.0 percent, again with the same RMSE threshold of 650.
 
 \item[Idea:] Do the optimal RMSE thresholds vary little, or are they highly variable?
 

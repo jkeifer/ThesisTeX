@@ -142,6 +142,7 @@ The temporal signatures of each of the clusters are plotted in \autoref{fig:KScr
 
 
 \section{Fitting and Classifying the TSIs}
+\label{results:classifications}
 
 Fitting the seven crop reference signatures---three corn, three soy, and one sorghum---to the TSIs produced seven RMSE rasters for each TSI. The minimum RMSE values were typically in the range of 175 to 250, while the maximum RMSE values were often around 3000.\footnote{NDVI and EVI range between -0.2 and 1.0, so the RMSE values should be 0.0175 or 0.3000. However, the MODIS VIs are distributed as 16-bit signed integer rasters; to allow the VI values to be recorded with such a format, they are multiplied by 10,000, hence the values shown here. I chose not to convert the measurements back to the proper decimal values to simplify processing, though the tools I developed should work either way.  Users must take the responsibility be aware of the significance of the RMSE values and understand what values to expect based on their input data.} 
 
