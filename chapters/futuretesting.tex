@@ -52,7 +52,7 @@ I am sure brighter minds than mine could come up with better ways to deal with m
 \item[Comment:] Based on the advice of my advisor, I tried using a geometric mean for the calculation of the RMSE in the fit algorithm. With this approach, \autoref{eq:1} becomes:
 \begin{equation}
 \label{eq:geometricmean}
-  RMSE = \Biggl[\biggl[\prod_{x\ =\ j(0),\ j(1)\ldots}^{n}\bigl(f\left(x\right)-g\left(x\right)\bigr)^{2}\biggr]^{\frac{1}{2}}\Biggr]^{\frac{1}{n}}
+  RMSE = \Biggl[\biggl[\prod_{x\ =\ j(1),\ j(2)\ldots}^{n}\bigl(f\left(x\right)-g\left(x\right)\bigr)^{2}\biggr]^{\frac{1}{2}}\Biggr]^{\frac{1}{n}}
 \end{equation}
 I found it to be too insensitive and it resulted in unrealistically low RMSE values. It seemed this mean allowed reference signatures to fit to pixels that should not be classified (they are ``other'') in a similar threshold range to pixels which are legitimate. However, with other optimizations to the overall classification process, there may be valuable in formally testing this mean. The Find Fit Tool already has an option to use a geometric mean instead of an arithmetic mean, so this does not require any programming changes to test.
 
