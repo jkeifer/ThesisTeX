@@ -8,7 +8,7 @@ Given the practical constraints of this particular project, many aspects of this
 \begin{description}
 \item[Idea:] How does spatial and temporal variation in the sources used to generate a temporal signature (e.g. multiple study sites and multiple sample years, respectively) affect the accuracy of classifications produced with that signature?
 
-\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (in \cref{appendix:testing:r1:results} on \cpageref{appendix:testing:r1:results}), were largely inconclusive due to the numerous problems I identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop. That is, extracting signatures from a large geographical area, or across multiple years, will only create reference signatures that are less ``true'' than those created with less variation, spatially or temporally.
+\item[Comment:] This question is one that I initially asked and tried to investigate. My findings (in \autoref{appendix:testing:r1:results} on \autopageref{appendix:testing:r1:results}), were largely inconclusive due to the numerous problems I identified. Now that I have refined the method somewhat, this question could be revisited. My hypothesis remains the same: the greater the variations averaged together to create a reference signature, the further that signature gets from an ideal reference which can be transformed effectively to fit pixels of that crop. That is, extracting signatures from a large geographical area, or across multiple years, will only create reference signatures that are less ``true'' than those created with less variation, spatially or temporally.
 
 \item[Idea:] Given the previous question, would another method for combining the signatures of two pixels would be more effective when creating a reference signature?
 
@@ -70,7 +70,7 @@ The thresholding and classification step is the part of this process I dislike t
 
 \item[Comment:] Understanding if this is a viable alternative is likely necessary if the method is to be used with no ground truth as desired.
 
-While I cannot draw any conclusions from these results, I did make some test classifications of the summer 2012 Kansas TSI using the k-means clustering discussed in \cref{methods:sigextraction} (\cpageref{methods:sigextraction}). However, unlike the process documented therein, I set the k-means tool to find ten clusters for each crop.
+While I cannot draw any conclusions from these results, I did make some test classifications of the summer 2012 Kansas TSI using the k-means clustering discussed in \autoref{methods:sigextraction} (\autopageref{methods:sigextraction}). However, unlike the process documented therein, I set the k-means tool to find ten clusters for each crop.
 
 This clustering produced thirty clusters: ten each for corn and soy, nine for wheat-soy double cropped, and one for sorghum. Processing thirty RMSE rasters with the classification/accuracy tool using just two RMSE value thresholds would theoretically take $0.35\times2^{30}$ seconds---almost twelve years---to complete on my computer. Rather than wait for that process to complete, I decided to use a single threshold across all the RMSE rasters and see what the results would be like.
 
