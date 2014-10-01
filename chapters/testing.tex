@@ -370,6 +370,7 @@ The image analysis software ENVI \autocite{envi5.0} has a plotting tool that all
 \clearpage
 
 \subsection*{Round 3 Results and Discussion}
+\label{appendix:testing:r3:results}
 
 %[LINK TO THIS CLASSIFICATION: /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Classified/test1_envicurves/fullpxonly/clip1refs/classification_2014-07-29_1446/]
 
@@ -521,9 +522,7 @@ This result validates that restricting the classification to the summer months d
 
 For my final test classification, I attempted to match the CDL as best as possible. To do so, I clustered each crop's pixels using k-means to try to isolate the different signatures I previously identified. This classification process and the subsequent results are those presented in the body of this thesis. To read about the methods, see \cref{methods} beginning on \autopageref{methods}. The results are presented in \autoref{results:classifications} on \autopageref{results:classifications}, so I will only briefly summarize my findings here. 
 
-Clustering each crop's pixels to find multiple signatures increased the classification accuracy to 84.4 percent. A map of the classification, \cref{map:KSclassification}, is on \autopageref{map:KSclassification}. The confusion matrix is \cref{table:ksresults} on \autopageref{table:ksresults}. Sorghum was not well classified, which may have something to do with the date range used (see the full discussion of the results in \autoref{discussion:ksclassification} on \autopageref{discussion:ksclassification}). However, it is also possible that the sorghum pixels were not accurately identified by the CDL. The CDL does not have clearly-delineated sorghum fields, but rather a mix of soy and sorghum. Thus, it appears that the USDA’s classification method is unable to accurately differentiate between soy and sorghum in some cases. Consequently, sorghum pixels may have been included in the soy clusters, and vise versa. This would mix the temporal signatures and cause confusion in the results. 
-
-Of course, the soy and sorghum signatures are rather similar in appearance, and it might be that my method is unable to distinguish them from one another. Even if the CDL has confusion between the two, this may be case. More testing is necessary to determine what might be happing.
+Clustering each crop's pixels to find multiple signatures increased the classification accuracy to 84.4 percent. A map of the classification, \cref{map:KSclassification}, is on \autopageref{map:KSclassification}. The confusion matrix is \cref{table:ksresults} on \autopageref{table:ksresults}. Sorghum was not well classified, which may have something to do with the date range used (see the full discussion of the results in \autoref{discussion:ksclassification} on \autopageref{discussion:ksclassification}). 
 
 %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-11_1117 AND classification_2014-07-11_1639/]
 

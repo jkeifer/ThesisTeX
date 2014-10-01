@@ -12,7 +12,7 @@ Given the practical constraints of this particular project, many aspects of this
 
 \item[Idea:] Given the previous question, would another method for combining the signatures of two pixels would be more effective when creating a reference signature?
 
-\item[Comment:] I have used two methods to average individual pixel crop signatures. The first, used throughout the work presented in the rest of this thesis, is a simple mean of the values at any given date.
+\item[Comment:] I have used two methods to average individual pixel crop signatures. The first, used throughout the work presented in the rest of this thesis, is the arithmetic mean of the values at any given date.
 
 I have also tried using a method something like ``fit averaging'': using the same function as is used to find the RMSE values for each reference signature, the time shift and horizontal and vertical differences between two signatures can be found. Dividing each of those transformations by two and applying them to one of the original signatures theoretically creates a new signature halfway between the two original signatures. However, in practice, this resulted in strange curve forms when the signatures averaged were not very similar. It may be that this method deserves a second test using the refined sample points, which all have similar shapes, as this approach may be particularly sensitive to outliers. It could also be that I my program to perform this function has errors.
 
