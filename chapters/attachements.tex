@@ -1,0 +1,37 @@
+\chapter{Supplemental Files}
+\label{appendix:files}
+
+The source code for the tools documented in \cref{appendix:tools} is included with this thesis. The tools were developed in version 2.7.8 of the Python programming language \autocite{python2.7.8}. Installing the tools is a complex process due to the Geospatial Data Abstraction Library (GDAL) dependency. GDAL is available as a Python Package, but does not come with support for the MODIS HDF4 file format. To use GDAL with this file format, it must be built from source with the correct dependencies and the proper compile options (namely HDF4 support and the Python bindings). How to do this is outside the scope of this documentation; please consult resources specifically about compiling GDAL.
+
+I highly recommend using Python within a virtualenv. When GDAL is installed, the Python bindings are installed to the system Python. To use it within a virtualenv can be complicated. In the virtualenv's directory tree, navigate to lib/python2.7/site-packages. In this folder, create a symlink to your GDAL install's .egg-info directory, and a symlink to the osgeo directory within your system python's site-packages directory. Specifically, the osgeo directory should contain the gdal and ogr .py and .so files. With these symlinks, GDAL will be available for the virtualenv.
+
+The rest of the dependencies can then be installed using the Python package manager pip. With the virtualenv activated, run the command \texttt{\small\$ pip install -r requirements.txt}, and all the other dependencies will be installed. To complete the installation, copy the included files into the project directory of the virtualenv.
+
+To use the command line tools, ensure your virtualenv is activated. Then, cd into the pyhytemporal folder. At your command prompt, type \texttt{\small\$ python commands.py {{-}{-}help}}. This will list the available commands. To see how to use each command, type \texttt{\small\$ python commands.py $<$command\_name$>$ {{-}{-}help}}. All of the arguments and options will be listed.
+
+The full list of included files is below:
+
+\begin{Spacing}{1.2}
+\begin{itemize}
+  \item \textbf{LICENSE} -- contains the licensing info for the software
+  \item \textbf{README} -- contains information about the included software and instructions for installation and operation of the software
+  \item \textbf{requirements.txt} -- a pip-format file for installing the required Python dependencies
+  \item \textbf{pyhytemporal} [directory]
+  \begin{itemize}
+    \item \textbf{LICENSE} -- contains the licensing info for the software
+    \item \textbf{\_\_init\_\_.py} -- required file for python package
+    \item \textbf{classify.py} -- python module with classification functions
+    \item \textbf{commands.py} -- python module with the command line tools
+    \item \textbf{constants.py} -- python module with the package constants
+    \item \textbf{core.py} -- python module with the object definitions for the main package objects
+    \item \textbf{fitting.py} -- python module with signature fitting functions
+    \item \textbf{imageFunctions.py} -- python module with functions for image operations
+    \item \textbf{plotting.py} -- python module with pixel and signature plotting functions
+    \item \textbf{signatureFunctions.py} -- python module with reference signature functions
+    \item \textbf{utils.py} -- python module with basic utility functions
+    \item \textbf{vectorFunctions.py} -- python module with functions for vector data operations
+  \end{itemize}
+\end{itemize}
+\end{Spacing}
+
+Any future updates to this software will be pushed to the project's github site: \url{https://github.com/jkeifer/pyHytemporal}. Please check this site to ensure the software is up-to-date before use. Any bugs can be reported to the project's issue tracker. If you would like to contribute to this project, pull requests are accepted.

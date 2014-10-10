@@ -1,6 +1,8 @@
 \chapter{A Breakdown of all Completed Testing}
 \label{appendix:testing}
 
+The following outlines much of the initial testing steps I took to get to the methods as presented in the body of this study. I completed five rounds of testing; this appendix is broken into sections for each round. The first section reviews my initial testing questions, my basic testing procedure, and Round 1's results and implications. Round 2 is presented in the second section, where I discuss the problems of mixels, how I eliminated them from the classification, and the results of doing so. In the third section, the Round 3 testing, I refined my reference signatures; the results of that are discussed. Round 4 investigates different date ranges for the TSI, to see how changing the dates classified affects the accuracy. The last section briefly covers Round 5, the procedure and results of which are used and presented in the body of this study.
+
 \section{Round 1 Testing: Initial Classifications}
 \label{appendix:testing:r1}
 \subsection*{Testing Considerations}
@@ -73,7 +75,7 @@ The accuracies of the fourteen classifications testing the spatial distribution 
     & \multicolumn{7}{c}{Reference Signatures Source} \\
     & SS 1 & SS 2 & SS 3 & SS 4 & SS 5 & SS 6 & Mean \\
     \midrule
-    SS 1 & \cellcolor{LimeGreen}55.61 & & 45.34 & 54.36 & 43.83 & 49.06 & 49.63\\
+    SS 1 & \cellcolor{LimeGreen}55.61 & 45.44 & 45.34 & 54.36 & 43.83 & 49.06 & 49.63\\
     \rowcolor{light-gray}SS 2 & 53.11 & \cellcolor{LimeGreen}64.93 & 50.00 & 47.86 & 40.79 & 42.60 & 53.69 \\
     SS 3 & 73.87 & 69.40 & \cellcolor{LimeGreen}75.23 & 73.53 & 70.57 & 71.86 & 73.71 \\
     \rowcolor{light-gray}SS 4 & 50.42 & 45.54 & 49.26 & \cellcolor{LimeGreen}53.46 & 45.30 & 49.66 & 52.54 \\
@@ -93,7 +95,7 @@ The accuracies of the fourteen classifications testing the spatial distribution 
     SS 3 & 74.88 & 71.75 & \cellcolor{LimeGreen}78.69 & 77.16 & 70.62 & 71.75 & 73.70 \\
     \rowcolor{light-gray}SS 4 & 56.30 & 42.25 & 46.89 & \cellcolor{LimeGreen}59.21 & 44.72 & 54.26 & 52.48 \\
     SS 5 & 53.57 & 48.51 & 45.93 & 62.18 & \cellcolor{LimeGreen}62.83 & 60.21 & 53.07 \\
-    \rowcolor{light-gray}SS 6 & & 51.90 & 38.28 & 49.82 & 47.15 & \cellcolor{LimeGreen}55.71 & 54.36 \\
+    \rowcolor{light-gray}SS 6 & 53.60 & 51.90 & 38.28 & 49.82 & 47.15 & \cellcolor{LimeGreen}55.71 & 54.36 \\
     \bottomrule
   \end{tabu}
 \end{sstable}
@@ -200,12 +202,12 @@ The problem with mixels is that each land cover in a mixel has a different tempo
 
 In my case, the large size of the MODIS pixels increases their possible effect on classification accuracy. Many different land covers can be included within a 231-square-meter area. The large pixel size also means that a much greater percentage of the study area is composed of mixels than if a smaller pixel were used.
 
-For these reasons, I hypothesized the low classification accuracy was partially because mixels could not be processed accurately by the fit algorithm. In other words, if two (or more) crops are mixed within a pixel, the curve of that pixel’s values will be a blend of both crops’ phenological signatures, and neither of the two crops' references signatures will fit the pixel well. Moreover, the crop which may occupy the majority of the pixel's area may not be the largest contributor a pixel’s values. That is, the relationship between land covers in a mixel may not be linear. For instance, a mature crop may drive up the VI values for a pixel, even if that crop is in the minority of the pixel. Consequently, I determined I needed to find a way to removed mixels from the classification.
+For these reasons, I hypothesized the low classification accuracy was partially because mixels could not be processed accurately by the fit algorithm. In other words, if two (or more) crops are mixed within a pixel, the curve of that pixel’s values will be a blend of both crops’ phenological signatures, and neither of the two crops' references signatures will fit the pixel well. Moreover, the crop which may occupy the majority of the pixel's area may not be the largest contributor a pixel’s values. That is, the relationship between land covers in a mixel may not be linear. For instance, a mature crop may drive up the VI values for a pixel, even if that crop is in the minority of the pixel. Consequently, I determined I needed to find a way to remove mixels from the classification.
 
 
 \subsection*{The Testing Process}
 
-The first step to removing mixels was to create a vector grid matching the pixel grind of the SS1 MODIS TSI. Then, I converted the 30-meter CDL raster ground truth dataset to vector polygons. Intersecting the CDL features with the TSI pixel polygons combined the geometries of both. Consequently, pixel polygons that fell within a continuous land cover area were undivided, but mixels were split up into multiple polygons by each land cover class within them. To find all the non-mixels in the study area, I selected all features with an area close to that of a full MODIS pixel from the intersected polygon features. Specifically, I chose to select all features greater than or equal to 53,000 square meters in area (or 98 percent of a full MODIS pixel, which is 53,824 square meters). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in \autoref{fig:ss1purepx}, was 1,359 features selected. These features can be thought to represent MODIS pixels that have ``pure'' signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
+The first step in removing mixels was to create a vector grid matching the pixel grind of the SS1 MODIS TSI. Then, I converted the 30-meter CDL raster ground truth dataset to vector polygons. Intersecting the CDL features with the TSI pixel polygons combined the geometries of both. Consequently, pixel polygons that fell within a continuous land cover area were undivided, but mixels were split up into multiple polygons by each land cover class within them. To find all the non-mixels in the study area, I selected all features with an area close to that of a full MODIS pixel from the intersected polygon features. Specifically, I chose to select all features greater than or equal to 53,000 square meters in area (or 98 percent of a full MODIS pixel, which is 53,824 square meters). I also manually added two sorghum pixel features that were not selected via this process because of the low number of sorghum pixels retained. The result, shown in \autoref{fig:ss1purepx}, was 1,359 selected features. These features can be thought to represent MODIS pixels that have ``pure'' signatures: each pixel has only one land cover contributing to its temporal signature, so each should be representative of its class.
 
 \begin{ssfigure}
   \centering
@@ -219,7 +221,7 @@ To allow me to classify only these pure pixels, I found the centroid of each of 
 
 \subsection*{Round 2 Results and Discussion}
 
-The pure-pixel-only classification is shown in \cref{fig:ss1r2class}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the ``other'' pixels are classified as corn. A map with the incorrect pixels highlighted is shown in \cref{fig:ss1r2class_correct}. That corn and soy have similar signatures may suggest that those crops will always have some confusion. In other words, because the similar shape and close maximum dates of early soy and late corn, they may not be differentiable to the fit algorithm. However, if this hypothesis were true, I expected to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. Additionally, this hypothesis does not explain why so many ``other'' pixels were classified as corn. Thus, I began to consider that the reference signatures I created might not be accurate.
+The pure-pixel-only classification is shown in \cref{fig:ss1r2class}, and its confusion matrix is \autoref{table:ss1r2acc}. The confusion matrix shows the vast majority of errors are errors of commission in the corn class. Almost one third of the soy pixels and close to half of the ``other'' pixels are classified as corn. A map with the incorrect pixels highlighted is shown in \cref{fig:ss1r2class_correct}. That corn and soy have similar signatures may suggest that those crops will always have some confusion. In other words, because of the similar shape and close maximum dates of early soy and late corn, they may not be differentiable to the fit algorithm. However, if this hypothesis were true, I expected to see the confusion in both directions, with a greater number of corn pixels wrongly classified as soy. Additionally, this hypothesis does not explain why so many ``other'' pixels were classified as corn. Thus, I began to consider that the reference signatures I created might not be accurate.
 
 \begin{ssfigure}
   \centering
@@ -312,7 +314,7 @@ To investigate this idea, I plotted the reference signatures I extracted from SS
 \section{Round 3 Testing: Refining the Reference Signatures}
 \label{appendix:testing:r3}
 
-The image analysis software ENVI \autocite{envi5.0} has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixel values. This tool proved perfect for refining the reference curves. Using it, I could ensure I only sampled crop pixels whose values appeared to match the expected crop signature. The new sample points are shown alongside the old points in \autoref{fig:newpoints}. \Crefrange{fig:KSsoyrefinedsigs}{fig:KSwheatsoyrefinedsigs} shows the individual signatures of the new sampled pixels for each crop, and the refined reference signatures made from those new sample pixels. In each figure, the original reference signature is shown in gray to illustrate the change. The new soy and corn reference signatures peak higher; soy exhibits its distinctive bell-shaped peak, while corn peaks early, remaining at high VI values before tapering off quickly at the end of its season. The new sorghum signature displays none of the early season peaks, and is much rounder compared to the jaggedness before. Unlike the others, however, the new winter wheat and winter wheat/soy double crop signatures do not differ greatly from the originals, but the originals did not exhibit many issues. \autoref{fig:KSenvisigs} is combined plot of all the new reference signatures so they can be compared to one another.
+The image analysis software ENVI \autocite{envi5.0} has a plotting tool that allows the user to interactively select pixels in a multi band raster and view plots of the pixel values. This tool proved perfect for refining the reference curves. Using it, I could ensure I only sampled crop pixels whose values appeared to match the expected crop signature. The new sample points are shown alongside the old points in \autoref{fig:newpoints}. \Crefrange{fig:KSsoyrefinedsigs}{fig:KSwheatsoyrefinedsigs} shows the individual signatures of the new sampled pixels for each crop, and the refined reference signatures made from those new sample pixels. In each figure, the original reference signature is shown in gray to illustrate the change. The new soy and corn reference signatures peak higher; soy exhibits its distinctive bell-shaped peak, while corn peaks early, remaining at high VI values before tapering off quickly at the end of its season. The new sorghum signature displays none of the early season peaks, and is much rounder compared to the jaggedness before. Unlike the others, however, the new winter wheat and winter wheat/soy double crop signatures do not differ greatly from the originals, though the originals did not exhibit many issues. \autoref{fig:KSenvisigs} is combined plot of all the new reference signatures so they can be compared to one another.
 
 \begin{ssfigure}
   \centering
@@ -409,7 +411,7 @@ To further understand what had happened, I plotted the signature of every incorr
   Each of these signatures was extracted from a pixel labeled corn by the CDL that was not accurately classified in the Round 3 testing. The signatures of pixels 1, 2, 3, and 5 share features on a few key dates, but diverge on others. None of these four is remotely similar in appearance to corn. In fact, the two peaks, around DOY 97 and DOY 161, suggest some sort of double crop rotation. The only signature similar to corn is that of pixel 4, which departs from the corn reference signature around DOY 257. After that date pixel 4 increases sharply to an end-of-year peak, suggestive of winter wheat planting for the following year.
 \end{ssfigure}
 
-Comparing the pixel coordinates of all the incorrect pixel plots, I found many adjacent pixels with similar plot shapes. This finding provides evidence that pixels in a field generally have the same signature and supports the overall theory behind this method. That is, if all plants of a crop grow under the same conditions, they should have the same temporal signatures.
+Comparing the pixel coordinates of all the incorrect pixel plots, I found many adjacent pixels with similar plot shapes. This finding provides evidence that pixels in a field generally have the same signature and supports the overall theory behind this method. That is, if plants of a crop grow under the same conditions, they should have the same temporal signature.
 
 However, the many different signatures I found within each crop class of the CDL is particularly troublesome. Assuming the truthfulness of the CDL, this suggests that each crop has multiple temporal signatures. Not only does such reasoning conflict with previous research into phenological classification, but is illogical considering the typical growth cycle for crops like corn and soy. The same crops within close proximity should be exposed to essentially equal growing conditions. Variations in planting date may account for slight differences in the temporal signatures. The use of irrigation or application of pesticides, fertilizers, or herbicides may also impart slight disparities between signatures \autocites{wardlow2005state-level}{wardlow2007analysis}{wardlow2008large-area}{sakamoto2010a-two-step}. However, none of these variables would likely be accountable for the vastly different crop signatures observed.
 
@@ -425,7 +427,7 @@ To investigate this idea, I used the U.S. Geological Survey Landsat Look online 
 
 \subsection*{Deriving the Date Ranges to Test}
 
-As many pixels with 2013 winter wheat did not fit any reference signatures within the utilized RMSE thresholds, I wondered what would happen if I changed the date range of the TSI. Instead of beginning and ending the TSI at the start of January, I decided to create a TSI that would include the end-of-year winter wheat bump from 2011 and end before the bump in 2012. Specifically, I selected images from 2011 DOY 305 through 2012 DOY 289.
+As many pixels with 2013 winter wheat did not fit any reference signatures within the utilized RMSE thresholds, I wondered what would happen if I changed the date range of the TSI. Instead of beginning and ending the TSI at the start of January, I decided to create a TSI that began with the end-of-year winter wheat bump from 2011 and end before the bump in 2012. Specifically, I selected images from 2011 DOY 305 through 2012 DOY 289.
 
 %Don't think I need the map...
 %\missingfigure{CREATE A MAP OF INCORRECTLY CLASSIFIED SHOWING 2013 WINTER WHEAT PIXELS} % SEE /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Classified/test1_envicurves/fullpxonly/clip1refs/classification_2014-07-29_1446/wheat2013.tif].
@@ -434,7 +436,7 @@ As by this point I had also returned from my field work in Argentina, I had a be
 
 \subsection*{Classification Procedures}
 
-The only difference in the processing procedure for these two classifications as compared to the previous procedure in Round 3 was the date ranges use to build the TSIs. I used the same reference signatures as derived in Round 3, and classified only the pure pixels identified in Round 2.
+The only difference in the processing procedure for these two classifications as compared to the previous procedure in Round 3 was the date ranges used to build the TSIs. I fit the same reference signatures as derived in Round 3, and classified only the pure pixels identified in Round 2.
 
 \subsection*{Round 4 Results and Discussion}
 
@@ -461,7 +463,7 @@ Despite accounting for the winter wheat planting for the following year, my 2011
   \end{tabu}
 \end{sstable}
 
-The 2012 summer-only classification fared slightly better. Given the date range, I only classified the three main summer crops---corn, soy, and sorghum---finding an accuracy of 75.1 percent. Looking at the classification and its confusion matrix, I realized much of the error was due to confusion between soy and sorghum (\cref{table:r4ss1acc2012a}).
+The 2012 summer-only classification fared slightly better. Given the date range, I classified the three main summer crops---corn, soy, and sorghum---finding an accuracy of 75.1 percent. Looking at the classification and its confusion matrix, I realized much of the error was due to confusion between soy and sorghum (\cref{table:r4ss1acc2012a}).
 
 %[SEE /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/multidate_image/classification_2014-08-09_1716_5/2014-08-09_1716_2012clip1.txt]
 
@@ -520,13 +522,13 @@ This result validates that restricting the classification to the summer months d
 
 \section{Round 5: A Last Ditch Effort to Match the CDL}
 
-For my final test classification, I attempted to match the CDL as best as possible. To do so, I clustered each crop's pixels using k-means to try to isolate the different signatures I previously identified. This classification process and the subsequent results are those presented in the body of this thesis. To read about the methods, see \cref{methods} beginning on \autopageref{methods}. The results are presented in \autoref{results:classifications} on \autopageref{results:classifications}, so I will only briefly summarize my findings here. 
+For my final test classification, I attempted to match the CDL as best as possible. To do so, I clustered each crop's pixels using k-means to try to isolate the different signatures I previously identified. This classification process and the subsequent results are those presented in the body of this thesis. To read about the methods, see \cref{methods} beginning on \autopageref{methods}. The results are presented in \autoref{results:classifications} on \autopageref{results:classifications} and discussed in \autoref{discussion:ksclassification} on \autopageref{discussion:ksclassification}, so I will only briefly summarize my findings here. 
 
-Clustering each crop's pixels to find multiple signatures increased the classification accuracy to 84.4 percent. A map of the classification, \cref{map:KSclassification}, is on \autopageref{map:KSclassification}. The confusion matrix is \cref{table:ksresults} on \autopageref{table:ksresults}. Sorghum was not well classified, which may have something to do with the date range used (see the full discussion of the results in \autoref{discussion:ksclassification} on \autopageref{discussion:ksclassification}). 
+Clustering each crop's pixels to find multiple signatures increased the classification accuracy to 84.4 percent. A map of the classification, \cref{map:KSclassification}, is on \autopageref{map:KSclassification}. The confusion matrix is \cref{table:ksresults} on \autopageref{table:ksresults}. Corn and soy had class confusion. Sorghum was not well classified, which may have something to do with the date range used.
 
 %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-11_1117 AND classification_2014-07-11_1639/]
 
-Also mentioned in the discussion, specifically \autoref{discussion:kssigs} on \autopageref{discussion:kssigs}, one of the soy signatures had a strange, non-soy-like appearance (Soy\_1 in \cref{fig:KScropsigs} on \autopageref{fig:KScropsigs}). I re-ran the classifier as before, omitting this soy signature to test that signature's effect. The accuracy did drop to 81.5 percent, but when I visually analyzed the classification I could see that all the previous errors where non-crop pixels were classified as soy were no longer present. I interpret these results to mean one of two things: (1) some soy fields have signatures quite similar to grassland and pasture areas, or (2) the CDL inaccurately classifies some grassland or pasture as soy. From my understanding of crop phenologies, and given my experience looking at crop signatures, I believe the latter is more likely.
+Also mentioned in the discussion, specifically \autoref{discussion:kssigs} on \autopageref{discussion:kssigs}, one of the soy signatures had a strange, non-soy-like appearance (Soy\_1 in \cref{fig:KScropsigs} on \autopageref{fig:KScropsigs}). I re-ran the classifier as before, omitting this soy signature to test that signature's effect. The accuracy did drop to 81.5 percent, but when I visually analyzed the classification I could see that many previous errors where non-crop pixels were classified as soy disappeared. I interpret these results to mean one of two things: (1) some soy fields have signatures quite similar to grassland and pasture areas, or (2) the CDL inaccurately classifies some grassland or pasture as soy. From my understanding of crop phenologies, and given my experience looking at crop signatures, I believe the latter is more likely.
 
 %[See /Users/phoetrymaster/Documents/School/Geography/Thesis/Data/MODIS_KANSAS_2007-2012/reprojected/Summer2012/kmeansTesting_2/classification_2014-07-12_1612/]
 
